@@ -66,11 +66,20 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('desa', DesaController::class)->except('show')->names('desa');
+    Route::resource('provinsi', App\Http\Controllers\Admin\ProvinsiController::class)->except('show')->names('provinsi');
+    Route::resource('kota', App\Http\Controllers\Admin\KotaController::class)->except('show')->names('kota');
+    Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class)->except('show')->names('kecamatan');
     Route::resource('admin-desa', AdminDesaController::class)
         ->except('show')
         ->parameters(['admin-desa' => 'adminDesa'])
         ->names('admin-desa');
 });
+
+// Region JSON endpoints used for chained selects (public)
+Route::get('/regions/provinces', [App\Http\Controllers\RegionController::class, 'provinces']);
+Route::get('/regions/regencies/{provinsi}', [App\Http\Controllers\RegionController::class, 'regencies']);
+Route::get('/regions/districts/{kota}', [App\Http\Controllers\RegionController::class, 'districts']);
+Route::get('/regions/villages/{kecamatan}', [App\Http\Controllers\RegionController::class, 'villages']);
 
 Route::middleware(['auth', 'role:admin_desa'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('masyarakat', [MasyarakatVerificationController::class, 'index'])->name('masyarakat.index');
@@ -82,6 +91,9 @@ Route::middleware(['auth', 'role:admin_desa'])->prefix('admin')->name('admin.')-
     Route::get('pengajuan/{pengajuan}', [AdminPengajuanSuratController::class, 'show'])->name('pengajuan.show');
     Route::patch('pengajuan/{pengajuan}/approve', [AdminPengajuanSuratController::class, 'approve'])->name('pengajuan.approve');
     Route::patch('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject');
+    // secure dokumen download endpoints (only admin desa for same desa can download)
+    Route::get('pengajuan/dokumen/{dokumen}/word', [AdminPengajuanSuratController::class, 'downloadWord'])->name('pengajuan.dokumen.word');
+    Route::get('pengajuan/dokumen/{dokumen}/pdf', [AdminPengajuanSuratController::class, 'downloadPdf'])->name('pengajuan.dokumen.pdf');
 });
 
 Route::middleware(['auth', 'role:super_admin,admin_desa'])->prefix('admin')->name('admin.')->group(function () {
@@ -104,7 +116,9 @@ Route::middleware(['auth', 'role:masyarakat'])->prefix('masyarakat')->name('masy
     Route::get('pengajuan/riwayat', [PengajuanSuratController::class, 'riwayat'])->name('pengajuan.riwayat');
     Route::get('pengajuan/{jenisSurat}/create', [PengajuanSuratController::class, 'create'])->name('pengajuan.create');
     Route::post('pengajuan/{jenisSurat}', [PengajuanSuratController::class, 'store'])->name('pengajuan.store');
-    Route::get('pengajuan/detail/{pengajuan}', [PengajuanSuratController::class, 'show'])->name('pengajuan.show');
+    Route::get('pengajuan/detail/{pengajuan}', [PengajuanSuratController::class, 'show'])
+        ->middleware('can:view,pengajuan')
+        ->name('pengajuan.show');
 });
 
 // Mesin cetak (QR scanner)

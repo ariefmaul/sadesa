@@ -16,9 +16,19 @@ class VerifikasiSuratController extends Controller
             ->where('status', 'tersedia')
             ->firstOrFail();
 
+        // Limit exposed data for public verification to avoid leaking PII
+        $public = (object) [
+            'id' => $dokumen->id,
+            'nomor_dokumen' => $dokumen->nomor_dokumen,
+            'nomor_surat' => $dokumen->nomor_surat,
+            'jenis_surat' => $dokumen->pengajuanSurat->jenisSurat->nama ?? null,
+            'status' => $dokumen->status,
+            'qr_token' => $dokumen->qr_token,
+        ];
+
         return view(
             'verifikasi-surat',
-            compact('dokumen')
+            ['dokumen' => $public]
         );
     }
 }

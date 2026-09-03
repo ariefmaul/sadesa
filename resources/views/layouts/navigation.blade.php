@@ -16,6 +16,15 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (Auth::user()->role === 'super_admin')
+                        <x-nav-link :href="route('admin.provinsi.index')" :active="request()->routeIs('admin.provinsi.*')">
+                            {{ __('Provinsi') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.kota.index')" :active="request()->routeIs('admin.kota.*')">
+                            {{ __('Kota / Kabupaten') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('admin.kecamatan.index')" :active="request()->routeIs('admin.kecamatan.*')">
+                            {{ __('Kecamatan') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('admin.desa.index')" :active="request()->routeIs('admin.desa.*')">
                             {{ __('Desa') }}
                         </x-nav-link>
@@ -38,9 +47,6 @@
                         </x-nav-link>
                     @endif
                     @if (Auth::user()->role === 'masyarakat')
-                        <x-nav-link :href="route('masyarakat.profil.edit')" :active="request()->routeIs('masyarakat.profil.*')">
-                            {{ __('Profil Masyarakat') }}
-                        </x-nav-link>
                         <x-nav-link :href="route('masyarakat.pengajuan.index')" :active="request()->routeIs('masyarakat.pengajuan.index')">
                             {{ __('Pengajuan Surat') }}
                         </x-nav-link>
@@ -115,6 +121,15 @@
                 <x-responsive-nav-link :href="route('admin.desa.index')" :active="request()->routeIs('admin.desa.*')">
                     {{ __('Desa') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.provinsi.index')" :active="request()->routeIs('admin.provinsi.*')">
+                    {{ __('Provinsi') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.kota.index')" :active="request()->routeIs('admin.kota.*')">
+                    {{ __('Kota / Kabupaten') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.kecamatan.index')" :active="request()->routeIs('admin.kecamatan.*')">
+                    {{ __('Kecamatan') }}
+                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('admin.admin-desa.index')" :active="request()->routeIs('admin.admin-desa.*')">
                     {{ __('Admin Desa') }}
                 </x-responsive-nav-link>
@@ -134,9 +149,6 @@
                 </x-responsive-nav-link>
             @endif
             @if (Auth::user()->role === 'masyarakat')
-                <x-responsive-nav-link :href="route('masyarakat.profil.edit')" :active="request()->routeIs('masyarakat.profil.*')">
-                    {{ __('Profil Masyarakat') }}
-                </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('masyarakat.pengajuan.index')" :active="request()->routeIs('masyarakat.pengajuan.index')">
                     {{ __('Pengajuan Surat') }}
                 </x-responsive-nav-link>

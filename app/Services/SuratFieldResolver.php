@@ -219,14 +219,18 @@ class SuratFieldResolver
     private function formatDate(mixed $value): ?string
     {
         if ($value instanceof CarbonInterface) {
-            return $value->translatedFormat('d F Y');
+            try {
+                return $value->locale('id')->translatedFormat('d F Y');
+            } catch (\Throwable $_) {
+                return $value->translatedFormat('d F Y');
+            }
         }
 
         if (is_string($value)) {
             // detect ISO date strings like YYYY-MM-DD or full datetime and format
             if (preg_match('/^\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2})?$/', $value)) {
                 try {
-                    return Carbon::parse($value)->translatedFormat('d F Y');
+                    return Carbon::parse($value)->locale('id')->translatedFormat('d F Y');
                 } catch (\Throwable $_) {
                     // fallback to original string
                 }

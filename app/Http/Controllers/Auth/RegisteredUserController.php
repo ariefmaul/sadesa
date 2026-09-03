@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Desa;
+// Desa no longer loaded here; regions loaded dynamically
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -21,9 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $desas = Desa::orderBy('nama')->get();
+        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
 
-        return view('auth.register', compact('desas'));
+        return view('auth.register', compact('provinsis'));
     }
 
     /**

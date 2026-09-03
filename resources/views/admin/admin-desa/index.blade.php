@@ -22,7 +22,7 @@
                             <thead class="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">
                                 <tr>
                                     <th class="px-4 py-3">Nama</th>
-                                    <th class="px-4 py-3">NIK</th>
+                             
                                     <th class="px-4 py-3">Desa</th>
                                     <th class="px-4 py-3">Email</th>
                                     <th class="px-4 py-3">Status</th>
@@ -33,7 +33,7 @@
                                 @forelse ($admins as $admin)
                                     <tr>
                                         <td class="px-4 py-3 font-medium text-gray-900">{{ $admin->name }}</td>
-                                        <td class="px-4 py-3 text-gray-600">{{ $admin->nik }}</td>
+                                    
                                         <td class="px-4 py-3 text-gray-600">{{ $admin->desa?->nama ?? '-' }}</td>
                                         <td class="px-4 py-3 text-gray-600">{{ $admin->email }}</td>
                                         <td class="px-4 py-3">

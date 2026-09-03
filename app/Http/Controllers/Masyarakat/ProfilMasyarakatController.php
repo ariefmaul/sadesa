@@ -9,12 +9,10 @@ use Illuminate\View\View;
 
 class ProfilMasyarakatController extends Controller
 {
-    public function edit(Request $request): View
+    public function edit(Request $request): RedirectResponse
     {
-        $user = $request->user()->load(['desa', 'profilMasyarakat']);
-        $profil = $user->profilMasyarakat;
-
-        return view('masyarakat.profil.edit', compact('user', 'profil'));
+        // Redirect to Breeze profile page which now contains masyarakat profile fields
+        return redirect()->route('profile.edit');
     }
 
     public function update(Request $request): RedirectResponse

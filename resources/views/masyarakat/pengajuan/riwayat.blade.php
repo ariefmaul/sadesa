@@ -58,8 +58,13 @@
                                     @endif
 
                                     <div>
-                                        <a href="{{ route('masyarakat.pengajuan.show', $pengajuan) }}"
-                                            class="px-3 py-2 border rounded-md text-sm">Lihat Detail</a>
+                                        @if ($pengajuan->user_id === auth()->id())
+                                            <a href="{{ route('masyarakat.pengajuan.show', $pengajuan) }}"
+                                                class="px-3 py-2 border rounded-md text-sm">Lihat Detail</a>
+                                        @else
+                                            <span class="px-3 py-2 border rounded-md text-sm text-gray-400">Lihat
+                                                Detail</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

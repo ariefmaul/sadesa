@@ -32,7 +32,9 @@ class DesaController extends Controller
 
     public function create(): View
     {
-        return view('admin.desa.create');
+        $kecamatans = \App\Models\Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
+
+        return view('admin.desa.create', compact('kecamatans'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -40,6 +42,7 @@ class DesaController extends Controller
         $validated = $request->validate([
             'nama' => ['required', 'string', 'max:255'],
             'kode' => ['nullable', 'string', 'max:50', 'unique:desas,kode'],
+            'kecamatan_id' => ['nullable', 'exists:kecamatans,id'],
         ]);
 
         Desa::create($validated);
@@ -51,7 +54,9 @@ class DesaController extends Controller
 
     public function edit(Desa $desa): View
     {
-        return view('admin.desa.edit', compact('desa'));
+        $kecamatans = \App\Models\Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
+
+        return view('admin.desa.edit', compact('desa', 'kecamatans'));
     }
 
     public function update(Request $request, Desa $desa): RedirectResponse
@@ -64,6 +69,7 @@ class DesaController extends Controller
                 'max:50',
                 Rule::unique('desas', 'kode')->ignore($desa),
             ],
+            'kecamatan_id' => ['nullable', 'exists:kecamatans,id'],
         ]);
 
         $desa->update($validated);

@@ -5,17 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\JenisSurat;
 use App\Models\SuratField;
+use App\Services\SuratFieldResolver;
 use App\Services\TemplateSuratService;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class TemplateSuratController extends Controller
 {
+    public function __construct(private readonly SuratFieldResolver $resolver) {}
+
     public function index()
     {
         // Use pagination so the view can render links() properly
-        $templates = JenisSurat::latest()->paginate(12);
+        $user = auth()->user();
+
+        $query = JenisSurat::query();
+
+        // Admin Desa should only see templates for their desa
+        if ($user->role === 'admin_desa') {
+            $query->where('desa_id', $user->desa_id);
+        }
+
+        $templates = $query->latest()->paginate(12);
 
         return view('admin.template-surat.index', compact('templates'));
     }
@@ -38,7 +50,8 @@ class TemplateSuratController extends Controller
                 'required',
                 'string',
                 'max:50',
-                'unique:jenis_surats,kode',
+                Rule::unique('jenis_surats', 'kode')
+                    ->where(fn ($query) => $query->where('desa_id', auth()->user()?->desa_id ?? null)),
             ],
 
             'deskripsi' => [
@@ -66,13 +79,20 @@ class TemplateSuratController extends Controller
             'public'
         );
 
-        $jenis = JenisSurat::create([
+        $payload = [
             'nama' => $validated['nama'],
             'kode' => strtoupper($validated['kode']),
             'deskripsi' => $validated['deskripsi'] ?? null,
             'template' => $path,
             'aktif' => true,
-        ]);
+        ];
+
+        // If creator is admin_desa, associate template with their desa
+        if (auth()->user()->role === 'admin_desa') {
+            $payload['desa_id'] = auth()->user()->desa_id;
+        }
+
+        $jenis = JenisSurat::create($payload);
 
         // Extract placeholders from uploaded template and redirect to fields view
         try {
@@ -90,6 +110,11 @@ class TemplateSuratController extends Controller
 
     public function destroy(JenisSurat $templateSurat)
     {
+        // admin_desa may only delete templates belonging to their desa
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         if ($templateSurat->template) {
             \Storage::disk('public')
                 ->delete($templateSurat->template);
@@ -104,6 +129,11 @@ class TemplateSuratController extends Controller
 
     public function fields(JenisSurat $templateSurat)
     {
+        // enforce ownership for admin_desa
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $templateSurat->load('fields');
 
         $placeholders = session('placeholders', []);
@@ -116,6 +146,10 @@ class TemplateSuratController extends Controller
 
     public function storeField(Request $request, JenisSurat $templateSurat)
     {
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $validated = $this->validateField($request, $templateSurat);
 
         $payload = $this->fieldPayload($validated, $request->boolean('wajib'));
@@ -132,6 +166,10 @@ class TemplateSuratController extends Controller
 
     public function editField(JenisSurat $templateSurat, SuratField $field)
     {
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $this->ensureFieldBelongsToTemplate($templateSurat, $field);
 
         return view('admin.template-surat.field-edit', compact('templateSurat', 'field'));
@@ -139,6 +177,10 @@ class TemplateSuratController extends Controller
 
     public function updateField(Request $request, JenisSurat $templateSurat, SuratField $field)
     {
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $this->ensureFieldBelongsToTemplate($templateSurat, $field);
 
         $validated = $this->validateField($request, $templateSurat, $field);
@@ -158,6 +200,10 @@ class TemplateSuratController extends Controller
 
     public function destroyField(JenisSurat $templateSurat, SuratField $field)
     {
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $this->ensureFieldBelongsToTemplate($templateSurat, $field);
 
         $field->delete();
@@ -170,6 +216,10 @@ class TemplateSuratController extends Controller
      */
     public function bulkCreate(Request $request, JenisSurat $templateSurat)
     {
+        if (auth()->user()->role === 'admin_desa') {
+            abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
+        }
+
         $placeholders = $request->input('placeholders', session('placeholders', []));
 
         if (! is_array($placeholders)) {
@@ -186,16 +236,19 @@ class TemplateSuratController extends Controller
 
         $maxUrutan = (int) $templateSurat->fields()->max('urutan');
 
-        $profileKeys = array_map(fn($v) => strtolower($v), array_keys($this->resolver->automaticData(auth()->user())));
+        $profileKeys = array_map(fn ($v) => strtolower($v), array_keys($this->resolver->automaticData(auth()->user())));
 
         foreach ($placeholders as $ph) {
             $raw = trim((string) $ph);
-            if ($raw === '') continue;
+            if ($raw === '') {
+                continue;
+            }
 
             $name = preg_replace('/[^a-z0-9_]/', '', str_replace(' ', '_', mb_strtolower($raw)));
 
             if ($templateSurat->fields()->where('nama_field', $name)->exists()) {
                 $skipped[] = $name;
+
                 continue;
             }
 

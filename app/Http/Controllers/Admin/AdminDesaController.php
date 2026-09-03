@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Desa;
+// models used: Desa is not needed directly here any more
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,16 +37,16 @@ class AdminDesaController extends Controller
 
     public function create(): View
     {
-        $desas = Desa::orderBy('nama')->get();
+        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
 
-        return view('admin.admin-desa.create', compact('desas'));
+        return view('admin.admin-desa.create', compact('provinsis'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'nik' => ['required', 'string', 'digits:16', 'unique:users,nik'],
+            'nik' => ['nullable', 'string', 'digits:16', 'unique:users,nik'],
             'jenis_kelamin' => ['required', Rule::in(['L', 'P'])],
             'desa_id' => ['required', 'exists:desas,id'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
@@ -55,7 +55,7 @@ class AdminDesaController extends Controller
 
         User::create([
             'name' => $validated['name'],
-            'nik' => $validated['nik'],
+            'nik' => $validated['nik'] ?? null,
             'jenis_kelamin' => $validated['jenis_kelamin'],
             'desa_id' => $validated['desa_id'],
             'email' => $validated['email'],
@@ -73,9 +73,25 @@ class AdminDesaController extends Controller
     {
         abort_unless($adminDesa->role === 'admin_desa', 404);
 
-        $desas = Desa::orderBy('nama')->get();
+        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
 
-        return view('admin.admin-desa.edit', compact('adminDesa', 'desas'));
+        // determine selected region ids for the edit form
+        $selectedProvinsi = null;
+        $selectedKota = null;
+        $selectedKecamatan = null;
+        $selectedDesa = $adminDesa->desa_id;
+
+        if ($adminDesa->desa && $adminDesa->desa->kecamatan) {
+            $selectedKecamatan = $adminDesa->desa->kecamatan->id;
+            if ($adminDesa->desa->kecamatan->kota) {
+                $selectedKota = $adminDesa->desa->kecamatan->kota->id;
+                if ($adminDesa->desa->kecamatan->kota->provinsi) {
+                    $selectedProvinsi = $adminDesa->desa->kecamatan->kota->provinsi->id;
+                }
+            }
+        }
+
+        return view('admin.admin-desa.edit', compact('adminDesa', 'provinsis', 'selectedProvinsi', 'selectedKota', 'selectedKecamatan', 'selectedDesa'));
     }
 
     public function update(Request $request, User $adminDesa): RedirectResponse
@@ -84,7 +100,7 @@ class AdminDesaController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'nik' => ['required', 'string', 'digits:16', Rule::unique('users', 'nik')->ignore($adminDesa)],
+            'nik' => ['nullable', 'string', 'digits:16', Rule::unique('users', 'nik')->ignore($adminDesa)],
             'jenis_kelamin' => ['required', Rule::in(['L', 'P'])],
             'desa_id' => ['required', 'exists:desas,id'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users', 'email')->ignore($adminDesa)],
@@ -94,7 +110,7 @@ class AdminDesaController extends Controller
 
         $adminDesa->fill([
             'name' => $validated['name'],
-            'nik' => $validated['nik'],
+            'nik' => $validated['nik'] ?? null,
             'jenis_kelamin' => $validated['jenis_kelamin'],
             'desa_id' => $validated['desa_id'],
             'email' => $validated['email'],

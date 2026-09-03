@@ -11,9 +11,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuanSuratController extends Controller
 {
@@ -54,10 +54,7 @@ class PengajuanSuratController extends Controller
         PengajuanSurat $pengajuan
     ): View {
 
-        $this->authorizePengajuan(
-            $request,
-            $pengajuan
-        );
+        $this->authorize('view', $pengajuan);
 
         $pengajuan->load([
             'user.desa',
@@ -90,10 +87,7 @@ class PengajuanSuratController extends Controller
     ): RedirectResponse {
 
         // Pastikan pengajuan berasal dari desa admin yang login
-        $this->authorizePengajuan(
-            $request,
-            $pengajuan
-        );
+        $this->authorize('approve', $pengajuan);
 
         // Jangan proses dua kali
         if ($pengajuan->status === 'disetujui') {
@@ -201,10 +195,7 @@ class PengajuanSuratController extends Controller
         PengajuanSurat $pengajuan
     ): RedirectResponse {
 
-        $this->authorizePengajuan(
-            $request,
-            $pengajuan
-        );
+        $this->authorize('reject', $pengajuan);
 
         $validated = $request->validate([
             'catatan' => [
@@ -232,20 +223,53 @@ class PengajuanSuratController extends Controller
     }
 
     /**
+     * Download Word doc for a dokumen (authorized).
+     */
+    public function downloadWord(Request $request, \App\Models\Dokumen $dokumen)
+    {
+        // authorize via related pengajuan
+        $this->authorize('view', $dokumen->pengajuanSurat);
+
+        if (! $dokumen->file || ! Storage::disk('public')->exists($dokumen->file)) {
+            abort(404);
+        }
+
+        $stream = Storage::disk('public')->readStream($dokumen->file);
+        if (! $stream) {
+            abort(404);
+        }
+
+        $filename = basename($dokumen->file);
+        return response()->streamDownload(function () use ($stream) {
+            fpassthru($stream);
+        }, $filename);
+    }
+
+    /**
+     * Download PDF for a dokumen (authorized).
+     */
+    public function downloadPdf(Request $request, \App\Models\Dokumen $dokumen)
+    {
+        $this->authorize('view', $dokumen->pengajuanSurat);
+
+        if (! $dokumen->dokumen_pdf || ! Storage::disk('public')->exists($dokumen->dokumen_pdf)) {
+            abort(404);
+        }
+
+        $stream = Storage::disk('public')->readStream($dokumen->dokumen_pdf);
+        if (! $stream) {
+            abort(404);
+        }
+
+        $filename = basename($dokumen->dokumen_pdf);
+        return response()->streamDownload(function () use ($stream) {
+            fpassthru($stream);
+        }, $filename);
+    }
+
+    /**
      * Memastikan admin hanya dapat mengakses
      * pengajuan dari desa miliknya.
      */
-    private function authorizePengajuan(
-        Request $request,
-        PengajuanSurat $pengajuan
-    ): void {
-
-        $pengajuan->loadMissing('user');
-
-        abort_unless(
-            $pengajuan->user &&
-            $pengajuan->user->desa_id === $request->user()->desa_id,
-            403
-        );
-    }
+    // Authorization is handled by PengajuanSuratPolicy
 }

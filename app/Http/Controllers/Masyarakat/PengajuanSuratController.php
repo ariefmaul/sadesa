@@ -22,7 +22,10 @@ class PengajuanSuratController extends Controller
             return $redirect;
         }
 
+        $user = auth()->user();
+
         $surats = JenisSurat::where('aktif', true)
+            ->where('desa_id', $user->desa_id)
             ->with('fields')
             ->orderBy('nama')
             ->get();
@@ -43,6 +46,12 @@ class PengajuanSuratController extends Controller
         }
 
         abort_if(! $jenisSurat->aktif, 404);
+
+        // ensure jenis surat belongs to user's desa
+        abort_unless(
+            $jenisSurat->desa_id === auth()->user()->desa_id,
+            403
+        );
 
         $jenisSurat->load('fields');
         $readonlyFields = $this->resolver->readonlyFields($jenisSurat, auth()->user());
@@ -68,6 +77,12 @@ class PengajuanSuratController extends Controller
         }
 
         abort_if(! $jenisSurat->aktif, 404);
+
+        // ensure jenis surat belongs to user's desa
+        abort_unless(
+            $jenisSurat->desa_id === $request->user()->desa_id,
+            403
+        );
 
         $jenisSurat->load('fields');
 
@@ -129,10 +144,7 @@ class PengajuanSuratController extends Controller
      */
     public function show(PengajuanSurat $pengajuan)
     {
-        abort_unless(
-            $pengajuan->user_id === auth()->id(),
-            403
-        );
+        $this->authorize('view', $pengajuan);
 
         $pengajuan->load([
             'jenisSurat',
@@ -165,7 +177,7 @@ class PengajuanSuratController extends Controller
         if ($status === 'disetujui') {
             if (! auth()->user()->hasCompleteProfilMasyarakat()) {
                 return redirect()
-                    ->route('masyarakat.profil.edit')
+                    ->route('profile.edit')
                     ->with('error', 'Lengkapi data profil terlebih dahulu sebelum mengajukan surat.');
             }
 

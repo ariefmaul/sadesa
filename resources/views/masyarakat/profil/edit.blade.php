@@ -77,69 +77,14 @@
                                 @endphp
 
                                 <div class="flex gap-2 items-center mt-1">
-                                    <select id="tanggal_lahir_day" class="border-gray-300 rounded-md"
-                                        style="min-width:5rem">
-                                        <option value="">Tanggal</option>
-                                        @for ($i = 1; $i <= 31; $i++)
-                                            <option value="{{ sprintf('%02d', $i) }}"
-                                                @if ($day == sprintf('%02d', $i)) selected @endif>{{ $i }}
-                                            </option>
-                                        @endfor
-                                    </select>
-
-                                    <select id="tanggal_lahir_month" class="border-gray-300 rounded-md"
-                                        style="min-width:8rem">
-                                        <option value="">Bulan</option>
-                                        @foreach (range(1, 12) as $m)
-                                            @php
-                                                $mm = sprintf('%02d', $m);
-                                                $name = \Carbon\Carbon::createFromDate(2000, $m, 1)->translatedFormat('F');
-                                            @endphp
-                                            <option value="{{ $mm }}"
-                                                @if ($month == $mm) selected @endif>{{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                    <select id="tanggal_lahir_year" class="border-gray-300 rounded-md"
-                                        style="min-width:6rem">
-                                        <option value="">Tahun</option>
-                                        @for ($y = $currentYear; $y >= 1900; $y--)
-                                            <option value="{{ $y }}"
-                                                @if ($year == $y) selected @endif>{{ $y }}
-                                            </option>
-                                        @endfor
-                                    </select>
-
+                                    <select id="tanggal_lahir_day" class="border-gray-300 rounded-md" <div>
+                                        <x-input-label for="tanggal_lahir" value="Tanggal Lahir" />
+                                        <x-text-input id="tanggal_lahir" name="tanggal_lahir" type="date"
+                                            class="mt-1 block w-full"
+                                            value="{{ old('tanggal_lahir', optional($profil?->tanggal_lahir)->format('Y-m-d')) }}"
+                                            required />
+                                        <x-input-error :messages="$errors->get('tanggal_lahir')" class="mt-2" />
                                 </div>
-
-                                <input type="hidden" id="tanggal_lahir" name="tanggal_lahir"
-                                    value="{{ $val }}">
-
-                                <x-input-error :messages="$errors->get('tanggal_lahir')" class="mt-2" />
-
-                                <script>
-                                    (function() {
-                                        const d = document.getElementById('tanggal_lahir_day');
-                                        const m = document.getElementById('tanggal_lahir_month');
-                                        const y = document.getElementById('tanggal_lahir_year');
-                                        const hidden = document.getElementById('tanggal_lahir');
-
-                                        function updateHidden() {
-                                            if (!d.value || !m.value || !y.value) {
-                                                hidden.value = '';
-                                                return;
-                                            }
-                                            hidden.value = y.value + '-' + m.value + '-' + d.value;
-                                        }
-
-                                        [d, m, y].forEach(el => el.addEventListener('change', updateHidden));
-                                        // ensure initial consistency
-                                        updateHidden();
-                                    })();
-                                </script>
-                            </div>
-                            <div>
                                 <x-input-label for="rt" value="RT" />
                                 <x-text-input id="rt" name="rt" class="mt-1 block w-full"
                                     value="{{ old('rt', $profil->rt ?? '') }}" maxlength="5" />
@@ -165,8 +110,7 @@
                             </div>
                             <div>
                                 <x-input-label for="status_perkawinan" value="Status Perkawinan" />
-                                <x-text-input id="status_perkawinan" name="status_perkawinan"
-                                    class="mt-1 block w-full"
+                                <x-text-input id="status_perkawinan" name="status_perkawinan" class="mt-1 block w-full"
                                     value="{{ old('status_perkawinan', $profil->status_perkawinan ?? '') }}" />
                                 <x-input-error :messages="$errors->get('status_perkawinan')" class="mt-2" />
                             </div>
