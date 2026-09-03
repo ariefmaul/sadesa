@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class RoleMiddleware
+{
+    public function handle(Request $request, Closure $next, string ...$roles): Response
+    {
+        $user = $request->user();
+
+        abort_if(! $user || ! in_array($user->role, $roles, true), 403);
+
+        if (in_array($user->role, ['super_admin', 'admin_desa'], true)) {
+            abort_if($user->status_verifikasi !== 'disetujui', 403);
+        }
+
+        return $next($request);
+    }
+}
