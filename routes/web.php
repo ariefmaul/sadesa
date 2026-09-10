@@ -4,9 +4,13 @@ use App\Http\Controllers\Admin\AdminDesaController;
 use App\Http\Controllers\Admin\DesaController;
 use App\Http\Controllers\Admin\MasyarakatVerificationController;
 use App\Http\Controllers\Admin\PengajuanSuratController as AdminPengajuanSuratController;
+use App\Http\Controllers\Admin\PengumumanDesaController as AdminPengumumanDesaController;
 use App\Http\Controllers\Admin\TemplateSuratController;
+use App\Http\Controllers\Admin\TransparansiAnggaranController as AdminTransparansiAnggaranController;
 use App\Http\Controllers\Masyarakat\PengajuanSuratController;
+use App\Http\Controllers\Masyarakat\PengumumanDesaController as MasyarakatPengumumanController;
 use App\Http\Controllers\Masyarakat\ProfilMasyarakatController;
+use App\Http\Controllers\Masyarakat\TransparansiAnggaranController as MasyarakatTransparansiController;
 use App\Http\Controllers\Mesin\MesinController;
 use App\Http\Controllers\MesinCetak\ScanController;
 use App\Http\Controllers\ProfileController;
@@ -88,12 +92,36 @@ Route::middleware(['auth', 'role:admin_desa'])->prefix('admin')->name('admin.')-
     Route::patch('masyarakat/{masyarakat}/reject', [MasyarakatVerificationController::class, 'reject'])->name('masyarakat.reject');
 
     Route::get('pengajuan', [AdminPengajuanSuratController::class, 'index'])->name('pengajuan.index');
+    Route::get('pengajuan/realtime', [AdminPengajuanSuratController::class, 'realtime'])->name('pengajuan.realtime');
+    Route::get('pengajuan/notifikasi', [AdminPengajuanSuratController::class, 'notifications'])->name('pengajuan.notifications');
+    Route::post('pengajuan/notifikasi/{id}/read', [AdminPengajuanSuratController::class, 'markNotificationAsRead'])->name('pengajuan.notifications.read');
     Route::get('pengajuan/{pengajuan}', [AdminPengajuanSuratController::class, 'show'])->name('pengajuan.show');
-    Route::patch('pengajuan/{pengajuan}/approve', [AdminPengajuanSuratController::class, 'approve'])->name('pengajuan.approve');
-    Route::patch('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject');
+    Route::post('pengajuan/{pengajuan}/approve', [AdminPengajuanSuratController::class, 'approve'])->name('pengajuan.approve');
+    Route::patch('pengajuan/{pengajuan}/approve', [AdminPengajuanSuratController::class, 'approve'])->name('pengajuan.approve.patch');
+    Route::post('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject');
+    Route::patch('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject.patch');
     // secure dokumen download endpoints (only admin desa for same desa can download)
     Route::get('pengajuan/dokumen/{dokumen}/word', [AdminPengajuanSuratController::class, 'downloadWord'])->name('pengajuan.dokumen.word');
     Route::get('pengajuan/dokumen/{dokumen}/pdf', [AdminPengajuanSuratController::class, 'downloadPdf'])->name('pengajuan.dokumen.pdf');
+
+    Route::get('pengumuman', [AdminPengumumanDesaController::class, 'index'])->name('pengumuman.index');
+    Route::get('pengumuman/create', [AdminPengumumanDesaController::class, 'create'])->name('pengumuman.create');
+    Route::post('pengumuman', [AdminPengumumanDesaController::class, 'store'])->name('pengumuman.store');
+    Route::get('pengumuman/{pengumuman}/edit', [AdminPengumumanDesaController::class, 'edit'])->name('pengumuman.edit');
+    Route::put('pengumuman/{pengumuman}', [AdminPengumumanDesaController::class, 'update'])->name('pengumuman.update');
+    Route::delete('pengumuman/{pengumuman}', [AdminPengumumanDesaController::class, 'destroy'])->name('pengumuman.destroy');
+    Route::patch('pengumuman/{pengumuman}/publish', [AdminPengumumanDesaController::class, 'publish'])->name('pengumuman.publish');
+    Route::patch('pengumuman/{pengumuman}/unpublish', [AdminPengumumanDesaController::class, 'unpublish'])->name('pengumuman.unpublish');
+
+    Route::get('transparansi', [AdminTransparansiAnggaranController::class, 'index'])->name('transparansi.index');
+    Route::get('transparansi/create', [AdminTransparansiAnggaranController::class, 'create'])->name('transparansi.create');
+    Route::post('transparansi', [AdminTransparansiAnggaranController::class, 'store'])->name('transparansi.store');
+    Route::get('transparansi/{transparansi}/edit', [AdminTransparansiAnggaranController::class, 'edit'])->name('transparansi.edit');
+    Route::put('transparansi/{transparansi}', [AdminTransparansiAnggaranController::class, 'update'])->name('transparansi.update');
+    Route::delete('transparansi/{transparansi}', [AdminTransparansiAnggaranController::class, 'destroy'])->name('transparansi.destroy');
+    Route::patch('transparansi/{transparansi}/publish', [AdminTransparansiAnggaranController::class, 'publish'])->name('transparansi.publish');
+    Route::patch('transparansi/{transparansi}/unpublish', [AdminTransparansiAnggaranController::class, 'unpublish'])->name('transparansi.unpublish');
+    Route::get('transparansi/{transparansi}/download', [AdminTransparansiAnggaranController::class, 'download'])->name('transparansi.download');
 });
 
 Route::middleware(['auth', 'role:super_admin,admin_desa'])->prefix('admin')->name('admin.')->group(function () {
@@ -119,6 +147,19 @@ Route::middleware(['auth', 'role:masyarakat'])->prefix('masyarakat')->name('masy
     Route::get('pengajuan/detail/{pengajuan}', [PengajuanSuratController::class, 'show'])
         ->middleware('can:view,pengajuan')
         ->name('pengajuan.show');
+
+    Route::get('pengumuman', [MasyarakatPengumumanController::class, 'index'])->name('pengumuman.index');
+    Route::get('pengumuman/{pengumuman}', [MasyarakatPengumumanController::class, 'show'])
+        ->middleware('can:view,pengumuman')
+        ->name('pengumuman.show');
+
+    Route::get('transparansi', [MasyarakatTransparansiController::class, 'index'])->name('transparansi.index');
+    Route::get('transparansi/{transparansi}', [MasyarakatTransparansiController::class, 'show'])
+        ->middleware('can:view,transparansi')
+        ->name('transparansi.show');
+    Route::get('transparansi/{transparansi}/download', [MasyarakatTransparansiController::class, 'download'])
+        ->middleware('can:download,transparansi')
+        ->name('transparansi.download');
 });
 
 // Mesin cetak (QR scanner)

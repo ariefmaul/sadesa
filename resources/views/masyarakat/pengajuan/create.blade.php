@@ -188,11 +188,6 @@
                                                focus:ring-indigo-500"
                                         placeholder="Masukkan {{ strtolower($field->label) }}"
                                         @if ($isRequired) required @endif>
-
-
-                                    {{-- =================================================
-                                    TEXT / DEFAULT
-                                ================================================== --}}
                                 @else
                                     <input id="{{ $fieldName }}" name="{{ $fieldName }}" type="text"
                                         value="{{ $oldValue }}"
@@ -224,9 +219,7 @@
                     </div>
 
 
-                    {{-- ================================================
-                        BUTTON
-                    ================================================= --}}
+
                     <div class="flex justify-end gap-3">
 
                         <a href="{{ route('masyarakat.pengajuan.index') }}"

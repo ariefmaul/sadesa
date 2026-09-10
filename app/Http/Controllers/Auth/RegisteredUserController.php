@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 // Desa no longer loaded here; regions loaded dynamically
 use App\Models\User;
+use App\Notifications\MasyarakatBaruNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,6 +53,16 @@ class RegisteredUserController extends Controller
             'role' => 'masyarakat',
             'status_verifikasi' => 'menunggu',
         ]);
+
+        // Notify admin desa about new verification request (database notification)
+        $adminDesa = User::query()
+            ->where('role', 'admin_desa')
+            ->where('desa_id', $request->desa_id)
+            ->get();
+
+        foreach ($adminDesa as $admin) {
+            $admin->notify(new MasyarakatBaruNotification($user));
+        }
 
         event(new Registered($user));
 

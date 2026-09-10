@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Dokumen;
 use App\Models\PengajuanSurat;
+use App\Notifications\PengajuanDisetujuiNotification;
+use App\Notifications\PengajuanDitolakNotification;
 use App\Services\QrCodeService;
 use App\Services\TemplateSuratService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Illuminate\Support\Facades\Storage;
 
 class PengajuanSuratController extends Controller
 {
@@ -103,9 +105,10 @@ class PengajuanSuratController extends Controller
         }
 
         $validated = $request->validate([
-            'nomor_surat' => ['required', 'string', 'max:255'],
+            'nomor_surat' => ['required', 'string', 'max:255', 'unique:dokumens,nomor_surat'],
         ], [
             'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'nomor_surat.unique' => 'Nomor surat sudah digunakan.',
         ]);
 
         // Use DB transaction to ensure consistency
@@ -165,6 +168,9 @@ class PengajuanSuratController extends Controller
                     'verified_by' => $request->user()->id,
                 ]);
 
+                $pengajuan->loadMissing(['user.desa.kecamatan.kota.provinsi', 'jenisSurat']);
+                $pengajuan->user->notify(new PengajuanDisetujuiNotification($pengajuan));
+
                 return $dok;
             });
         } catch (\Throwable $e) {
@@ -190,6 +196,84 @@ class PengajuanSuratController extends Controller
     /**
      * Menolak pengajuan.
      */
+    public function realtime(Request $request)
+    {
+        $admin = $request->user();
+
+        $latestPending = PengajuanSurat::query()
+            ->with(['user.desa', 'jenisSurat'])
+            ->whereHas('user', fn ($query) => $query->where('desa_id', $admin->desa_id))
+            ->whereIn('status', ['menunggu'])
+            ->latest('created_at')
+            ->first();
+
+        return response()->json([
+            'count' => PengajuanSurat::query()
+                ->whereHas('user', fn ($query) => $query->where('desa_id', $admin->desa_id))
+                ->whereIn('status', ['menunggu'])
+                ->count(),
+            'latest' => $latestPending ? [
+                'id' => $latestPending->id,
+                'nomor_pengajuan' => $latestPending->nomor_pengajuan,
+                'nama' => $latestPending->user?->name,
+                'jenis_surat' => $latestPending->jenisSurat?->nama,
+                'created_at' => $latestPending->created_at?->toDateTimeString(),
+            ] : null,
+        ]);
+    }
+
+    public function notifications(Request $request)
+    {
+        $admin = $request->user();
+
+        // include both pengajuan baru and masyarakat baru notification types
+        $allowedTypes = [
+            'App\\Notifications\\PengajuanBaruNotification',
+            'App\\Notifications\\MasyarakatBaruNotification',
+        ];
+
+        $notifications = $admin->notifications()
+            ->whereIn('type', $allowedTypes)
+            ->latest()
+            ->limit(10)
+            ->get()
+            ->map(function ($notification) {
+                $data = $notification->data;
+
+                return [
+                    'id' => $notification->id,
+                    'type' => $data['type'] ?? ($data['pengajuan_id'] ? 'pengajuan_baru' : 'masyarakat_baru'),
+                    'title' => $data['title'] ?? 'Notifikasi baru',
+                    'message' => $data['message'] ?? 'Ada notifikasi baru',
+                    'route' => $data['route'] ?? route('admin.pengajuan.index'),
+                    'pengajuan_id' => $data['pengajuan_id'] ?? null,
+                    'user_id' => $data['user_id'] ?? null,
+                    'read_at' => $notification->read_at,
+                    'created_at' => $notification->created_at?->diffForHumans(),
+                ];
+            });
+
+        $unreadCount = $admin->unreadNotifications()
+            ->whereIn('type', $allowedTypes)
+            ->count();
+
+        return response()->json([
+            'count' => $unreadCount,
+            'items' => $notifications,
+        ]);
+    }
+
+    public function markNotificationAsRead(Request $request, string $id)
+    {
+        $notification = $request->user()->notifications()->where('id', $id)->first();
+
+        if ($notification) {
+            $notification->markAsRead();
+        }
+
+        return response()->json(['success' => true]);
+    }
+
     public function reject(
         Request $request,
         PengajuanSurat $pengajuan
@@ -211,6 +295,9 @@ class PengajuanSuratController extends Controller
             'verified_by' => $request->user()->id,
         ]);
 
+        $pengajuan->loadMissing(['user.desa.kecamatan.kota.provinsi', 'jenisSurat']);
+        $pengajuan->user->notify(new PengajuanDitolakNotification($pengajuan, $validated['catatan'] ?? null));
+
         return redirect()
             ->route(
                 'admin.pengajuan.show',
@@ -225,7 +312,7 @@ class PengajuanSuratController extends Controller
     /**
      * Download Word doc for a dokumen (authorized).
      */
-    public function downloadWord(Request $request, \App\Models\Dokumen $dokumen)
+    public function downloadWord(Request $request, Dokumen $dokumen)
     {
         // authorize via related pengajuan
         $this->authorize('view', $dokumen->pengajuanSurat);
@@ -240,6 +327,7 @@ class PengajuanSuratController extends Controller
         }
 
         $filename = basename($dokumen->file);
+
         return response()->streamDownload(function () use ($stream) {
             fpassthru($stream);
         }, $filename);
@@ -248,7 +336,7 @@ class PengajuanSuratController extends Controller
     /**
      * Download PDF for a dokumen (authorized).
      */
-    public function downloadPdf(Request $request, \App\Models\Dokumen $dokumen)
+    public function downloadPdf(Request $request, Dokumen $dokumen)
     {
         $this->authorize('view', $dokumen->pengajuanSurat);
 
@@ -262,6 +350,7 @@ class PengajuanSuratController extends Controller
         }
 
         $filename = basename($dokumen->dokumen_pdf);
+
         return response()->streamDownload(function () use ($stream) {
             fpassthru($stream);
         }, $filename);

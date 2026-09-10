@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\AkunDiverifikasiNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -38,6 +39,7 @@ class MasyarakatVerificationController extends Controller
         $this->authorizeMasyarakatInAdminDesa($request, $masyarakat);
 
         $masyarakat->update(['status_verifikasi' => 'disetujui']);
+        $masyarakat->notify(new AkunDiverifikasiNotification($masyarakat, 'disetujui'));
 
         return redirect()
             ->route('admin.masyarakat.index')
@@ -49,6 +51,7 @@ class MasyarakatVerificationController extends Controller
         $this->authorizeMasyarakatInAdminDesa($request, $masyarakat);
 
         $masyarakat->update(['status_verifikasi' => 'ditolak']);
+        $masyarakat->notify(new AkunDiverifikasiNotification($masyarakat, 'ditolak'));
 
         return redirect()
             ->route('admin.masyarakat.index')

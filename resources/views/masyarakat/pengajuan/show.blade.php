@@ -14,6 +14,15 @@
                             <p class="mt-1 text-sm text-gray-600">{{ $pengajuan->jenisSurat->nama }}</p>
                         </div>
                         @include('admin.partials.status-badge', ['status' => $pengajuan->status])
+
+                        @if ($pengajuan->status === 'ditolak')
+                            <div class="mt-4 w-full rounded-lg border border-red-200 bg-red-50 p-4">
+                                <h4 class="text-sm font-semibold text-red-900">Pengajuan Ditolak</h4>
+                                <p class="mt-1 text-sm text-red-700">Alasan: <span
+                                        class="font-medium text-red-800">{{ $pengajuan->catatan ?? 'Tidak ada catatan dari admin.' }}</span>
+                                </p>
+                            </div>
+                        @endif
                         @if ($pengajuan->dokumen)
                             <div class="mt-8 rounded-xl border border-green-200 bg-green-50 p-6">
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Masyarakat;
 use App\Http\Controllers\Controller;
 use App\Models\JenisSurat;
 use App\Models\PengajuanSurat;
+use App\Models\User;
+use App\Notifications\PengajuanBaruNotification;
 use App\Services\SuratFieldResolver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -41,17 +43,16 @@ class PengajuanSuratController extends Controller
      */
     public function create(JenisSurat $jenisSurat)
     {
-        if ($redirect = $this->ensureVerifiedMasyarakat()) {
-            return $redirect;
-        }
-
         abort_if(! $jenisSurat->aktif, 404);
 
-        // ensure jenis surat belongs to user's desa
         abort_unless(
             $jenisSurat->desa_id === auth()->user()->desa_id,
             403
         );
+
+        if ($redirect = $this->ensureVerifiedMasyarakat()) {
+            return $redirect;
+        }
 
         $jenisSurat->load('fields');
         $readonlyFields = $this->resolver->readonlyFields($jenisSurat, auth()->user());
@@ -72,17 +73,16 @@ class PengajuanSuratController extends Controller
         Request $request,
         JenisSurat $jenisSurat
     ) {
-        if ($redirect = $this->ensureVerifiedMasyarakat()) {
-            return $redirect;
-        }
-
         abort_if(! $jenisSurat->aktif, 404);
 
-        // ensure jenis surat belongs to user's desa
         abort_unless(
             $jenisSurat->desa_id === $request->user()->desa_id,
             403
         );
+
+        if ($redirect = $this->ensureVerifiedMasyarakat()) {
+            return $redirect;
+        }
 
         $jenisSurat->load('fields');
 
@@ -127,6 +127,15 @@ class PengajuanSuratController extends Controller
             'data_snapshot' => $this->resolver->snapshotFor($jenisSurat, $request->user(), $dataPengajuan),
             'status' => 'menunggu',
         ]);
+
+        $adminDesa = User::query()
+            ->where('role', 'admin_desa')
+            ->where('desa_id', $request->user()->desa_id)
+            ->get();
+
+        foreach ($adminDesa as $admin) {
+            $admin->notify(new PengajuanBaruNotification($pengajuan));
+        }
 
         return redirect()
             ->route(

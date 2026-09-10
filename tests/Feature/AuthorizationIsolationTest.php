@@ -8,6 +8,7 @@ use App\Models\JenisSurat;
 use App\Models\PengajuanSurat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class AuthorizationIsolationTest extends TestCase
@@ -114,5 +115,69 @@ class AuthorizationIsolationTest extends TestCase
 
         $policy = new \App\Policies\DokumenPolicy();
         $this->assertFalse($policy->view($userA, $dok));
+    }
+
+    public function test_admin_receives_database_notification_only_for_same_desa_when_masyarakat_submits_pengajuan()
+    {
+        $desaA = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
+        $desaB = Desa::create(['nama' => 'Desa B', 'kode' => 'B', 'kecamatan_id' => null]);
+
+        $adminA = User::factory()->create(['desa_id' => $desaA->id, 'role' => 'admin_desa']);
+        $adminB = User::factory()->create(['desa_id' => $desaB->id, 'role' => 'admin_desa']);
+        $masyarakat = User::factory()->create(['desa_id' => $desaA->id, 'role' => 'masyarakat']);
+
+        $jenis = JenisSurat::create(['nama' => 'SKTM', 'kode' => 'SKTM-A', 'desa_id' => $desaA->id, 'aktif' => true]);
+
+        $this->actingAs($masyarakat)
+            ->post(route('masyarakat.pengajuan.store', $jenis), [])
+            ->assertRedirect();
+
+        $this->assertDatabaseHas('notifications', [
+            'notifiable_id' => $adminA->id,
+            'notifiable_type' => User::class,
+        ]);
+
+        $this->assertDatabaseMissing('notifications', [
+            'notifiable_id' => $adminB->id,
+            'notifiable_type' => User::class,
+        ]);
+    }
+
+    public function test_admin_approval_sends_email_to_pengajuan_owner()
+    {
+        Notification::fake();
+
+        $desa = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
+        $user = User::factory()->create(['desa_id' => $desa->id, 'role' => 'masyarakat', 'email' => 'masyarakat@example.com']);
+        $jenis = JenisSurat::create(['nama' => 'SKTM', 'kode' => 'SKTM-B', 'desa_id' => $desa->id, 'aktif' => true]);
+
+        $pengajuan = PengajuanSurat::create([
+            'user_id' => $user->id,
+            'jenis_surat_id' => $jenis->id,
+            'nomor_pengajuan' => 'PGJ-EMAIL',
+            'data_pengajuan' => [],
+            'data_snapshot' => [],
+            'status' => 'menunggu',
+        ]);
+
+        $user->notify(new \App\Notifications\PengajuanDisetujuiNotification($pengajuan));
+
+        Notification::assertSentTo($user, \App\Notifications\PengajuanDisetujuiNotification::class, function ($notification, $channels) use ($user) {
+            return $notification->pengajuan->user_id === $user->id && $notification->pengajuan->user->email === $user->email;
+        });
+    }
+
+    public function test_admin_verification_result_sends_email_to_masyarakat()
+    {
+        Notification::fake();
+
+        $desa = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
+        $user = User::factory()->create(['desa_id' => $desa->id, 'role' => 'masyarakat', 'status_verifikasi' => 'menunggu', 'email' => 'masyarakat@example.com']);
+
+        $user->notify(new \App\Notifications\AkunDiverifikasiNotification($user, 'disetujui'));
+
+        Notification::assertSentTo($user, \App\Notifications\AkunDiverifikasiNotification::class, function ($notification, $channels) use ($user) {
+            return $notification->user->id === $user->id && $notification->user->email === $user->email && $notification->status === 'disetujui';
+        });
     }
 }

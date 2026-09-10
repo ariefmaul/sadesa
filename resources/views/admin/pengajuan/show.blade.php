@@ -78,7 +78,6 @@
                         <div class="mt-3">
                             <x-input-label for="nomor_surat" value="Nomor Surat" />
 
-                            {{-- Show nomor_surat from dokumen if present --}}
                             <input id="nomor_surat" type="text" value="{{ $pengajuan->dokumen->nomor_surat ?? '-' }}"
                                 disabled
                                 class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 text-gray-600 shadow-sm cursor-not-allowed" />
