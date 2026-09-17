@@ -18,31 +18,19 @@ class SuratGeneratorService
             'user',
         ]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 1. Generate QR Token
-        |--------------------------------------------------------------------------
-        */
+        
 
         if (! $pengajuan->qr_token) {
             $pengajuan->qr_token = Str::uuid()->toString();
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | 2. Folder Penyimpanan
-        |--------------------------------------------------------------------------
-        */
+        
 
         $folder = 'surat/'.$pengajuan->id;
 
         Storage::disk('public')->makeDirectory($folder);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 3. Generate QR Code
-        |--------------------------------------------------------------------------
-        */
+        
 
         $qrUrl = route('surat.validasi', [
             'token' => $pengajuan->qr_token,
@@ -61,11 +49,7 @@ class SuratGeneratorService
 
         $qrResult->saveToFile($qrPath);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 4. Template Word
-        |--------------------------------------------------------------------------
-        */
+        
 
         $templatePath = storage_path(
             'app/public/'.$pengajuan->jenisSurat->template
@@ -79,11 +63,7 @@ class SuratGeneratorService
 
         $template = new TemplateProcessor($templatePath);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 5. Data Masyarakat
-        |--------------------------------------------------------------------------
-        */
+        
 
         $user = $pengajuan->user;
 
@@ -91,11 +71,7 @@ class SuratGeneratorService
             ?? $pengajuan->data_pengajuan
             ?? [];
 
-        /*
-        |--------------------------------------------------------------------------
-        | 6. Data dasar
-        |--------------------------------------------------------------------------
-        */
+        
 
         $variables = array_merge(
             [
@@ -109,11 +85,7 @@ class SuratGeneratorService
             $data
         );
 
-        /*
-        |--------------------------------------------------------------------------
-        | 7. Replace variable Word
-        |--------------------------------------------------------------------------
-        */
+        
 
         foreach ($variables as $key => $value) {
 
@@ -127,11 +99,7 @@ class SuratGeneratorService
             );
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | 8. QR Code ke Word
-        |--------------------------------------------------------------------------
-        */
+        
 
         try {
             $template->setImageValue('qr_code', [
@@ -140,14 +108,10 @@ class SuratGeneratorService
                 'height' => 120,
             ]);
         } catch (\Throwable $e) {
-            // Template tidak memiliki ${qr_code}
+            
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | 9. Simpan DOCX
-        |--------------------------------------------------------------------------
-        */
+        
 
         $wordFilename =
             'surat-'.
@@ -161,11 +125,7 @@ class SuratGeneratorService
 
         $template->saveAs($wordPath);
 
-        /*
-        |--------------------------------------------------------------------------
-        | 10. Simpan informasi ke database
-        |--------------------------------------------------------------------------
-        */
+        
 
         $pengajuan->dokumen_word =
             $folder.'/'.$wordFilename;

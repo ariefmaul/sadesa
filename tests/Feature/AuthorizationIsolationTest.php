@@ -180,4 +180,39 @@ class AuthorizationIsolationTest extends TestCase
             return $notification->user->id === $user->id && $notification->user->email === $user->email && $notification->status === 'disetujui';
         });
     }
+
+    public function test_super_admin_can_manage_masyarakat_accounts()
+    {
+        $desa = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
+        $superAdmin = User::factory()->create(['desa_id' => $desa->id, 'role' => 'super_admin', 'status_verifikasi' => 'disetujui']);
+
+        $this->actingAs($superAdmin)
+            ->get(route('admin.users.index'))
+            ->assertOk();
+
+        $user = User::factory()->create(['desa_id' => $desa->id, 'role' => 'masyarakat', 'status_verifikasi' => 'disetujui']);
+
+        $this->actingAs($superAdmin)
+            ->post(route('admin.users.store'), [
+                'name' => 'Pengguna Baru',
+                'nik' => '1234567890123456',
+                'jenis_kelamin' => 'P',
+                'desa_id' => $desa->id,
+                'email' => 'baru@example.com',
+                'status_verifikasi' => 'disetujui',
+                'password' => 'Password123',
+                'password_confirmation' => 'Password123',
+            ])
+            ->assertRedirect(route('admin.users.index'));
+
+        $this->assertDatabaseHas('users', ['email' => 'baru@example.com', 'role' => 'masyarakat']);
+
+        $this->actingAs($superAdmin)
+            ->get(route('admin.users.edit', $user))
+            ->assertOk();
+
+        $this->actingAs($superAdmin)
+            ->delete(route('admin.users.destroy', $user))
+            ->assertRedirect(route('admin.users.index'));
+    }
 }

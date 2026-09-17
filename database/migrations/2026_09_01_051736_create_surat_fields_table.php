@@ -25,6 +25,7 @@ return new class extends Migration
                 'date',
                 'number',
                 'email',
+                'select',
             ])->default('text');
 
             $table->boolean('required')

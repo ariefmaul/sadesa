@@ -1,7 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Provinsi</h2>
+        <div>
+            <p class="text-sm font-medium text-[#2563EB]">
+                Data Wilayah
+            </p>
+            <h2 class="mt-1 text-2xl font-bold tracking-tight text-[#0A2540]">
+                Tambah Provinsi
+            </h2>
+
+            <p class="mt-1 text-sm text-slate-500">
+                Tambahkan data provinsi baru ke dalam sistem.
+            </p>
+        </div>
     </x-slot>
+
 
     <div class="py-8">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

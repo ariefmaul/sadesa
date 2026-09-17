@@ -16,7 +16,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: #fff;
+            background: 
             font-family: Arial, sans-serif;
         }
 
@@ -27,8 +27,8 @@
 
         .toolbar {
             padding: 15px;
-            background: #f3f4f6;
-            border-bottom: 1px solid #ddd;
+            background: 
+            border-bottom: 1px solid 
             display: flex;
             gap: 10px;
         }
@@ -42,12 +42,12 @@
         }
 
         .btn-print {
-            background: #16a34a;
+            background: 
             color: white;
         }
 
         .btn-close {
-            background: #6b7280;
+            background: 
             color: white;
         }
 
@@ -92,21 +92,21 @@
             </iframe>
 
             <script>
-                // Auto-print once the iframe content is loaded
+                
                 const iframe = document.getElementById('pdfFrame');
                 iframe.addEventListener('load', function() {
                     try {
                         iframe.contentWindow.focus();
-                        // Slight delay to ensure PDF viewer ready
+                        
                         setTimeout(async () => {
-                            // Open print dialog in iframe
+                            
                             try {
                                 iframe.contentWindow.print();
                             } catch (err) {
                                 window.print();
                             }
 
-                            // Notify server that document was printed
+                            
                             try {
                                 await fetch("{{ route('mesin.printed', $dokumen) }}", {
                                     method: 'POST',
@@ -119,12 +119,12 @@
                                     })
                                 });
                             } catch (e) {
-                                // ignore
+                                
                             }
 
                         }, 500);
                     } catch (e) {
-                        // fallback: call print on parent
+                        
                         setTimeout(() => window.print(), 800);
                     }
                 });

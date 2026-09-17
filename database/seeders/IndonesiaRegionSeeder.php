@@ -8,15 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class IndonesiaRegionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * This seeder will fetch official region lists from the emsifa API
-     * and populate the `provinsis`, `kotas`, `kecamatans`, and `desas` tables.
-     *
-     * Warning: this performs many HTTP requests (one per regency/district)
-     * and can take several minutes depending on network speed. Run locally.
-     */
+    
     public function run()
     {
         $base = 'https://emsifa.github.io/api-wilayah-indonesia/api';
@@ -32,7 +24,7 @@ class IndonesiaRegionSeeder extends Seeder
                 ['id' => $prov['id'], 'nama' => $prov['name']]
             );
 
-            // regencies (kota/kabupaten) for this province
+            
             $regUrl = "{$base}/regencies/{$prov['id']}.json";
             $regencies = Http::get($regUrl)->json() ?? [];
 
@@ -44,7 +36,7 @@ class IndonesiaRegionSeeder extends Seeder
                     ['id' => $reg['id'], 'provinsi_id' => $prov['id'], 'nama' => $reg['name']]
                 );
 
-                // districts (kecamatan) for this regency
+                
                 $distUrl = "{$base}/districts/{$reg['id']}.json";
                 $districts = Http::get($distUrl)->json() ?? [];
 
@@ -54,7 +46,7 @@ class IndonesiaRegionSeeder extends Seeder
                         ['id' => $dist['id'], 'kota_id' => $reg['id'], 'nama' => $dist['name']]
                     );
 
-                    // villages (desa) for this district
+                    
                     $villUrl = "{$base}/villages/{$dist['id']}.json";
                     $villages = Http::get($villUrl)->json() ?? [];
 

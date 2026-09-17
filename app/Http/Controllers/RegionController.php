@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Kecamatan;
-// models used: Provinsi, Kota, Kecamatan
+
 
 class RegionController extends Controller
 {

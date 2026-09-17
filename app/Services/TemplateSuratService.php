@@ -16,10 +16,7 @@ class TemplateSuratService
 {
     public function __construct(private readonly SuratFieldResolver $resolver) {}
 
-    /**
-     * Generate a DOCX for a pengajuan. You can pass extras like:
-     * ['nomor_dokumen' => '...', 'tanggal_surat' => '...', 'qr_file' => 'path/to/qr.png']
-     */
+    
     public function generateDocx(PengajuanSurat $pengajuan, array $extras = []): string
     {
         $pengajuan->loadMissing(['jenisSurat', 'dokumen']);
@@ -45,10 +42,10 @@ class TemplateSuratService
             throw new RuntimeException('Gagal membuka template DOCX: '.$e->getMessage(), 0, $e);
         }
 
-        // Merge automatic template data with extras (extras take precedence)
+        
         $data = array_merge($this->resolver->templateData($pengajuan), $extras);
 
-        // Get variables present in template
+        
         try {
             $templateVariables = $processor->getVariables();
         } catch (\Throwable $e) {
@@ -56,7 +53,7 @@ class TemplateSuratService
             $templateVariables = [];
         }
 
-        // Required SADESA debug logs
+        
         Log::info('SADESA TEMPLATE DATA', [
             'pengajuan_id' => $pengajuan->id,
             'data_keys' => array_keys($data),
@@ -66,29 +63,29 @@ class TemplateSuratService
 
         Log::info('TemplateSuratService: data to inject', ['keys' => array_keys($data)]);
 
-        // Build mapping of normalized -> raw variable names from template variables
+        
         $normalizedToRaw = [];
         foreach ($templateVariables as $rawVar) {
             $norm = strtolower(preg_replace('/\s+/', '_', trim($rawVar)));
-            // prefer preserving rawVar as-is; allow multiple raw for same norm
+            
             if (! isset($normalizedToRaw[$norm])) {
                 $normalizedToRaw[$norm] = $rawVar;
             }
         }
 
-        // Also extract placeholders directly from document.xml as fallback (normalized)
+        
         $extracted = $this->extractPlaceholders($pengajuan->jenisSurat->template);
         Log::info('TemplateSuratService: extracted placeholders (normalized)', ['extracted' => $extracted]);
 
-        // merge extracted into mapping if not present
+        
         foreach ($extracted as $norm) {
             if (! isset($normalizedToRaw[$norm])) {
-                // guess raw as the normalized form (no spaces)
+                
                 $normalizedToRaw[$norm] = $norm;
             }
         }
 
-        // Log SADESA SURAT DATA including snapshot and pengajuan data for validation
+        
         Log::info('SADESA SURAT DATA', [
             'pengajuan_id' => $pengajuan->id,
             'template_variables' => $templateVariables,
@@ -97,14 +94,14 @@ class TemplateSuratService
             'template_data' => $data,
         ]);
 
-        // Validate that required template variables have data available
+        
         $requiredNorms = array_unique(array_merge(array_keys($normalizedToRaw), $extracted));
         $missing = [];
-        // build normalized keys from data
+        
         $dataNormKeys = array_map(fn ($k) => strtolower(preg_replace('/\s+/', '_', trim($k))), array_keys($data));
 
         foreach ($requiredNorms as $req) {
-            // skip nomor_surat if expected to be provided via extras
+            
             if ($req === 'nomor_surat' && array_key_exists('nomor_surat', $data)) {
                 continue;
             }
@@ -126,7 +123,7 @@ class TemplateSuratService
 
             $normKey = strtolower(preg_replace('/\s+/', '_', trim($key)));
 
-            // image placeholders
+            
             if (in_array($normKey, ['qr_code', 'qr_file'], true)) {
                 $abs = Storage::disk('public')->path($value);
                 if (file_exists($abs)) {
@@ -181,16 +178,16 @@ class TemplateSuratService
 
         $absolutePath = Storage::disk('public')->path($filename);
 
-        // Quick permission/writeability check: can we create a temp file in directory?
+        
         try {
             $tmpTest = tempnam($absoluteDirectory, 'writetest_');
             if ($tmpTest === false) {
                 Log::error('TemplateSuratService: unable to create temp file in dokumen directory', ['dir' => $absoluteDirectory]);
                 throw new RuntimeException('Tidak dapat membuat file pada folder dokumen: '.$absoluteDirectory);
             }
-            // tempnam may create file elsewhere depending on system, move it to the directory if needed
+            
             if (! str_starts_with($tmpTest, $absoluteDirectory)) {
-                // try creating a file directly in directory
+                
                 $tmpTest2 = $absoluteDirectory.DIRECTORY_SEPARATOR.'writetest_'.Str::random(6);
                 $res = @file_put_contents($tmpTest2, 'ok');
                 if ($res === false) {
@@ -206,7 +203,7 @@ class TemplateSuratService
             throw $e;
         }
 
-        // Log debug before save as required
+        
         Log::info('SADESA DOCX DEBUG BEFORE SAVE', [
             'template_relative' => $pengajuan->jenisSurat->template,
             'template_absolute' => $templatePath,
@@ -218,11 +215,11 @@ class TemplateSuratService
             'output_directory_exists' => is_dir($absoluteDirectory),
         ]);
 
-        // Attempt to save DOCX robustly: save to system temp then move into place
+        
         $saved = false;
         $errors = [];
 
-        // First try saving directly to destination (fast path)
+        
         try {
             $processor->saveAs($absolutePath);
             if (file_exists($absolutePath) && filesize($absolutePath) > 0) {
@@ -238,27 +235,27 @@ class TemplateSuratService
             Log::warning('TemplateSuratService: direct save exception', ['path' => $absolutePath, 'error' => $e->getMessage()]);
         }
 
-        // If direct save failed or produced empty file, try save to system temp and move
+        
         if (! $saved) {
             $tmp = tempnam(sys_get_temp_dir(), 'sadesa_docx_');
             if ($tmp === false) {
                 $errors[] = 'tempnam failed';
                 Log::error('TemplateSuratService: tempnam failed for system temp dir', ['dir' => sys_get_temp_dir()]);
             } else {
-                // ensure tmp has .docx extension (some tools rely on it)
+                
                 $tmpDocx = $tmp.'.docx';
                 try {
-                    // attempt save to tmp file
+                    
                     $processor->saveAs($tmpDocx);
                     if (file_exists($tmpDocx) && filesize($tmpDocx) > 0) {
-                        // remove existing target if present and zero-length
+                        
                         if (file_exists($absolutePath) && filesize($absolutePath) === 0) {
                             @unlink($absolutePath);
                         }
 
-                        // move into place (rename is atomic on same filesystem)
+                        
                         if (@rename($tmpDocx, $absolutePath) === false) {
-                            // fallback to copy
+                            
                             if (@copy($tmpDocx, $absolutePath) === false) {
                                 $errors[] = 'rename and copy failed when moving tmp file';
                                 Log::error('TemplateSuratService: failed to move tmp docx into place', ['tmp' => $tmpDocx, 'dest' => $absolutePath]);
@@ -288,13 +285,13 @@ class TemplateSuratService
         }
 
         if (! $saved) {
-            // enumerate directory for diagnostics
+            
             $files = @scandir($absoluteDirectory);
             Log::error('TemplateSuratService: DOCX not saved after fallback attempts', ['path' => $absolutePath, 'dir' => $absoluteDirectory, 'files' => $files, 'errors' => $errors]);
             throw new RuntimeException('DOCX berhasil diproses tetapi file tidak dapat disimpan: '.$absolutePath.'. Errors: '.implode(' | ', $errors));
         }
 
-        // Clear cache and perform strict checks as requested
+        
         clearstatcache(true, $absolutePath);
 
         Log::info('SADESA DOCX DEBUG AFTER SAVE', [
@@ -362,11 +359,7 @@ class TemplateSuratService
             $absDocx
         );
 
-        /*
-        |--------------------------------------------------------------------------
-        | Temporary LibreOffice profile
-        |--------------------------------------------------------------------------
-        */
+        
 
         $profileDir = storage_path(
             'app/libreoffice-profile/'.Str::uuid()
@@ -376,11 +369,7 @@ class TemplateSuratService
             mkdir($profileDir, 0775, true);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Jalankan LibreOffice
-        |--------------------------------------------------------------------------
-        */
+        
 
         $libreDir = dirname($libre);
 
@@ -398,7 +387,7 @@ class TemplateSuratService
             $absDocx,
         ];
 
-        // Provide a sanitized environment for the process (helps on Windows)
+        
         $env = [
             'HOME' => storage_path('app'),
             'TMP' => sys_get_temp_dir(),
@@ -425,11 +414,7 @@ class TemplateSuratService
 
         Log::info('TemplateSuratService: LibreOffice finished', ['exit_code' => $process->getExitCode(), 'stdout' => $stdout, 'stderr' => $stderr]);
 
-        /*
-        |--------------------------------------------------------------------------
-        | Debug jika gagal
-        |--------------------------------------------------------------------------
-        */
+        
 
         if (! file_exists($pdfAbs)) {
 
@@ -444,11 +429,7 @@ class TemplateSuratService
             );
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Convert absolute path → relative storage path
-        |--------------------------------------------------------------------------
-        */
+        
 
         $publicRoot = $disk->path('');
 
@@ -465,10 +446,7 @@ class TemplateSuratService
         return ltrim($relative, '/');
     }
 
-    /**
-     * Extract placeholders from a DOCX template file stored on public disk.
-     * Returns array of placeholder names without ${}
-     */
+    
     public function extractPlaceholders(string $docxRelativePath): array
     {
         $abs = Storage::disk('public')->path($docxRelativePath);
@@ -485,11 +463,11 @@ class TemplateSuratService
             if ($index !== false) {
                 $xml = $zip->getFromIndex($index);
 
-                // find ${placeholder} patterns
+                
                 if (preg_match_all('/\$\{([a-zA-Z0-9_\s]+)\}/', $xml, $matches)) {
                     foreach ($matches[1] as $m) {
                         $name = trim($m);
-                        // normalize spaces to underscore and lowercase for detection
+                        
                         $normalized = strtolower(preg_replace('/\s+/', '_', $name));
                         $placeholders[] = $normalized;
                     }
@@ -502,15 +480,12 @@ class TemplateSuratService
         return array_values(array_unique($placeholders));
     }
 
-    /**
-     * Validate placeholders against known fields (jenis surat fields and profile keys)
-     * Returns array of unknown placeholders.
-     */
+    
     public function validatePlaceholders(array $placeholders, ?JenisSurat $jenisSurat = null, ?User $user = null): array
     {
         $known = [];
 
-        // built-in profile keys from resolver
+        
         $auto = $this->resolver->automaticData($user ?? new User);
 
         $flatten = function ($arr, $prefix = '') use (&$flatten) {
@@ -530,13 +505,13 @@ class TemplateSuratService
 
         foreach ($profileKeys as $k) {
             $known[] = $k;
-            // also add alias: if key ends with _desa or nama_desa, add 'desa'
+            
             if (str_ends_with($k, 'nama_desa')) {
                 $known[] = 'desa';
             }
         }
 
-        // jenis surat fields
+        
         if ($jenisSurat) {
             foreach ($jenisSurat->fields as $f) {
                 $known[] = $f->fieldName();

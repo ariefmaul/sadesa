@@ -15,9 +15,7 @@ class PengajuanSuratController extends Controller
 {
     public function __construct(private readonly SuratFieldResolver $resolver) {}
 
-    /**
-     * Daftar jenis surat yang tersedia.
-     */
+    
     public function index()
     {
         if ($redirect = $this->ensureVerifiedMasyarakat()) {
@@ -38,9 +36,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    /**
-     * Menampilkan form pengajuan.
-     */
+    
     public function create(JenisSurat $jenisSurat)
     {
         abort_if(! $jenisSurat->aktif, 404);
@@ -66,9 +62,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    /**
-     * Menyimpan pengajuan.
-     */
+    
     public function store(
         Request $request,
         JenisSurat $jenisSurat
@@ -94,6 +88,7 @@ class PengajuanSuratController extends Controller
                 'email' => 'email',
                 'number' => 'numeric',
                 'date' => 'date',
+                'select' => 'in:'.implode(',', $field->selectOptions()),
                 default => 'string',
             };
 
@@ -138,19 +133,14 @@ class PengajuanSuratController extends Controller
         }
 
         return redirect()
-            ->route(
-                'masyarakat.pengajuan.show',
-                $pengajuan
-            )
-            ->with(
-                'success',
-                'Pengajuan surat berhasil dikirim.'
-            );
+            ->route('masyarakat.pengajuan.show', [
+                'pengajuan' => $pengajuan,
+                'from' => 'pengajuan',
+            ])
+            ->with('success', 'Pengajuan surat berhasil dibuat.');
     }
 
-    /**
-     * Detail pengajuan masyarakat.
-     */
+    
     public function show(PengajuanSurat $pengajuan)
     {
         $this->authorize('view', $pengajuan);
@@ -166,9 +156,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    /**
-     * Riwayat pengajuan milik user yang sedang login.
-     */
+    
     public function riwayat()
     {
         $pengajuans = PengajuanSurat::with(['jenisSurat', 'dokumen'])

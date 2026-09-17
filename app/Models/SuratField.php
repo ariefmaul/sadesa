@@ -18,6 +18,7 @@ class SuratField extends Model
         'type',
         'required',
         'urutan',
+        'options',
     ];
 
     protected function casts(): array
@@ -25,6 +26,7 @@ class SuratField extends Model
         return [
             'required' => 'boolean',
             'wajib' => 'boolean',
+            'options' => 'array',
         ];
     }
 
@@ -51,5 +53,29 @@ class SuratField extends Model
     public function sourceData(): string
     {
         return $this->sumber_data ?: 'pengajuan';
+    }
+
+    public function selectOptions(): array
+    {
+        $options = $this->options ?? [];
+
+        if (is_string($options)) {
+            $options = json_decode($options, true);
+        }
+
+        if (! is_array($options)) {
+            return [];
+        }
+
+        return array_values(array_filter(array_map(function ($option) {
+            $value = trim((string) $option);
+
+            return $value !== '' ? $value : null;
+        }, $options)));
+    }
+
+    public function selectOptionsText(): string
+    {
+        return implode("\n", $this->selectOptions());
     }
 }

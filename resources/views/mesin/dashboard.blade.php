@@ -19,7 +19,7 @@
 
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
 
-                {{-- Header Scanner --}}
+                
                 <div class="p-6 text-center border-b border-gray-100">
 
                     <div
@@ -38,13 +38,13 @@
 
                 </div>
 
-                {{-- Scanner --}}
+                
                 <div class="p-6">
 
                     <div id="reader" class="w-full overflow-hidden rounded-xl border border-gray-200">
                     </div>
 
-                    {{-- Loading --}}
+                    
                     <div id="loading" class="hidden mt-5 text-center">
 
                         <div class="inline-flex items-center gap-2 text-sm text-gray-600">
@@ -65,7 +65,7 @@
 
                     </div>
 
-                    {{-- Hasil --}}
+                    
                     <div id="result" class="hidden mt-6">
                     </div>
 
@@ -73,7 +73,7 @@
 
             </div>
 
-            {{-- Informasi --}}
+            
             <div class="mt-5 text-center text-xs text-gray-500">
 
                 <p>
@@ -87,7 +87,7 @@
     </div>
 
 
-    {{-- QR Code Scanner --}}
+    
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <script>
@@ -95,7 +95,7 @@
 
         function onScanSuccess(decodedText) {
 
-            // Hentikan scanner setelah QR terbaca
+            
             if (scanner) {
                 scanner.clear();
             }
@@ -107,15 +107,7 @@
 
             let token = decodedText;
 
-            /*
-             * QR dapat berisi:
-             *
-             * https://sadesa.test/surat/verifikasi/UUID
-             *
-             * atau langsung:
-             *
-             * UUID
-             */
+            
 
             try {
 
@@ -131,7 +123,7 @@
 
             } catch (error) {
 
-                // QR berisi token langsung
+                
 
                 token = decodedText;
 
@@ -431,7 +423,7 @@
         }
 
 
-        // LANGSUNG AKTIFKAN SCANNER
+        
         startScanner();
     </script>
 

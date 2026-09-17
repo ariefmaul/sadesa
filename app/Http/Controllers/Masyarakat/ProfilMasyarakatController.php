@@ -11,7 +11,7 @@ class ProfilMasyarakatController extends Controller
 {
     public function edit(Request $request): RedirectResponse
     {
-        // Redirect to Breeze profile page which now contains masyarakat profile fields
+        
         return redirect()->route('profile.edit');
     }
 

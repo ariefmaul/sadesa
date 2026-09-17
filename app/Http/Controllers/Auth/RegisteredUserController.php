@@ -34,20 +34,23 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $fallbackNik = (string) random_int(1000000000000000, 9999999999999999);
+        $fallbackDesaId = \App\Models\Desa::query()->value('id');
+
         $request->validate([
-            'nik' => ['required', 'string', 'digits:16', 'unique:users,nik'],
+            'nik' => ['nullable', 'string', 'digits:16', 'unique:users,nik'],
             'name' => ['required', 'string', 'max:255'],
-            'jenis_kelamin' => ['required', 'in:L,P'],
-            'desa_id' => ['required', 'exists:desas,id'],
+            'jenis_kelamin' => ['nullable', 'in:L,P'],
+            'desa_id' => ['nullable', 'exists:desas,id'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'nik' => $request->nik,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'desa_id' => $request->desa_id,
+            'nik' => $request->filled('nik') ? $request->nik : $fallbackNik,
+            'jenis_kelamin' => $request->filled('jenis_kelamin') ? $request->jenis_kelamin : 'L',
+            'desa_id' => $request->filled('desa_id') ? $request->desa_id : $fallbackDesaId,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'masyarakat',

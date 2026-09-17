@@ -1,40 +1,264 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Pengumuman Desa</h2>
-    </x-slot>
 
-    <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            @include('admin.partials.flash')
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-                <form method="POST" action="{{ route('admin.pengumuman.store') }}" class="space-y-5">
-                    @csrf
-                    <div>
-                        <label for="judul" class="block text-sm font-medium text-gray-700">Judul</label>
-                        <input id="judul" name="judul" type="text" value="{{ old('judul') }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                            required>
-                    </div>
-                    <div>
-                        <label for="isi" class="block text-sm font-medium text-gray-700">Isi</label>
-                        <textarea id="isi" name="isi" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-                            required>{{ old('isi') }}</textarea>
-                    </div>
-                    <div>
-                        <label for="status" class="block text-sm font-medium text-gray-700">Status Publikasi</label>
-                        <select id="status" name="status"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="draft">Draft</option>
-                            <option value="published">Published</option>
-                        </select>
-                    </div>
-                    <div class="flex gap-3">
-                        <button type="submit" class="bg-[#163A6B] text-white px-4 py-2 rounded-md">Simpan</button>
-                        <a href="{{ route('admin.pengumuman.index') }}"
-                            class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Batal</a>
-                    </div>
-                </form>
+    {{-- =========================================================
+        HEADER / HERO
+    ========================================================== --}}
+    <div class="relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute -right-20 -top-32 h-80 w-80 rounded-full bg-green-400/20 blur-3xl"></div>
+            <div class="absolute -left-20 top-20 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl"></div>
+        </div>
+
+        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+
+                <div>
+                    <p class="text-sm font-semibold tracking-wide text-blue-100">
+                        Manajemen
+                    </p>
+
+                    <h1 class="mt-1 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                        Tambah Pengumuman Desa
+                    </h1>
+
+                    <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100/80">
+                        Buat pengumuman baru untuk menyampaikan informasi kepada masyarakat desa.
+                    </p>
+                </div>
+
+                <a href="{{ route('admin.pengumuman.index') }}"
+                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/15 transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+
+                    Kembali
+                </a>
+
             </div>
         </div>
     </div>
+
+
+    {{-- =========================================================
+        CONTENT
+    ========================================================== --}}
+    <div class="py-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+
+            @include('admin.partials.flash')
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+
+                {{-- Card Header --}}
+                <div class="border-b border-slate-200 px-6 py-5">
+                    <div class="flex items-center gap-3">
+
+                        <div
+                            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="1.8">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h7M7 16h4" />
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <h2 class="text-base font-bold text-[#0A2540]">
+                                Informasi Pengumuman
+                            </h2>
+
+                            <p class="mt-0.5 text-sm text-slate-500">
+                                Lengkapi informasi pengumuman yang akan dibuat.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {{-- Form --}}
+                <form method="POST" action="{{ route('admin.pengumuman.store') }}">
+
+                    @csrf
+
+                    <div class="space-y-6 px-6 py-6">
+
+                        {{-- Judul --}}
+                        <div>
+                            <label for="judul" class="block text-sm font-semibold text-[#0A2540]">
+                                Judul Pengumuman
+                            </label>
+
+                            <div class="relative mt-2">
+
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 6h16M4 10h16M4 14h10M4 18h7" />
+                                    </svg>
+
+                                </div>
+
+                                <input id="judul" name="judul" type="text" value="{{ old('judul') }}"
+                                    placeholder="Contoh: Kerja Bakti Lingkungan Desa"
+                                    class="block w-full rounded-xl border-slate-300 py-3 pl-11 pr-4 text-sm text-slate-700 shadow-sm placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                                    required>
+
+                            </div>
+
+                            @error('judul')
+                                <p class="mt-1.5 text-xs font-medium text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+
+                            <p class="mt-1.5 text-xs text-slate-500">
+                                Gunakan judul yang singkat dan mudah dipahami masyarakat.
+                            </p>
+                        </div>
+
+
+                        {{-- Isi --}}
+                        <div>
+                            <label for="isi" class="block text-sm font-semibold text-[#0A2540]">
+                                Isi Pengumuman
+                            </label>
+
+                            <div class="relative mt-2">
+
+                                <div class="pointer-events-none absolute left-0 top-0 flex p-3.5 text-slate-400">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 6h16M4 10h16M4 14h12M4 18h8" />
+                                    </svg>
+
+                                </div>
+
+                                <textarea id="isi" name="isi" rows="9" placeholder="Tulis isi pengumuman di sini..."
+                                    class="block w-full rounded-xl border-slate-300 py-3 pl-11 pr-4 text-sm leading-6 text-slate-700 shadow-sm placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                                    required>{{ old('isi') }}</textarea>
+
+                            </div>
+
+                            @error('isi')
+                                <p class="mt-1.5 text-xs font-medium text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+
+                            <p class="mt-1.5 text-xs text-slate-500">
+                                Sampaikan informasi secara jelas, lengkap, dan mudah dipahami.
+                            </p>
+                        </div>
+
+
+                        {{-- Status --}}
+                        <div>
+                            <label for="status" class="block text-sm font-semibold text-[#0A2540]">
+                                Status Publikasi
+                            </label>
+
+                            <div class="relative mt-2">
+
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+
+                                </div>
+
+                                <select id="status" name="status"
+                                    class="block w-full appearance-none rounded-xl border-slate-300 bg-white py-3 pl-11 pr-10 text-sm text-slate-700 shadow-sm focus:border-[#2563EB] focus:ring-[#2563EB]">
+
+                                    <option value="draft" {{ old('status', 'draft') === 'draft' ? 'selected' : '' }}>
+                                        Draft
+                                    </option>
+
+                                    <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>
+                                        Published
+                                    </option>
+
+                                </select>
+
+                                {{-- Chevron --}}
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                                    </svg>
+
+                                </div>
+
+                            </div>
+
+                            @error('status')
+                                <p class="mt-1.5 text-xs font-medium text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
+
+                            <p class="mt-1.5 text-xs text-slate-500">
+                                Pilih <span class="font-semibold">Draft</span> jika pengumuman belum ingin ditampilkan
+                                kepada masyarakat.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    {{-- Footer --}}
+                    <div
+                        class="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+
+                        <p class="text-xs text-slate-500">
+                            Pastikan informasi yang dimasukkan sudah benar.
+                        </p>
+
+                        <div class="flex items-center justify-end gap-3">
+
+                            <a href="{{ route('admin.pengumuman.index') }}"
+                                class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2">
+                                Batal
+                            </a>
+
+                            <button type="submit"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+
+                                Simpan Pengumuman
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
 </x-app-layout>

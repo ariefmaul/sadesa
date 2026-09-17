@@ -17,12 +17,12 @@ class TemplateSuratController extends Controller
 
     public function index()
     {
-        // Use pagination so the view can render links() properly
+        
         $user = auth()->user();
 
         $query = JenisSurat::query();
 
-        // Admin Desa should only see templates for their desa
+        
         if ($user->role === 'admin_desa') {
             $query->where('desa_id', $user->desa_id);
         }
@@ -87,14 +87,14 @@ class TemplateSuratController extends Controller
             'aktif' => true,
         ];
 
-        // If creator is admin_desa, associate template with their desa
+        
         if (auth()->user()->role === 'admin_desa') {
             $payload['desa_id'] = auth()->user()->desa_id;
         }
 
         $jenis = JenisSurat::create($payload);
 
-        // Extract placeholders from uploaded template and redirect to fields view
+        
         try {
             $service = app(TemplateSuratService::class);
             $placeholders = $service->extractPlaceholders($path);
@@ -110,7 +110,7 @@ class TemplateSuratController extends Controller
 
     public function destroy(JenisSurat $templateSurat)
     {
-        // admin_desa may only delete templates belonging to their desa
+        
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
@@ -129,7 +129,7 @@ class TemplateSuratController extends Controller
 
     public function fields(JenisSurat $templateSurat)
     {
-        // enforce ownership for admin_desa
+        
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
@@ -211,9 +211,7 @@ class TemplateSuratController extends Controller
         return back()->with('success', 'Field surat berhasil dihapus.');
     }
 
-    /**
-     * Bulk create fields from detected placeholders.
-     */
+    
     public function bulkCreate(Request $request, JenisSurat $templateSurat)
     {
         if (auth()->user()->role === 'admin_desa') {
@@ -223,7 +221,7 @@ class TemplateSuratController extends Controller
         $placeholders = $request->input('placeholders', session('placeholders', []));
 
         if (! is_array($placeholders)) {
-            // allow comma separated
+            
             $placeholders = is_string($placeholders) ? array_filter(array_map('trim', explode(',', $placeholders))) : [];
         }
 
@@ -300,6 +298,7 @@ class TemplateSuratController extends Controller
             'label' => ['required', 'string', 'max:255'],
             'sumber_data' => ['required', Rule::in(['user', 'profil', 'desa', 'pengajuan'])],
             'tipe' => ['required', Rule::in(['text', 'textarea', 'date', 'number', 'email', 'select'])],
+            'options' => ['nullable', 'string', 'max:2000'],
             'wajib' => ['nullable', 'boolean'],
             'urutan' => ['nullable', 'integer', 'min:0'],
         ]);
@@ -308,8 +307,14 @@ class TemplateSuratController extends Controller
     private function fieldPayload(array $validated, bool $wajib): array
     {
         $raw = $validated['nama_field'];
-        // normalize: lowercase, spaces -> underscore, allow only a-z0-9_
+
         $name = preg_replace('/[^a-z0-9_]/', '', str_replace(' ', '_', mb_strtolower($raw)));
+
+        $options = null;
+
+        if (($validated['tipe'] ?? 'text') === 'select') {
+            $options = $this->normalizeSelectOptions($validated['options'] ?? '');
+        }
 
         return [
             'nama_field' => $name,
@@ -317,11 +322,25 @@ class TemplateSuratController extends Controller
             'label' => $validated['label'],
             'sumber_data' => $validated['sumber_data'],
             'tipe' => $validated['tipe'],
-            'type' => $validated['tipe'] === 'select' ? 'text' : $validated['tipe'],
+            'type' => $validated['tipe'] === 'select' ? 'select' : $validated['tipe'],
             'wajib' => $wajib,
             'required' => $wajib,
             'urutan' => $validated['urutan'] ?? 0,
+            'options' => $options,
         ];
+    }
+
+    private function normalizeSelectOptions(string $raw): ?array
+    {
+        $entries = preg_split('/\r\n|\n|,/', $raw);
+
+        if (! is_array($entries)) {
+            return null;
+        }
+
+        $filtered = array_values(array_filter(array_map(fn ($value) => trim((string) $value), $entries), fn ($value) => $value !== ''));
+
+        return $filtered === [] ? null : $filtered;
     }
 
     private function ensureFieldBelongsToTemplate(JenisSurat $templateSurat, SuratField $field): void

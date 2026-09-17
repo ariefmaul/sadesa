@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Show the login view.
      */
     public function create(): View
     {
@@ -29,17 +29,19 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
-
-        // Prefer role-based landing pages. If you want to preserve a prior intended
-        // URL (user tried to access a protected page), you can use intended()
-        // here — but for mesin we force the scanner landing so the device
-        // always opens the scanner after login.
-        return match ($user->role) {
-            'mesin', 'mesin_cetak' => redirect()->route('mesin.scan'),
-            'masyarakat' => redirect()->route('masyarakat.pengajuan.index'),
-            'admin_desa', 'super_admin' => redirect()->route('admin.template-surat.index'),
-            default => redirect()->intended(route('dashboard', absolute: false)),
+        $defaultTarget = route('dashboard', absolute: false);
+        $roleTarget = match ($user->role) {
+            'mesin', 'mesin_cetak' => route('mesin.scan', absolute: false),
+            'masyarakat' => route('masyarakat.pengajuan.index', absolute: false),
+            'admin_desa', 'super_admin' => route('admin.template-surat.index', absolute: false),
+            default => $defaultTarget,
         };
+
+        if ($request->has('redirect_to') || session()->has('url.intended')) {
+            return redirect()->intended($roleTarget);
+        }
+
+        return redirect()->to($defaultTarget);
     }
 
     /**

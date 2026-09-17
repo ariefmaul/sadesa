@@ -11,14 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class QrCodeService
 {
-    /**
-     * Membuat QR Code berdasarkan token.
-     *
-     * @return string Path file QR Code
-     */
+    
     public function generate(string $token): string
     {
-        // URL yang akan dibuka ketika QR Code discan
+        
         $url = route('surat.verifikasi', [
             'token' => $token,
         ]);
@@ -37,10 +33,10 @@ class QrCodeService
 
         $result = $writer->write($qrCode);
 
-        // Nama file
+        
         $filename = 'qr-code/'.$token.'.png';
 
-        // Simpan ke storage/app/public/qr-code/
+        
         Storage::disk('public')->put(
             $filename,
             $result->getString()

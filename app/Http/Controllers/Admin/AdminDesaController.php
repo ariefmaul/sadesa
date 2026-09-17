@@ -19,7 +19,8 @@ class AdminDesaController extends Controller
         $search = $request->string('search')->toString();
 
         $admins = User::query()
-            ->with('desa')
+            ->select(['id', 'name', 'email', 'desa_id', 'status_verifikasi'])
+            ->with(['desa:id,nama'])
             ->where('role', 'admin_desa')
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($query) use ($search) {
@@ -132,6 +133,13 @@ class AdminDesaController extends Controller
     public function destroy(User $adminDesa): RedirectResponse
     {
         abort_unless($adminDesa->role === 'admin_desa', 404);
+
+        if ($adminDesa->id === auth()->id()) {
+            return back()->with(
+                'error',
+                'Anda tidak dapat menghapus akun diri sendiri.'
+            );
+        }
 
         $adminDesa->delete();
 

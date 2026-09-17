@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Desa;
+use App\Models\Kecamatan;
+use App\Models\Kota;
+use App\Models\Provinsi;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -13,10 +16,40 @@ class DesaController extends Controller
 {
     public function index(Request $request): View
     {
-        $search = $request->string('search')->toString();
+        $perPage = (int) $request->get('per_page', 10);
+        $allowedPerPage = [10, 25, 50, 100];
+
+        if (! in_array($perPage, $allowedPerPage, true)) {
+            $perPage = 10;
+        }
+
+        $search = trim((string) $request->input('search', ''));
+        $provinsiId = $request->input('provinsi_id');
+        $kotaId = $request->input('kota_id');
+
+        $provinsis = Provinsi::query()->select(['id', 'nama'])->orderBy('nama')->get();
+
+        $kotas = Kota::query()
+            ->select(['id', 'nama', 'provinsi_id'])
+            ->when($provinsiId, function ($query) use ($provinsiId) {
+                $query->where('provinsi_id', $provinsiId);
+            })
+            ->orderBy('nama')
+            ->get();
 
         $desas = Desa::query()
+            ->select(['id', 'nama', 'kode', 'kecamatan_id'])
             ->withCount('users')
+            ->when($provinsiId, function ($query) use ($provinsiId) {
+                $query->whereHas('kecamatan.kota', function ($query) use ($provinsiId) {
+                    $query->where('provinsi_id', $provinsiId);
+                });
+            })
+            ->when($kotaId, function ($query) use ($kotaId) {
+                $query->whereHas('kecamatan', function ($query) use ($kotaId) {
+                    $query->where('kota_id', $kotaId);
+                });
+            })
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('nama', 'like', "%{$search}%")
@@ -24,15 +57,15 @@ class DesaController extends Controller
                 });
             })
             ->orderBy('nama')
-            ->paginate(10)
+            ->paginate($perPage)
             ->withQueryString();
 
-        return view('admin.desa.index', compact('desas', 'search'));
+        return view('admin.desa.index', compact('desas', 'search', 'perPage', 'provinsis', 'kotas', 'provinsiId', 'kotaId'));
     }
 
     public function create(): View
     {
-        $kecamatans = \App\Models\Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
+        $kecamatans = Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
 
         return view('admin.desa.create', compact('kecamatans'));
     }
@@ -54,7 +87,7 @@ class DesaController extends Controller
 
     public function edit(Desa $desa): View
     {
-        $kecamatans = \App\Models\Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
+        $kecamatans = Kecamatan::with('kota.provinsi')->orderBy('nama')->get();
 
         return view('admin.desa.edit', compact('desa', 'kecamatans'));
     }
@@ -82,7 +115,10 @@ class DesaController extends Controller
     public function destroy(Desa $desa): RedirectResponse
     {
         if ($desa->users()->exists()) {
-            return back()->withErrors('Desa tidak dapat dihapus karena masih memiliki user terhubung.');
+            return back()->with(
+                'error',
+                'Desa tidak dapat dihapus karena masih memiliki user terhubung. Hapus atau pindahkan user terlebih dahulu.'
+            );
         }
 
         $desa->delete();

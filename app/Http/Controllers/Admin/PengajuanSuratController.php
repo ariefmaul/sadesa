@@ -19,9 +19,7 @@ use Illuminate\View\View;
 
 class PengajuanSuratController extends Controller
 {
-    /**
-     * Daftar pengajuan surat.
-     */
+    
     public function index(Request $request): View
     {
         $admin = $request->user();
@@ -48,9 +46,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    /**
-     * Detail pengajuan.
-     */
+    
     public function show(
         Request $request,
         PengajuanSurat $pengajuan
@@ -70,17 +66,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    /**
-     * Menyetujui pengajuan.
-     *
-     * Proses:
-     * 1. Cek hak akses admin desa
-     * 2. Generate surat Word
-     * 3. Generate QR Token
-     * 4. Generate QR Code
-     * 5. Simpan dokumen
-     * 6. Ubah status menjadi disetujui
-     */
+    
     public function approve(
         Request $request,
         PengajuanSurat $pengajuan,
@@ -88,10 +74,10 @@ class PengajuanSuratController extends Controller
         QrCodeService $qrCodeService
     ): RedirectResponse {
 
-        // Pastikan pengajuan berasal dari desa admin yang login
+        
         $this->authorize('approve', $pengajuan);
 
-        // Jangan proses dua kali
+        
         if ($pengajuan->status === 'disetujui') {
             return redirect()
                 ->route(
@@ -111,33 +97,33 @@ class PengajuanSuratController extends Controller
             'nomor_surat.unique' => 'Nomor surat sudah digunakan.',
         ]);
 
-        // Use DB transaction to ensure consistency
+        
         try {
             $dok = DB::transaction(function () use ($request, $pengajuan, $templateService, $qrCodeService, $validated) {
 
                 $nomorDokumen = 'DOC-'.now()->format('Ymd').'-'.strtoupper(Str::random(6));
 
-                // If dokumen already exists for this pengajuan, reuse it
+                
                 $existing = $pengajuan->dokumen;
 
                 if ($existing) {
-                    // already processed
+                    
                     throw new \RuntimeException('Dokumen untuk pengajuan ini sudah ada.');
                 }
 
-                // 1) Generate Word with nomor surat provided by admin (nomor_surat) and other extras
+                
                 $file = $templateService->generateDocx($pengajuan, [
-                    // provide nomor_surat as expected by templates
+                    
                     'nomor_surat' => trim($validated['nomor_surat']),
                     'tanggal_surat' => now()->translatedFormat('d F Y'),
                 ]);
 
-                // 2) Convert to PDF
+                
                 $pdfPath = null;
                 try {
                     $pdfPath = $templateService->convertDocxToPdf($file);
                 } catch (\Throwable $e) {
-                    // Clean up generated docx
+                    
                     try {
                         Storage::disk('public')->delete($file);
                     } catch (\Throwable $_) {
@@ -145,11 +131,11 @@ class PengajuanSuratController extends Controller
                     throw $e;
                 }
 
-                // 3) Generate QR Token and QR image (after PDF exists)
+                
                 $qrToken = (string) Str::uuid();
                 $qrFile = $qrCodeService->generate($qrToken);
 
-                // 4) Create Dokumen record (store nomor_surat provided by admin)
+                
                 $dok = Dokumen::create([
                     'pengajuan_surat_id' => $pengajuan->id,
                     'nomor_dokumen' => $nomorDokumen,
@@ -161,7 +147,7 @@ class PengajuanSuratController extends Controller
                     'status' => 'tersedia',
                 ]);
 
-                // 5) Update Pengajuan
+                
                 $pengajuan->update([
                     'status' => 'disetujui',
                     'verified_at' => now(),
@@ -174,7 +160,7 @@ class PengajuanSuratController extends Controller
                 return $dok;
             });
         } catch (\Throwable $e) {
-            // Log detailed failure for SADESA
+            
             Log::error('SADESA APPROVE FAILED', [
                 'pengajuan_id' => $pengajuan->id,
                 'message' => $e->getMessage(),
@@ -193,9 +179,7 @@ class PengajuanSuratController extends Controller
             ->with('success', 'Pengajuan berhasil disetujui. Dokumen Word, PDF, dan QR Code berhasil dibuat.');
     }
 
-    /**
-     * Menolak pengajuan.
-     */
+    
     public function realtime(Request $request)
     {
         $admin = $request->user();
@@ -226,7 +210,7 @@ class PengajuanSuratController extends Controller
     {
         $admin = $request->user();
 
-        // include both pengajuan baru and masyarakat baru notification types
+        
         $allowedTypes = [
             'App\\Notifications\\PengajuanBaruNotification',
             'App\\Notifications\\MasyarakatBaruNotification',
@@ -309,12 +293,10 @@ class PengajuanSuratController extends Controller
             );
     }
 
-    /**
-     * Download Word doc for a dokumen (authorized).
-     */
+    
     public function downloadWord(Request $request, Dokumen $dokumen)
     {
-        // authorize via related pengajuan
+        
         $this->authorize('view', $dokumen->pengajuanSurat);
 
         if (! $dokumen->file || ! Storage::disk('public')->exists($dokumen->file)) {
@@ -333,9 +315,7 @@ class PengajuanSuratController extends Controller
         }, $filename);
     }
 
-    /**
-     * Download PDF for a dokumen (authorized).
-     */
+    
     public function downloadPdf(Request $request, Dokumen $dokumen)
     {
         $this->authorize('view', $dokumen->pengajuanSurat);
@@ -356,9 +336,6 @@ class PengajuanSuratController extends Controller
         }, $filename);
     }
 
-    /**
-     * Memastikan admin hanya dapat mengakses
-     * pengajuan dari desa miliknya.
-     */
-    // Authorization is handled by PengajuanSuratPolicy
+    
+    
 }

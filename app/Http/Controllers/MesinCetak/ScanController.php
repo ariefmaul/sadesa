@@ -15,7 +15,7 @@ class ScanController extends Controller
 {
     public function __construct()
     {
-        // Ensure only mesin role can access (accept both role values if present)
+        
         $this->middleware(['auth', 'role:mesin,mesin_cetak']);
     }
 
@@ -92,9 +92,9 @@ class ScanController extends Controller
                 ], 422);
             }
 
-            // Check already printed
+            
             if ($dokumen->dicetak_at !== null) {
-                // format using application timezone
+                
                 try {
                     $printedAt = \Carbon\Carbon::parse($dokumen->dicetak_at)->timezone(config('app.timezone'))->format('d F Y H:i');
                 } catch (\Throwable $_) {
@@ -108,7 +108,7 @@ class ScanController extends Controller
                 ]);
             }
 
-            // Check storage existence for debug purposes
+            
             if ($dokumen->dokumen_pdf) {
                 $exists = Storage::disk('public')->exists($dokumen->dokumen_pdf);
                 if (! $exists) {
@@ -118,7 +118,7 @@ class ScanController extends Controller
                     ]);
                 }
             } else {
-                // fallback: check original file
+                
                 $exists = Storage::disk('public')->exists($dokumen->file);
                 if (! $exists) {
                     Log::error('SADESA DOCUMENT FILE NOT FOUND (file)', [
@@ -128,15 +128,15 @@ class ScanController extends Controller
                 }
             }
 
-            // Determine PDF URL to use for printing.
+            
             $pdfUrl = null;
 
-            // Prefer dokumen_pdf column if set and file exists in public disk
+            
             if (! empty($dokumen->dokumen_pdf) && Storage::disk('public')->exists($dokumen->dokumen_pdf)) {
                 $pdfUrl = asset('storage/'.$dokumen->dokumen_pdf);
             }
 
-            // Fallback: if original file is a PDF and exists, use it
+            
             if (is_null($pdfUrl) && ! empty($dokumen->file)) {
                 $ext = strtolower(pathinfo($dokumen->file, PATHINFO_EXTENSION));
                 if ($ext === 'pdf' && Storage::disk('public')->exists($dokumen->file)) {
@@ -171,7 +171,7 @@ class ScanController extends Controller
             ]);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
-            // validation errors - return JSON payload
+            
             return response()->json([
                 'success' => false,
                 'message' => 'Token tidak valid.',
@@ -193,7 +193,7 @@ class ScanController extends Controller
 
     public function print(Dokumen $dokumen)
     {
-        // ensure mesin role already enforced by middleware
+        
         abort_unless($dokumen->status === 'tersedia' || $dokumen->status === 'dicetak', 404);
 
         return view('mesin.print', compact('dokumen'));
@@ -201,8 +201,8 @@ class ScanController extends Controller
 
     public function markPrinted(Request $request, Dokumen $dokumen, QrCodeService $qrCodeService)
     {
-        // ensure only mesin
-        // Use transaction + row lock to avoid race conditions across machines
+        
+        
         $updated = DB::transaction(function () use ($dokumen, $qrCodeService) {
             $d = Dokumen::where('id', $dokumen->id)->lockForUpdate()->first();
 
@@ -211,24 +211,24 @@ class ScanController extends Controller
             }
 
             if ($d->dicetak_at !== null) {
-                // already printed
+                
                 return false;
             }
 
-            // mark printed
+            
             $d->dicetak_at = now();
             $d->status = 'dicetak';
 
-            // Invalidate old QR token by generating a new non-print token
+            
             $newToken = (string) \Illuminate\Support\Str::uuid();
             $d->qr_token = $newToken;
 
-            // Generate a new QR image for history display (does not grant print rights because status != 'tersedia')
+            
             try {
                 $qrFile = $qrCodeService->generate($newToken);
                 $d->qr_file = $qrFile;
             } catch (\Throwable $e) {
-                // If QR generation fails, abort transaction
+                
                 throw $e;
             }
 

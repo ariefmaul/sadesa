@@ -1,193 +1,658 @@
 @php($admin = $adminDesa ?? null)
 
-<div>
-    <x-input-label for="name" value="Nama Lengkap" />
-    <x-text-input id="name" name="name" class="mt-1 block w-full" value="{{ old('name', $admin->name ?? '') }}"
-        required />
-    <x-input-error :messages="$errors->get('name')" class="mt-2" />
-</div>
+<div class="space-y-6">
 
+    {{-- =========================================================
+        NAMA LENGKAP
+    ========================================================== --}}
+    <div>
+        <x-input-label for="name" value="Nama Lengkap" class="mb-2 text-sm font-semibold text-[#0A2540]" />
 
+        <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0115 0" />
+                </svg>
+            </div>
 
-<div>
-    <x-input-label for="jenis_kelamin" value="Jenis Kelamin" />
-    <select id="jenis_kelamin" name="jenis_kelamin" required
-        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-        <option value="">Pilih jenis kelamin</option>
-        <option value="L" @selected(old('jenis_kelamin', $admin->jenis_kelamin ?? '') === 'L')>Laki-laki</option>
-        <option value="P" @selected(old('jenis_kelamin', $admin->jenis_kelamin ?? '') === 'P')>Perempuan</option>
-    </select>
-    <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
-</div>
-
-<div>
-    <x-input-label for="desa_id" value="Desa" />
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-            <select id="provinsi_id" name="provinsi_id" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Pilih provinsi</option>
-                @foreach ($provinsis as $prov)
-                    <option value="{{ $prov->id }}" @selected((string) old('provinsi_id', $selectedProvinsi ?? '') === (string) $prov->id)>{{ $prov->nama }}</option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('provinsi_id')" class="mt-2" />
+            <x-text-input id="name" name="name" type="text"
+                class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                value="{{ old('name', $admin->name ?? '') }}" placeholder="Contoh: Arief Maulana Rizki" required
+                autofocus />
         </div>
 
-        <div>
-            <select id="kota_id" name="kota_id"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Pilih provinsi terlebih dahulu</option>
+        <p class="mt-2 text-xs text-slate-500">
+            Masukkan nama lengkap sesuai identitas resmi.
+        </p>
+
+        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    </div>
+
+
+    {{-- =========================================================
+        JENIS KELAMIN
+    ========================================================== --}}
+    <div>
+        <x-input-label for="jenis_kelamin" value="Jenis Kelamin" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+        <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0115 0" />
+                </svg>
+            </div>
+
+            <select id="jenis_kelamin" name="jenis_kelamin" required
+                class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <option value="">Pilih jenis kelamin</option>
+
+                <option value="L" @selected(old('jenis_kelamin', $admin->jenis_kelamin ?? '') === 'L')>
+                    Laki-laki
+                </option>
+
+                <option value="P" @selected(old('jenis_kelamin', $admin->jenis_kelamin ?? '') === 'P')>
+                    Perempuan
+                </option>
             </select>
-            <x-input-error :messages="$errors->get('kota_id')" class="mt-2" />
+
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                </svg>
+            </div>
         </div>
 
-        <div>
-            <select id="kecamatan_id" name="kecamatan_id"
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Pilih kota/kab terlebih dahulu</option>
-            </select>
-            <x-input-error :messages="$errors->get('kecamatan_id')" class="mt-2" />
+        <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
+    </div>
+
+
+    {{-- =========================================================
+        WILAYAH DESA
+    ========================================================== --}}
+    <div>
+
+        <div class="mb-4">
+            <x-input-label for="desa_id" value="Wilayah Desa" class="text-sm font-semibold text-[#0A2540]" />
+
+            <p class="mt-1 text-xs text-slate-500">
+                Tentukan wilayah admin mulai dari provinsi hingga desa.
+            </p>
         </div>
 
-        <div>
-            <select id="desa_id" name="desa_id" required
-                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                <option value="">Pilih kecamatan terlebih dahulu</option>
-            </select>
-            <x-input-error :messages="$errors->get('desa_id')" class="mt-2" />
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+            {{-- PROVINSI --}}
+            <div>
+                <x-input-label for="provinsi_id" value="Provinsi" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+                <div class="relative">
+
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 21h16.5M5.25 21V5.25A2.25 2.25 0 017.5 3h9a2.25 2.25 0 012.25 2.25V21M9 7.5h.01M12 7.5h.01M15 7.5h.01M9 11.25h.01M12 11.25h.01M15 11.25h.01M9 15h.01M12 15h.01M15 15h.01" />
+                        </svg>
+                    </div>
+
+                    <select id="provinsi_id" name="provinsi_id" required
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                        <option value="">Pilih provinsi</option>
+
+                        @foreach ($provinsis as $prov)
+                            <option value="{{ $prov->id }}" @selected((string) old('provinsi_id', $selectedProvinsi ?? '') === (string) $prov->id)>
+                                {{ $prov->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                        </svg>
+                    </div>
+
+                </div>
+
+                <x-input-error :messages="$errors->get('provinsi_id')" class="mt-2" />
+            </div>
+
+
+            {{-- KOTA --}}
+            <div>
+                <x-input-label for="kota_id" value="Kota / Kabupaten"
+                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+                <div class="relative">
+
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.75 21h16.5M5.25 21V5.25A2.25 2.25 0 017.5 3h9a2.25 2.25 0 012.25 2.25V21M9 7.5h.01M12 7.5h.01M15 7.5h.01M9 11.25h.01M12 11.25h.01M15 11.25h.01M9 15h.01M12 15h.01M15 15h.01" />
+                        </svg>
+                    </div>
+
+                    <select id="kota_id" name="kota_id"
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                        <option value="">
+                            Pilih provinsi terlebih dahulu
+                        </option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                        </svg>
+                    </div>
+
+                </div>
+
+                <x-input-error :messages="$errors->get('kota_id')" class="mt-2" />
+            </div>
+
+
+            {{-- KECAMATAN --}}
+            <div>
+                <x-input-label for="kecamatan_id" value="Kecamatan"
+                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+                <div class="relative">
+
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 21s7-6.05 7-12a7 7 0 10-14 0c0 5.95 7 12 7 12z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 11a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                        </svg>
+                    </div>
+
+                    <select id="kecamatan_id" name="kecamatan_id"
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                        <option value="">
+                            Pilih kota/kab terlebih dahulu
+                        </option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                        </svg>
+                    </div>
+
+                </div>
+
+                <x-input-error :messages="$errors->get('kecamatan_id')" class="mt-2" />
+            </div>
+
+
+            {{-- DESA --}}
+            <div>
+                <x-input-label for="desa_id" value="Desa / Kelurahan"
+                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+                <div class="relative">
+
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 21h18M5 21V10.5L12 5l7 5.5V21M9 21v-5h6v5M8 10h.01M12 10h.01M16 10h.01" />
+                        </svg>
+                    </div>
+
+                    <select id="desa_id" name="desa_id" required
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                        <option value="">
+                            Pilih kecamatan terlebih dahulu
+                        </option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="1.8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                        </svg>
+                    </div>
+
+                </div>
+
+                <x-input-error :messages="$errors->get('desa_id')" class="mt-2" />
+            </div>
+
         </div>
     </div>
-    <x-input-error :messages="$errors->get('desa_id')" class="mt-2" />
+
+
+    {{-- =========================================================
+        EMAIL
+    ========================================================== --}}
+    <div>
+        <x-input-label for="email" value="Email" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+        <div class="relative">
+
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75V6.75z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 7.5l7.5 5.25 7.5-5.25" />
+                </svg>
+            </div>
+
+            <x-text-input id="email" name="email" type="email"
+                class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                value="{{ old('email', $admin->email ?? '') }}" placeholder="admin@contoh.go.id" required />
+
+        </div>
+
+        <p class="mt-2 text-xs text-slate-500">
+            Email digunakan untuk login ke sistem.
+        </p>
+
+        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    </div>
+
+
+    {{-- =========================================================
+        STATUS AKUN - EDIT SAJA
+    ========================================================== --}}
+    @if ($isEdit)
+        <div>
+            <x-input-label for="status_verifikasi" value="Status Akun"
+                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+            <div class="relative">
+
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" />
+                    </svg>
+                </div>
+
+                <select id="status_verifikasi" name="status_verifikasi" required
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                    <option value="disetujui" @selected(old('status_verifikasi', $admin->status_verifikasi) === 'disetujui')>
+                        Aktif
+                    </option>
+
+                    <option value="ditolak" @selected(old('status_verifikasi', $admin->status_verifikasi) === 'ditolak')>
+                        Nonaktif
+                    </option>
+                </select>
+
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <p class="mt-2 text-xs text-slate-500">
+                Atur status akun Admin Desa yang sedang diedit.
+            </p>
+
+            <x-input-error :messages="$errors->get('status_verifikasi')" class="mt-2" />
+        </div>
+    @endif
+
+
+    {{-- =========================================================
+        PASSWORD
+    ========================================================== --}}
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+
+        {{-- PASSWORD --}}
+        <div>
+            <x-input-label for="password" :value="$isEdit ? 'Password Baru' : 'Password'" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+            <div class="relative">
+
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M7.5 10.5V7.75a4.5 4.5 0 119 0v2.75" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 10.5h12v9H6v-9z" />
+                    </svg>
+                </div>
+
+                <x-text-input id="password" name="password" type="password"
+                    class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    :required="!$isEdit" autocomplete="new-password"
+                    placeholder="{{ $isEdit ? 'Kosongkan jika tidak diubah' : 'Masukkan password' }}" />
+
+            </div>
+
+            @if ($isEdit)
+                <p class="mt-2 text-xs text-slate-500">
+                    Kosongkan jika password tidak ingin diubah.
+                </p>
+            @endif
+
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+
+        {{-- KONFIRMASI PASSWORD --}}
+        <div>
+            <x-input-label for="password_confirmation" value="Konfirmasi Password"
+                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+
+            <div class="relative">
+
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M7.5 10.5V7.75a4.5 4.5 0 119 0v2.75" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 10.5h12v9H6v-9z" />
+                    </svg>
+                </div>
+
+                <x-text-input id="password_confirmation" name="password_confirmation" type="password"
+                    class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    :required="!$isEdit" autocomplete="new-password" placeholder="Ulangi password" />
+
+            </div>
+
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+    </div>
+
 </div>
 
+
+{{-- =============================================================
+    CASCADING WILAYAH
+============================================================= --}}
 @push('scripts')
     <script>
-        async function fetchJson(url) {
-            const res = await fetch(url, {
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            if (!res.ok) return [];
-            return await res.json();
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
+
             const provSelect = document.getElementById('provinsi_id');
             const kotaSelect = document.getElementById('kota_id');
             const kecSelect = document.getElementById('kecamatan_id');
             const desaSelect = document.getElementById('desa_id');
 
-            provSelect?.addEventListener('change', async function() {
-                kotaSelect.innerHTML = '<option value="">Memuat...</option>';
-                const provId = this.value;
-                if (!provId) {
-                    kotaSelect.innerHTML = '<option value="">Pilih provinsi terlebih dahulu</option>';
-                    return;
-                }
-                const kotas = await fetchJson(`/regions/regencies/${provId}`);
-                kotaSelect.innerHTML = '<option value="">Pilih kota/kab</option>' + kotas.map(k =>
-                    `<option value="${k.id}">${k.nama}</option>`).join('');
-                kotaSelect.dispatchEvent(new Event('change'));
-            });
+            if (!provSelect || !kotaSelect || !kecSelect || !desaSelect) {
+                return;
+            }
 
-            kotaSelect?.addEventListener('change', async function() {
-                kecSelect.innerHTML = '<option value="">Memuat...</option>';
-                const kotaId = this.value;
-                if (!kotaId) {
-                    kecSelect.innerHTML = '<option value="">Pilih kota/kab terlebih dahulu</option>';
-                    return;
-                }
-                const kecs = await fetchJson(`/regions/districts/${kotaId}`);
-                kecSelect.innerHTML = '<option value="">Pilih kecamatan</option>' + kecs.map(k =>
-                    `<option value="${k.id}">${k.nama}</option>`).join('');
-                kecSelect.dispatchEvent(new Event('change'));
-            });
 
-            kecSelect?.addEventListener('change', async function() {
-                desaSelect.innerHTML = '<option value="">Memuat...</option>';
-                const kecId = this.value;
-                if (!kecId) {
-                    desaSelect.innerHTML = '<option value="">Pilih kecamatan terlebih dahulu</option>';
-                    return;
-                }
-                const desas = await fetchJson(`/regions/villages/${kecId}`);
-                desaSelect.innerHTML = '<option value="">Pilih desa</option>' + desas.map(d =>
-                    `<option value="${d.id}">${d.nama}</option>`).join('');
-            });
-
-            // populate old/selected values
-            const oldProv = provSelect?.value || '{{ old('provinsi_id', $selectedProvinsi ?? '') }}';
-            const oldKota = '{{ old('kota_id', $selectedKota ?? '') }}';
-            const oldKec = '{{ old('kecamatan_id', $selectedKecamatan ?? '') }}';
-            const oldDesa = '{{ old('desa_id', $selectedDesa ?? ($admin->desa_id ?? '')) }}';
-
-            (async function populateOld() {
-                if (oldProv) {
-                    provSelect.value = oldProv;
-                    provSelect.dispatchEvent(new Event('change'));
-                    if (oldKota) {
-                        const waitKota = setInterval(() => {
-                            if (kotaSelect.options.length > 1) {
-                                clearInterval(waitKota);
-                                kotaSelect.value = oldKota;
-                                kotaSelect.dispatchEvent(new Event('change'));
-                            }
-                        }, 200);
-                        if (oldKec) {
-                            const waitKec = setInterval(() => {
-                                if (kecSelect.options.length > 1) {
-                                    clearInterval(waitKec);
-                                    kecSelect.value = oldKec;
-                                    kecSelect.dispatchEvent(new Event('change'));
-                                }
-                            }, 200);
-                            if (oldDesa) {
-                                const waitDesa = setInterval(() => {
-                                    if (desaSelect.options.length > 1) {
-                                        clearInterval(waitDesa);
-                                        desaSelect.value = oldDesa;
-                                    }
-                                }, 200);
-                            }
+            /* =========================================================
+               FETCH JSON
+            ========================================================== */
+            async function fetchJson(url) {
+                try {
+                    const res = await fetch(url, {
+                        headers: {
+                            'Accept': 'application/json'
                         }
+                    });
+
+                    if (!res.ok) {
+                        return [];
                     }
+
+                    return await res.json();
+
+                } catch (error) {
+                    console.error('Gagal mengambil data wilayah:', error);
+                    return [];
                 }
-            })();
+            }
+
+
+            /* =========================================================
+               RESET SELECT
+            ========================================================== */
+            function resetKota() {
+                kotaSelect.innerHTML =
+                    '<option value="">Pilih provinsi terlebih dahulu</option>';
+
+                kecSelect.innerHTML =
+                    '<option value="">Pilih kota/kab terlebih dahulu</option>';
+
+                desaSelect.innerHTML =
+                    '<option value="">Pilih kecamatan terlebih dahulu</option>';
+            }
+
+
+            function resetKecamatan() {
+                kecSelect.innerHTML =
+                    '<option value="">Pilih kota/kab terlebih dahulu</option>';
+
+                desaSelect.innerHTML =
+                    '<option value="">Pilih kecamatan terlebih dahulu</option>';
+            }
+
+
+            function resetDesa() {
+                desaSelect.innerHTML =
+                    '<option value="">Pilih kecamatan terlebih dahulu</option>';
+            }
+
+
+            /* =========================================================
+               PROVINSI -> KOTA
+            ========================================================== */
+            provSelect.addEventListener('change', async function() {
+
+                const provId = this.value;
+
+                resetKota();
+
+                if (!provId) {
+                    return;
+                }
+
+                kotaSelect.innerHTML =
+                    '<option value="">Memuat kota/kabupaten...</option>';
+
+                const kotas = await fetchJson(
+                    `/regions/regencies/${provId}`
+                );
+
+                kotaSelect.innerHTML =
+                    '<option value="">Pilih kota/kabupaten</option>' +
+                    kotas.map(k => `
+                <option value="${k.id}">
+                    ${k.nama}
+                </option>
+            `).join('');
+
+            });
+
+
+            /* =========================================================
+               KOTA -> KECAMATAN
+            ========================================================== */
+            kotaSelect.addEventListener('change', async function() {
+
+                const kotaId = this.value;
+
+                resetKecamatan();
+
+                if (!kotaId) {
+                    return;
+                }
+
+                kecSelect.innerHTML =
+                    '<option value="">Memuat kecamatan...</option>';
+
+                const kecs = await fetchJson(
+                    `/regions/districts/${kotaId}`
+                );
+
+                kecSelect.innerHTML =
+                    '<option value="">Pilih kecamatan</option>' +
+                    kecs.map(k => `
+                <option value="${k.id}">
+                    ${k.nama}
+                </option>
+            `).join('');
+
+            });
+
+
+            /* =========================================================
+               KECAMATAN -> DESA
+            ========================================================== */
+            kecSelect.addEventListener('change', async function() {
+
+                const kecId = this.value;
+
+                resetDesa();
+
+                if (!kecId) {
+                    return;
+                }
+
+                desaSelect.innerHTML =
+                    '<option value="">Memuat desa...</option>';
+
+                const desas = await fetchJson(
+                    `/regions/villages/${kecId}`
+                );
+
+                desaSelect.innerHTML =
+                    '<option value="">Pilih desa</option>' +
+                    desas.map(d => `
+                <option value="${d.id}">
+                    ${d.nama}
+                </option>
+            `).join('');
+
+            });
+
+
+            /* =========================================================
+               OLD / SELECTED VALUES
+            ========================================================== */
+            const oldProv =
+                @json(old('provinsi_id', $selectedProvinsi ?? ''));
+
+            const oldKota =
+                @json(old('kota_id', $selectedKota ?? ''));
+
+            const oldKec =
+                @json(old('kecamatan_id', $selectedKecamatan ?? ''));
+
+            const oldDesa =
+                @json(old('desa_id', $selectedDesa ?? ($admin->desa_id ?? '')));
+
+
+            /* =========================================================
+               POPULATE DATA SAAT EDIT / VALIDATION ERROR
+            ========================================================== */
+            async function populateOldValues() {
+
+                /* -------------------------
+                   PROVINSI
+                ------------------------- */
+                if (!oldProv) {
+                    return;
+                }
+
+                provSelect.value = oldProv;
+
+                kotaSelect.innerHTML =
+                    '<option value="">Memuat kota/kabupaten...</option>';
+
+                const kotas = await fetchJson(
+                    `/regions/regencies/${oldProv}`
+                );
+
+                kotaSelect.innerHTML =
+                    '<option value="">Pilih kota/kabupaten</option>' +
+                    kotas.map(k => `
+                <option value="${k.id}">
+                    ${k.nama}
+                </option>
+            `).join('');
+
+
+                /* -------------------------
+                   KOTA
+                ------------------------- */
+                if (!oldKota) {
+                    return;
+                }
+
+                kotaSelect.value = oldKota;
+
+                kecSelect.innerHTML =
+                    '<option value="">Memuat kecamatan...</option>';
+
+                const kecs = await fetchJson(
+                    `/regions/districts/${oldKota}`
+                );
+
+                kecSelect.innerHTML =
+                    '<option value="">Pilih kecamatan</option>' +
+                    kecs.map(k => `
+                <option value="${k.id}">
+                    ${k.nama}
+                </option>
+            `).join('');
+
+
+                /* -------------------------
+                   KECAMATAN
+                ------------------------- */
+                if (!oldKec) {
+                    return;
+                }
+
+                kecSelect.value = oldKec;
+
+                desaSelect.innerHTML =
+                    '<option value="">Memuat desa...</option>';
+
+                const desas = await fetchJson(
+                    `/regions/villages/${oldKec}`
+                );
+
+                desaSelect.innerHTML =
+                    '<option value="">Pilih desa</option>' +
+                    desas.map(d => `
+                <option value="${d.id}">
+                    ${d.nama}
+                </option>
+            `).join('');
+
+
+                /* -------------------------
+                   DESA
+                ------------------------- */
+                if (oldDesa) {
+                    desaSelect.value = oldDesa;
+                }
+            }
+
+
+            populateOldValues();
+
         });
     </script>
 @endpush
-
-<div>
-    <x-input-label for="email" value="Email" />
-    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-        value="{{ old('email', $admin->email ?? '') }}" required />
-    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-</div>
-
-@if ($isEdit)
-    <div>
-        <x-input-label for="status_verifikasi" value="Status Akun" />
-        <select id="status_verifikasi" name="status_verifikasi" required
-            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="disetujui" @selected(old('status_verifikasi', $admin->status_verifikasi) === 'disetujui')>Aktif</option>
-            <option value="ditolak" @selected(old('status_verifikasi', $admin->status_verifikasi) === 'ditolak')>Nonaktif</option>
-        </select>
-        <x-input-error :messages="$errors->get('status_verifikasi')" class="mt-2" />
-    </div>
-@endif
-
-<div class="grid gap-5 md:grid-cols-2">
-    <div>
-        <x-input-label for="password" :value="$isEdit ? 'Password Baru' : 'Password'" />
-        <x-text-input id="password" name="password" type="password" class="mt-1 block w-full" :required="!$isEdit"
-            autocomplete="new-password" />
-        <x-input-error :messages="$errors->get('password')" class="mt-2" />
-    </div>
-    <div>
-        <x-input-label for="password_confirmation" value="Konfirmasi Password" />
-        <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full"
-            :required="!$isEdit" autocomplete="new-password" />
-    </div>
-</div>

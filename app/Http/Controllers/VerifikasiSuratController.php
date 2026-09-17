@@ -16,7 +16,6 @@ class VerifikasiSuratController extends Controller
             ->where('status', 'tersedia')
             ->firstOrFail();
 
-        // Limit exposed data for public verification to avoid leaking PII
         $public = (object) [
             'id' => $dokumen->id,
             'nomor_dokumen' => $dokumen->nomor_dokumen,

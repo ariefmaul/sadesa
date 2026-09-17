@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\Admin\AdminDesaController;
 use App\Http\Controllers\Admin\DesaController;
+use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\KotaController;
 use App\Http\Controllers\Admin\MasyarakatVerificationController;
 use App\Http\Controllers\Admin\PengajuanSuratController as AdminPengajuanSuratController;
 use App\Http\Controllers\Admin\PengumumanDesaController as AdminPengumumanDesaController;
+use App\Http\Controllers\Admin\ProvinsiController;
 use App\Http\Controllers\Admin\TemplateSuratController;
 use App\Http\Controllers\Admin\TransparansiAnggaranController as AdminTransparansiAnggaranController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Masyarakat\PengajuanSuratController;
 use App\Http\Controllers\Masyarakat\PengumumanDesaController as MasyarakatPengumumanController;
 use App\Http\Controllers\Masyarakat\ProfilMasyarakatController;
@@ -14,8 +18,12 @@ use App\Http\Controllers\Masyarakat\TransparansiAnggaranController as Masyarakat
 use App\Http\Controllers\Mesin\MesinController;
 use App\Http\Controllers\MesinCetak\ScanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\SuratValidationController;
 use App\Http\Controllers\VerifikasiSuratController;
+use App\Models\JenisSurat;
+use App\Models\PengumumanDesa;
+use App\Models\TransparansiAnggaran;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])
@@ -55,7 +63,39 @@ Route::get('/surat/validasi/{token}', [
 ])->name('surat.validasi');
 
 Route::get('/', function () {
-    return view('welcome');
+    
+    
+    $desa = null;
+
+    $pengumuman = PengumumanDesa::query()
+        ->where('status', 'published')
+        ->latest('published_at')
+        ->take(4)
+        ->get();
+
+    $transparansi = TransparansiAnggaran::query()
+        ->where('status', 'published')
+        ->latest('published_at')
+        ->take(3)
+        ->get();
+
+    $templateSurat = JenisSurat::query()
+        ->where('aktif', true)
+        ->orderBy('nama')
+        ->get();
+
+    
+    $counts = [
+        'provinsi' => \App\Models\Provinsi::query()->count(),
+        'kota' => \App\Models\Kota::query()->count(),
+        'kecamatan' => \App\Models\Kecamatan::query()->count(),
+        'desa' => \App\Models\Desa::query()->count(),
+        'templateSurat' => $templateSurat->count(),
+        'pengumuman' => $pengumuman->count(),
+        'transparansi' => $transparansi->count(),
+    ];
+
+    return view('welcome', compact('desa', 'pengumuman', 'transparansi', 'templateSurat', 'counts'));
 });
 
 Route::get('/dashboard', function () {
@@ -68,24 +108,93 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:super_admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('desa', DesaController::class)->except('show')->names('desa');
-    Route::resource('provinsi', App\Http\Controllers\Admin\ProvinsiController::class)->except('show')->names('provinsi');
-    Route::resource('kota', App\Http\Controllers\Admin\KotaController::class)->except('show')->names('kota');
-    Route::resource('kecamatan', App\Http\Controllers\Admin\KecamatanController::class)->except('show')->names('kecamatan');
-    Route::resource('admin-desa', AdminDesaController::class)
-        ->except('show')
-        ->parameters(['admin-desa' => 'adminDesa'])
-        ->names('admin-desa');
-});
+Route::middleware(['auth', 'role:super_admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-// Region JSON endpoints used for chained selects (public)
-Route::get('/regions/provinces', [App\Http\Controllers\RegionController::class, 'provinces']);
-Route::get('/regions/regencies/{provinsi}', [App\Http\Controllers\RegionController::class, 'regencies']);
-Route::get('/regions/districts/{kota}', [App\Http\Controllers\RegionController::class, 'districts']);
-Route::get('/regions/villages/{kecamatan}', [App\Http\Controllers\RegionController::class, 'villages']);
+        Route::resource('desa', DesaController::class)
+            ->except('show')
+            ->names('desa');
+
+        Route::resource(
+            'provinsi',
+            ProvinsiController::class
+        )
+            ->except('show')
+            ->names('provinsi');
+
+        
+        
+        
+
+        Route::get('kota', [
+            KotaController::class,
+            'index',
+        ])->name('kota.index');
+
+        Route::get('kota/create', [
+            KotaController::class,
+            'create',
+        ])->name('kota.create');
+
+        Route::post('kota', [
+            KotaController::class,
+            'store',
+        ])->name('kota.store');
+
+        Route::get('kota/{kota}/edit', [
+            KotaController::class,
+            'edit',
+        ])->name('kota.edit');
+
+        Route::put('kota/{kota}', [
+            KotaController::class,
+            'update',
+        ])->name('kota.update');
+
+        Route::patch('kota/{kota}', [
+            KotaController::class,
+            'update',
+        ])->name('kota.update.patch');
+
+        Route::delete('kota/{kota}', [
+            KotaController::class,
+            'destroy',
+        ])->name('kota.destroy');
+
+        
+        
+        
+
+        Route::resource('kecamatan', KecamatanController::class)
+            ->except('show')
+            ->names('kecamatan');
+
+        Route::resource('admin-desa', AdminDesaController::class)
+            ->except('show')
+            ->parameters(['admin-desa' => 'adminDesa'])
+            ->names('admin-desa');
+
+        Route::resource('users', UserController::class)
+            ->except('show')
+            ->names('users');
+    });
+
+
+Route::get('/regions/provinces', [RegionController::class, 'provinces']);
+Route::get('/regions/regencies/{provinsi}', [RegionController::class, 'regencies']);
+Route::get('/regions/districts/{kota}', [RegionController::class, 'districts']);
+Route::get('/regions/villages/{kecamatan}', [RegionController::class, 'villages']);
 
 Route::middleware(['auth', 'role:admin_desa'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('akun', [UserController::class, 'desaIndex'])->name('akun.index');
+    Route::get('akun/create', [UserController::class, 'create'])->name('akun.create');
+    Route::post('akun', [UserController::class, 'store'])->name('akun.store');
+    Route::get('akun/{user}/edit', [UserController::class, 'edit'])->name('akun.edit');
+    Route::put('akun/{user}', [UserController::class, 'update'])->name('akun.update');
+    Route::delete('akun/{user}', [UserController::class, 'destroy'])->name('akun.destroy');
+
     Route::get('masyarakat', [MasyarakatVerificationController::class, 'index'])->name('masyarakat.index');
     Route::get('masyarakat/{masyarakat}', [MasyarakatVerificationController::class, 'show'])->name('masyarakat.show');
     Route::patch('masyarakat/{masyarakat}/approve', [MasyarakatVerificationController::class, 'approve'])->name('masyarakat.approve');
@@ -100,7 +209,7 @@ Route::middleware(['auth', 'role:admin_desa'])->prefix('admin')->name('admin.')-
     Route::patch('pengajuan/{pengajuan}/approve', [AdminPengajuanSuratController::class, 'approve'])->name('pengajuan.approve.patch');
     Route::post('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject');
     Route::patch('pengajuan/{pengajuan}/reject', [AdminPengajuanSuratController::class, 'reject'])->name('pengajuan.reject.patch');
-    // secure dokumen download endpoints (only admin desa for same desa can download)
+    
     Route::get('pengajuan/dokumen/{dokumen}/word', [AdminPengajuanSuratController::class, 'downloadWord'])->name('pengajuan.dokumen.word');
     Route::get('pengajuan/dokumen/{dokumen}/pdf', [AdminPengajuanSuratController::class, 'downloadPdf'])->name('pengajuan.dokumen.pdf');
 
@@ -162,7 +271,7 @@ Route::middleware(['auth', 'role:masyarakat'])->prefix('masyarakat')->name('masy
         ->name('transparansi.download');
 });
 
-// Mesin cetak (QR scanner)
+
 Route::middleware(['auth', 'role:mesin,mesin_cetak'])->prefix('mesin')->name('mesin.')->group(function () {
     Route::get('scan', [ScanController::class, 'index'])->name('scan');
     Route::get('verifikasi/{token}', [ScanController::class, 'verify'])->name('verifikasi');

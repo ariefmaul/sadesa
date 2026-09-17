@@ -30,7 +30,7 @@ class SuratFieldResolver
                 'nomor_kk' => $profil?->nomor_kk,
                 'tempat_lahir' => $profil?->tempat_lahir,
                 'tanggal_lahir' => $this->formatDate($profil?->tanggal_lahir),
-                // combined field commonly used in templates
+                
                 'tempat_tanggal_lahir' => trim(($profil?->tempat_lahir ? $profil->tempat_lahir.', ' : '').($this->formatDate($profil?->tanggal_lahir) ?? '')) ?: null,
                 'alamat' => $profil?->alamat,
                 'rt' => $profil?->rt,
@@ -70,34 +70,34 @@ class SuratFieldResolver
         $automatic = $this->automaticData($user);
         $snapshot = [];
 
-        // If jenis surat has no configured fields, fall back to full automatic data
-        // flattened so templates can still use profile data without requiring form fields.
+        
+        
         if ($jenisSurat->fields->isEmpty()) {
-            // flatten automatic into top-level keys, preferring user/profile keys
+            
             $flat = [];
-            // user
+            
             foreach ($automatic['user'] ?? [] as $k => $v) {
                 $flat[$k] = $v;
             }
-            // profil
+            
             foreach ($automatic['profil'] ?? [] as $k => $v) {
                 if (! isset($flat[$k]) || $flat[$k] === null || $flat[$k] === '') {
                     $flat[$k] = $v;
                 }
             }
-            // desa
+            
             foreach ($automatic['desa'] ?? [] as $k => $v) {
                 if (! isset($flat[$k]) || $flat[$k] === null || $flat[$k] === '') {
                     $flat[$k] = $v;
                 }
             }
 
-            // merge pengajuan data (overrides profile if provided)
+            
             return array_merge($flat, $dataPengajuan ?? []);
         }
 
-        // First, include all automatic user/profile/desa data into snapshot
-        // so snapshot contains full user profile by default.
+        
+        
         foreach ($automatic['user'] ?? [] as $k => $v) {
             $snapshot[$k] = $v;
         }
@@ -112,12 +112,12 @@ class SuratFieldResolver
             }
         }
 
-        // Build snapshot per-field honoring source_data (pengajuan overrides profile where specified)
+        
         foreach ($jenisSurat->fields as $field) {
             $name = $field->fieldName();
             $source = $field->sourceData();
 
-            // normalize common source names
+            
             $sourceNormalized = match (strtolower($source)) {
                 'profile' => 'profil',
                 'profil' => 'profil',
@@ -127,14 +127,14 @@ class SuratFieldResolver
             };
 
             if ($sourceNormalized === 'pengajuan') {
-                // pengajuan fields override profile values for that field
+                
                 $snapshot[$name] = $dataPengajuan[$name] ?? null;
 
                 continue;
             }
 
-            // for profile/user/desa sources, if the flattened snapshot already contains a value,
-            // keep it. If not, try to fetch specifically.
+            
+            
             $existing = $snapshot[$name] ?? null;
 
             if ($existing === null || $existing === '') {
@@ -154,12 +154,12 @@ class SuratFieldResolver
 
                 $snapshot[$name] = $value ?? null;
             } else {
-                // keep existing flattened value
+                
                 $snapshot[$name] = $existing;
             }
         }
 
-        // Debug log snapshot composition
+        
         Log::info('SADESA SNAPSHOT DEBUG', [
             'user_id' => $user->id ?? null,
             'pengajuan_fields' => $dataPengajuan,
@@ -177,18 +177,18 @@ class SuratFieldResolver
     {
         $pengajuan->loadMissing(['jenisSurat.fields', 'user.desa', 'user.profilMasyarakat']);
 
-        // Use existing snapshot if present, otherwise generate one
+        
         $snapshot = $pengajuan->data_snapshot ?? $this->snapshotFor(
             $pengajuan->jenisSurat,
             $pengajuan->user,
             $pengajuan->data_pengajuan ?? []
         );
 
-        // Template data should primarily come from snapshot, then overlay any pengajuan inputs
+        
         $data = array_merge($snapshot, $pengajuan->data_pengajuan ?? []);
 
-        // Normalize date-like values (submitted as Y-m-d from forms) into human-readable
-        // format expected by templates (d F Y) so Word receives tanggal-bulan-tahun order.
+        
+        
         foreach ($data as $key => $val) {
             $formatted = $this->formatDate($val);
             if ($formatted !== $val) {
@@ -196,7 +196,7 @@ class SuratFieldResolver
             }
         }
 
-        // Debug log
+        
         Log::info('SADESA TEMPLATE DATA DEBUG', [
             'pengajuan_id' => $pengajuan->id ?? null,
             'snapshot' => $snapshot,
@@ -227,12 +227,12 @@ class SuratFieldResolver
         }
 
         if (is_string($value)) {
-            // detect ISO date strings like YYYY-MM-DD or full datetime and format
+            
             if (preg_match('/^\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2})?$/', $value)) {
                 try {
                     return Carbon::parse($value)->locale('id')->translatedFormat('d F Y');
                 } catch (\Throwable $_) {
-                    // fallback to original string
+                    
                 }
             }
         }

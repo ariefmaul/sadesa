@@ -36,7 +36,7 @@
                                         Surat telah diproses.
                                     </p>
 
-                                    {{-- If not printed: show active QR and nomor_surat --}}
+                                    
                                     @if (!$pengajuan->dokumen->dicetak_at)
                                         <div class="mt-6 flex justify-center">
                                             @if ($pengajuan->dokumen->qr_file)
@@ -88,10 +88,31 @@
                         </table>
                     </div>
 
+
+                    @php
+                        $backUrl =
+                            request('from') === 'riwayat'
+                                ? route('masyarakat.pengajuan.riwayat')
+                                : route('masyarakat.pengajuan.index');
+                    @endphp
+
                     <div class="mt-8">
-                        <a href="{{ route('masyarakat.pengajuan.index') }}"
-                            class="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Kembali</a>
+                        <a href="{{ $backUrl }}"
+                            class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="1.8">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+
+                            </svg>
+
+                            Kembali
+
+                        </a>
                     </div>
+
+
                 </div>
             </div>
         </div>
