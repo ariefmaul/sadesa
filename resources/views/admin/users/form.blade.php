@@ -2,47 +2,50 @@
 
 <div class="space-y-6">
     <div>
-        <x-input-label for="name" value="Nama Lengkap" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-        <x-text-input id="name" name="name" type="text"
+        <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="name" value="Nama Lengkap" />
+        <x-text-input
             class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-4 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-            value="{{ old('name', $userModel->name ?? '') }}" placeholder="Contoh: Arief Maulana Rizki" required
-            autofocus />
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            id="name" name="name" type="text" value="{{ old('name', $userModel->name ?? '') }}"
+            placeholder="Contoh: Arief Maulana Rizki" required autofocus />
+        <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-            <x-input-label for="nik" value="NIK" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-            <x-text-input id="nik" name="nik" type="text"
-                class="mt-0 block w-full rounded-xl border-slate-200 py-3 px-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                value="{{ old('nik', $userModel->nik ?? '') }}" placeholder="16 digit NIK" maxlength="16" />
-            <x-input-error :messages="$errors->get('nik')" class="mt-2" />
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="nik" value="NIK" />
+            <x-text-input
+                class="mt-0 block w-full rounded-xl border-slate-200 px-4 py-3 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="nik" name="nik" type="text" value="{{ old('nik', $userModel->nik ?? '') }}"
+                placeholder="16 digit NIK" maxlength="16" />
+            <x-input-error class="mt-2" :messages="$errors->get('nik')" />
         </div>
 
         <div>
-            <x-input-label for="jenis_kelamin" value="Jenis Kelamin"
-                class="mb-2 text-sm font-semibold text-[#0A2540]" />
-            <select id="jenis_kelamin" name="jenis_kelamin" required
-                class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="jenis_kelamin"
+                value="Jenis Kelamin" />
+            <select
+                class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="jenis_kelamin" name="jenis_kelamin" required>
                 <option value="">Pilih jenis kelamin</option>
                 <option value="L" @selected(old('jenis_kelamin', $userModel->jenis_kelamin ?? '') === 'L')>Laki-laki</option>
                 <option value="P" @selected(old('jenis_kelamin', $userModel->jenis_kelamin ?? '') === 'P')>Perempuan</option>
             </select>
-            <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('jenis_kelamin')" />
         </div>
     </div>
 
     <div>
         <div class="mb-4">
-            <x-input-label for="desa_id" value="Wilayah Desa" class="text-sm font-semibold text-[#0A2540]" />
+            <x-input-label class="text-sm font-semibold text-[#0A2540]" for="desa_id" value="Wilayah Desa" />
             <p class="mt-1 text-xs text-slate-500">Tentukan wilayah user di desa.</p>
         </div>
 
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
-                <x-input-label for="provinsi_id" value="Provinsi" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="provinsi_id" name="provinsi_id" required
-                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="provinsi_id" value="Provinsi" />
+                <select
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="provinsi_id" name="provinsi_id" required>
                     <option value="">Pilih provinsi</option>
                     @foreach ($provinsis as $prov)
                         <option value="{{ $prov->id }}" @selected((string) old('provinsi_id', $selectedProvinsi ?? '') === (string) $prov->id)>
@@ -50,104 +53,112 @@
                         </option>
                     @endforeach
                 </select>
-                <x-input-error :messages="$errors->get('provinsi_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('provinsi_id')" />
             </div>
 
             <div>
-                <x-input-label for="kota_id" value="Kota / Kabupaten"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="kota_id" name="kota_id"
-                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="kota_id"
+                    value="Kota / Kabupaten" />
+                <select
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="kota_id" name="kota_id">
                     <option value="">Pilih provinsi terlebih dahulu</option>
                 </select>
-                <x-input-error :messages="$errors->get('kota_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('kota_id')" />
             </div>
 
             <div>
-                <x-input-label for="kecamatan_id" value="Kecamatan" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="kecamatan_id" name="kecamatan_id"
-                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="kecamatan_id" value="Kecamatan" />
+                <select
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="kecamatan_id" name="kecamatan_id">
                     <option value="">Pilih kota/kab terlebih dahulu</option>
                 </select>
-                <x-input-error :messages="$errors->get('kecamatan_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('kecamatan_id')" />
             </div>
 
             <div>
-                <x-input-label for="desa_id" value="Desa / Kelurahan"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="desa_id" name="desa_id" required
-                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="desa_id"
+                    value="Desa / Kelurahan" />
+                <select
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-4 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="desa_id" name="desa_id" required>
                     <option value="">Pilih kecamatan terlebih dahulu</option>
                 </select>
-                <x-input-error :messages="$errors->get('desa_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('desa_id')" />
             </div>
         </div>
     </div>
 
     <div>
-        <x-input-label for="email" value="Email" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-        <x-text-input id="email" name="email" type="email"
+        <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="email" value="Email" />
+        <x-text-input
             class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-4 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-            value="{{ old('email', $userModel->email ?? '') }}" placeholder="user@contoh.com" required />
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            id="email" name="email" type="email" value="{{ old('email', $userModel->email ?? '') }}"
+            placeholder="user@contoh.com" required />
+        <x-input-error class="mt-2" :messages="$errors->get('email')" />
     </div>
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-            <x-input-label for="role" value="Role" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-            <select id="role" name="role" required
-                class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="role" value="Role" />
+            <select
+                class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="role" name="role" required>
                 <option value="masyarakat" @selected(old('role', $userModel->role ?? 'masyarakat') === 'masyarakat')>Masyarakat</option>
                 <option value="admin_desa" @selected(old('role', $userModel->role ?? 'masyarakat') === 'admin_desa')>Admin Desa</option>
                 <option value="mesin" @selected(old('role', $userModel->role ?? 'masyarakat') === 'mesin')>Mesin</option>
             </select>
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('role')" />
         </div>
 
         @if ($isEdit)
             <div>
-                <x-input-label for="status_verifikasi" value="Status Akun"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="status_verifikasi" name="status_verifikasi" required
-                    class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="status_verifikasi"
+                    value="Status Akun" />
+                <select
+                    class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="status_verifikasi" name="status_verifikasi" required>
                     <option value="menunggu" @selected(old('status_verifikasi', $userModel->status_verifikasi ?? 'menunggu') === 'menunggu')>Menunggu</option>
                     <option value="disetujui" @selected(old('status_verifikasi', $userModel->status_verifikasi ?? 'menunggu') === 'disetujui')>Disetujui</option>
                     <option value="ditolak" @selected(old('status_verifikasi', $userModel->status_verifikasi ?? 'menunggu') === 'ditolak')>Ditolak</option>
                 </select>
-                <x-input-error :messages="$errors->get('status_verifikasi')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('status_verifikasi')" />
             </div>
         @else
             <div>
-                <x-input-label for="status_verifikasi" value="Status Akun"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
-                <select id="status_verifikasi" name="status_verifikasi" required
-                    class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="status_verifikasi"
+                    value="Status Akun" />
+                <select
+                    class="mt-0 block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="status_verifikasi" name="status_verifikasi" required>
                     <option value="menunggu" @selected(old('status_verifikasi', 'menunggu') === 'menunggu')>Menunggu</option>
                     <option value="disetujui" @selected(old('status_verifikasi', 'menunggu') === 'disetujui')>Disetujui</option>
                     <option value="ditolak" @selected(old('status_verifikasi', 'menunggu') === 'ditolak')>Ditolak</option>
                 </select>
-                <x-input-error :messages="$errors->get('status_verifikasi')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('status_verifikasi')" />
             </div>
         @endif
     </div>
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-            <x-input-label for="password" :value="$isEdit ? 'Password Baru' : 'Password'" class="mb-2 text-sm font-semibold text-[#0A2540]" />
-            <x-text-input id="password" name="password" type="password"
-                class="mt-0 block w-full rounded-xl border-slate-200 py-3 px-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                :required="!$isEdit" autocomplete="new-password"
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="password" :value="$isEdit ? 'Password Baru' : 'Password'" />
+            <x-text-input
+                class="mt-0 block w-full rounded-xl border-slate-200 px-4 py-3 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="password" name="password" type="password" :required="!$isEdit" autocomplete="new-password"
                 placeholder="{{ $isEdit ? 'Kosongkan jika tidak diubah' : 'Masukkan password' }}" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('password')" />
         </div>
 
         <div>
-            <x-input-label for="password_confirmation" value="Konfirmasi Password"
-                class="mb-2 text-sm font-semibold text-[#0A2540]" />
-            <x-text-input id="password_confirmation" name="password_confirmation" type="password"
-                class="mt-0 block w-full rounded-xl border-slate-200 py-3 px-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                :required="!$isEdit" autocomplete="new-password" placeholder="Ulangi password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="password_confirmation"
+                value="Konfirmasi Password" />
+            <x-text-input
+                class="mt-0 block w-full rounded-xl border-slate-200 px-4 py-3 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="password_confirmation" name="password_confirmation" type="password" :required="!$isEdit"
+                autocomplete="new-password" placeholder="Ulangi password" />
+            <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
         </div>
     </div>
 </div>

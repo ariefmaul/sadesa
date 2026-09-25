@@ -10,9 +10,7 @@ class MasyarakatBaruNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public User $user)
-    {
-    }
+    public function __construct(public User $user) {}
 
     public function via(object $notifiable): array
     {

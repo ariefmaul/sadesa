@@ -1,17 +1,12 @@
 <section>
 
-    
-    
-    
-
     <header>
 
         <div class="flex items-start gap-4">
 
-            
             <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B3D91]/10 text-[#0B3D91]">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="1.8">
 
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -23,15 +18,13 @@
 
             </div>
 
-
-            
             <div>
 
                 <h2 class="text-lg font-bold tracking-tight text-[#0A2540] sm:text-xl">
                     {{ __('Profile Information') }}
                 </h2>
 
-                <p class="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
+                <p class="max-w-2xl mt-1 text-sm leading-6 text-slate-500">
                     {{ __("Update your account's profile information and email address.") }}
                 </p>
 
@@ -41,42 +34,26 @@
 
     </header>
 
-
-    
-    
-    
-
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
 
         @csrf
 
     </form>
 
-
-    
-    
-    
-
-    <form method="post" action="{{ route('profile.update') }}" class="mt-8 space-y-7">
+    <form class="mt-8 space-y-7" method="post" action="{{ route('profile.update') }}">
 
         @csrf
         @method('patch')
 
-
-        
-        
-        
-
         <div>
 
-            <x-input-label for="name" :value="__('Name')" class="font-semibold text-[#0A2540]" />
+            <x-input-label class="font-semibold text-[#0A2540]" for="name" :value="__('Name')" />
 
             <div class="relative mt-2">
 
-                
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="1.8">
 
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -88,10 +65,10 @@
 
                 </div>
 
-
-                <x-text-input id="name" name="name" type="text"
+                <x-text-input
                     class="mt-1 block w-full rounded-xl border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:bg-white focus:ring-[#2563EB]"
-                    :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                    id="name" name="name" type="text" :value="old('name', $user->name)" required autofocus
+                    autocomplete="name" />
 
             </div>
 
@@ -99,21 +76,15 @@
 
         </div>
 
-
-        
-        
-        
-
         <div>
 
-            <x-input-label for="email" :value="__('Email')" class="font-semibold text-[#0A2540]" />
+            <x-input-label class="font-semibold text-[#0A2540]" for="email" :value="__('Email')" />
 
             <div class="relative mt-2">
 
-                
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="1.8">
 
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75V6.75Z" />
@@ -124,31 +95,24 @@
 
                 </div>
 
-
-                <x-text-input id="email" name="email" type="email"
+                <x-text-input
                     class="mt-1 block w-full rounded-xl border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:bg-white focus:ring-[#2563EB]"
-                    :value="old('email', $user->email)" required autocomplete="username" />
+                    id="email" name="email" type="email" :value="old('email', $user->email)" required autocomplete="username" />
 
             </div>
 
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
-
-            
-            
-            
-
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !$user->hasVerifiedEmail())
 
-                <div class="mt-4 overflow-hidden rounded-2xl border border-amber-200 bg-amber-50">
+                <div class="mt-4 overflow-hidden border rounded-2xl border-amber-200 bg-amber-50">
 
                     <div class="flex items-start gap-3 p-4">
 
-                        
                         <div
-                            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700">
+                            class="flex items-center justify-center rounded-lg h-9 w-9 shrink-0 bg-amber-100 text-amber-700">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
 
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -158,8 +122,6 @@
 
                         </div>
 
-
-                        
                         <div class="min-w-0">
 
                             <p class="text-sm font-semibold text-amber-900">
@@ -171,14 +133,13 @@
                                 akun tetap aman dan dapat digunakan dengan baik.
                             </p>
 
-
-                            
-                            <button form="send-verification"
-                                class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B3D91] underline decoration-[#0B3D91]/30 underline-offset-4 transition hover:text-[#2563EB] hover:decoration-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                            <button
+                                class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B3D91] underline decoration-[#0B3D91]/30 underline-offset-4 transition hover:text-[#2563EB] hover:decoration-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                form="send-verification">
 
                                 {{ __('Click here to re-send the verification email.') }}
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24"
+                                <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -188,13 +149,11 @@
 
                             </button>
 
-
-                            
                             @if (session('status') === 'verification-link-sent')
                                 <div
                                     class="mt-3 flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-3 py-2.5">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-[#16A34A]"
+                                    <svg class="h-4 w-4 shrink-0 text-[#16A34A]" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -218,18 +177,12 @@
 
         </div>
 
+        <div class="flex flex-col gap-4 pt-6 border-t border-slate-100 sm:flex-row sm:items-center">
 
-        
-        
-        
-
-        <div class="flex flex-col gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:items-center">
-
-            
             <x-primary-button
                 class="inline-flex justify-center rounded-xl bg-[#0B3D91] px-6 py-3 text-sm font-semibold shadow-sm transition duration-200 hover:bg-[#0A2540] focus:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2">
 
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4 4L19 7" />
@@ -240,15 +193,13 @@
 
             </x-primary-button>
 
-
-            
             @if (session('status') === 'profile-updated')
-                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2500)"
-                    class="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A]">
+                <p class="inline-flex items-center gap-2 text-sm font-medium text-[#16A34A]" x-data="{ show: true }"
+                    x-show="show" x-transition x-init="setTimeout(() => show = false, 2500)">
 
-                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-green-50">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-green-50">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24"
+                        <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2">
 
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4 4L19 7" />

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 // Desa no longer loaded here; regions loaded dynamically
+use App\Models\Desa;
+use App\Models\Provinsi;
 use App\Models\User;
 use App\Notifications\MasyarakatBaruNotification;
 use Illuminate\Auth\Events\Registered;
@@ -22,7 +24,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
+        $provinsis = Provinsi::orderBy('nama')->get();
 
         return view('auth.register', compact('provinsis'));
     }
@@ -35,7 +37,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $fallbackNik = (string) random_int(1000000000000000, 9999999999999999);
-        $fallbackDesaId = \App\Models\Desa::query()->value('id');
+        $fallbackDesaId = Desa::query()->value('id');
 
         $request->validate([
             'nik' => ['nullable', 'string', 'digits:16', 'unique:users,nik'],

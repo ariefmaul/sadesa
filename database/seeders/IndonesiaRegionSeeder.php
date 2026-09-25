@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class IndonesiaRegionSeeder extends Seeder
 {
-    
     public function run()
     {
         $base = 'https://emsifa.github.io/api-wilayah-indonesia/api';
@@ -24,7 +23,6 @@ class IndonesiaRegionSeeder extends Seeder
                 ['id' => $prov['id'], 'nama' => $prov['name']]
             );
 
-            
             $regUrl = "{$base}/regencies/{$prov['id']}.json";
             $regencies = Http::get($regUrl)->json() ?? [];
 
@@ -36,7 +34,6 @@ class IndonesiaRegionSeeder extends Seeder
                     ['id' => $reg['id'], 'provinsi_id' => $prov['id'], 'nama' => $reg['name']]
                 );
 
-                
                 $distUrl = "{$base}/districts/{$reg['id']}.json";
                 $districts = Http::get($distUrl)->json() ?? [];
 
@@ -46,7 +43,6 @@ class IndonesiaRegionSeeder extends Seeder
                         ['id' => $dist['id'], 'kota_id' => $reg['id'], 'nama' => $dist['name']]
                     );
 
-                    
                     $villUrl = "{$base}/villages/{$dist['id']}.json";
                     $villages = Http::get($villUrl)->json() ?? [];
 

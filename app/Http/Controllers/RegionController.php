@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Provinsi;
-use App\Models\Kota;
 use App\Models\Kecamatan;
-
+use App\Models\Kota;
+use App\Models\Provinsi;
 
 class RegionController extends Controller
 {

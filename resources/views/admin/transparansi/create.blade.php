@@ -15,10 +15,10 @@
                 </p>
             </div>
 
-            <a href="{{ route('admin.transparansi.index') }}"
-                class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+            <a class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                href="{{ route('admin.transparansi.index') }}">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
@@ -29,18 +29,18 @@
     </x-slot>
 
     <div class="py-8">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
-                <div class="border-b border-slate-200 px-6 py-5">
+                <div class="px-6 py-5 border-b border-slate-200">
                     <div class="flex items-center gap-4">
 
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -66,16 +66,16 @@
 
                     @csrf
 
-                    <div class="space-y-6 px-6 py-6">
+                    <div class="px-6 py-6 space-y-6">
 
                         <div>
-                            <x-input-label for="judul" value="Judul"
-                                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="judul"
+                                value="Judul" />
 
                             <div class="relative">
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -84,22 +84,23 @@
                                     </svg>
                                 </div>
 
-                                <input id="judul" name="judul" type="text" value="{{ old('judul') }}"
-                                    placeholder="Contoh: Laporan Realisasi APBDes Tahun 2026" required
-                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]" />
+                                <input
+                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]"
+                                    id="judul" name="judul" type="text" value="{{ old('judul') }}"
+                                    placeholder="Contoh: Laporan Realisasi APBDes Tahun 2026" required />
                             </div>
 
-                            <x-input-error :messages="$errors->get('judul')" class="mt-2" />
+                            <x-input-error class="mt-2" :messages="$errors->get('judul')" />
                         </div>
 
                         <div>
-                            <x-input-label for="deskripsi" value="Deskripsi"
-                                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="deskripsi"
+                                value="Deskripsi" />
 
                             <div class="relative">
                                 <div
                                     class="pointer-events-none absolute left-0 top-3.5 flex items-center pl-3.5 text-slate-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h5" />
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -108,22 +109,23 @@
                                     </svg>
                                 </div>
 
-                                <textarea id="deskripsi" name="deskripsi" rows="4"
-                                    placeholder="Jelaskan informasi atau tujuan transparansi anggaran ini..."
-                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]">{{ old('deskripsi') }}</textarea>
+                                <textarea
+                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]"
+                                    id="deskripsi" name="deskripsi" rows="4"
+                                    placeholder="Jelaskan informasi atau tujuan transparansi anggaran ini...">{{ old('deskripsi') }}</textarea>
                             </div>
 
-                            <x-input-error :messages="$errors->get('deskripsi')" class="mt-2" />
+                            <x-input-error class="mt-2" :messages="$errors->get('deskripsi')" />
                         </div>
 
                         <div>
-                            <x-input-label for="periode" value="Tahun/Periode"
-                                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="periode"
+                                value="Tahun/Periode" />
 
                             <div class="relative">
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M6.75 3v2.25M17.25 3v2.25M3.75 9h16.5" />
@@ -132,24 +134,26 @@
                                     </svg>
                                 </div>
 
-                                <input id="periode" name="periode" type="text" value="{{ old('periode') }}"
-                                    placeholder="Contoh: 2026 atau Januari - Desember 2026"
-                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]" />
+                                <input
+                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]"
+                                    id="periode" name="periode" type="text" value="{{ old('periode') }}"
+                                    placeholder="Contoh: 2026 atau Januari - Desember 2026" />
                             </div>
 
-                            <x-input-error :messages="$errors->get('periode')" class="mt-2" />
+                            <x-input-error class="mt-2" :messages="$errors->get('periode')" />
                         </div>
 
                         <div>
-                            <x-input-label for="pdf" value="File PDF"
-                                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="pdf"
+                                value="File PDF" />
 
-                            <label for="pdf"
-                                class="group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/70 px-6 py-8 text-center transition hover:border-blue-300 hover:bg-blue-50/50">
+                            <label
+                                class="flex flex-col items-center justify-center px-6 py-8 text-center transition border-2 border-dashed cursor-pointer group rounded-xl border-slate-200 bg-slate-50/70 hover:border-blue-300 hover:bg-blue-50/50"
+                                for="pdf">
 
                                 <div
                                     class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#2563EB] shadow-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -172,10 +176,10 @@
                                 </span>
 
                                 <div
-                                    class="selected-file-box mt-3 hidden w-full rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-left">
+                                    class="hidden w-full px-3 py-2 mt-3 text-left border rounded-lg selected-file-box border-emerald-200 bg-emerald-50">
 
                                     <div class="flex items-center gap-2 text-sm font-medium text-emerald-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M5 12.5 9.5 17 19 7.5" />
@@ -184,13 +188,13 @@
                                         <span>File terpilih:</span>
                                     </div>
 
-                                    <p class="selected-file-name mt-1 break-all text-xs text-emerald-700">
+                                    <p class="mt-1 text-xs break-all selected-file-name text-emerald-700">
                                         Belum ada file yang dipilih
                                     </p>
                                 </div>
 
-                                <input id="pdf" name="pdf" type="file" accept=".pdf,application/pdf"
-                                    required class="hidden" />
+                                <input class="hidden" id="pdf" name="pdf" type="file"
+                                    accept=".pdf,application/pdf" required />
                             </label>
 
                             <p class="mt-2 text-xs leading-5 text-slate-500">
@@ -198,17 +202,17 @@
                                 <span class="font-mono font-semibold text-[#2563EB]">PDF</span>.
                             </p>
 
-                            <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
+                            <x-input-error class="mt-2" :messages="$errors->get('pdf')" />
                         </div>
 
                         <div>
-                            <x-input-label for="status" value="Status Publikasi"
-                                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="status"
+                                value="Status Publikasi" />
 
                             <div class="relative">
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M9 12.75 11.25 15 15 9.75" />
@@ -217,8 +221,9 @@
                                     </svg>
                                 </div>
 
-                                <select id="status" name="status"
-                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]">
+                                <select
+                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-[#2563EB]"
+                                    id="status" name="status">
                                     <option value="draft" @selected(old('status', 'draft') === 'draft')>
                                         Draft
                                     </option>
@@ -228,13 +233,13 @@
                                 </select>
                             </div>
 
-                            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                            <x-input-error class="mt-2" :messages="$errors->get('status')" />
                         </div>
 
                     </div>
 
                     <div
-                        class="flex flex-col gap-3 border-t border-slate-200 bg-slate-50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                        class="flex flex-col gap-3 px-6 py-5 border-t border-slate-200 bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
 
                         <p class="text-xs text-slate-500">
                             Pastikan informasi dan dokumen yang diunggah sudah benar sebelum disimpan.
@@ -242,15 +247,16 @@
 
                         <div class="flex items-center justify-end gap-3">
 
-                            <a href="{{ route('admin.transparansi.index') }}"
-                                class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-100 hover:text-[#0A2540]">
+                            <a class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-100 hover:text-[#0A2540]"
+                                href="{{ route('admin.transparansi.index') }}">
                                 Batal
                             </a>
 
-                            <button type="submit"
-                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                            <button
+                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                type="submit">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
                                 </svg>

@@ -28,7 +28,7 @@ return new class extends Migration
                 'diproses',
                 'disetujui',
                 'ditolak',
-                'dicetak'
+                'dicetak',
             ])->default('menunggu');
 
             $table->text('catatan')->nullable();

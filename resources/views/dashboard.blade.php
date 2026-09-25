@@ -248,8 +248,6 @@
         };
     @endphp
 
-
-
     <style>
         @keyframes dashboard-fade-up {
             from {
@@ -346,128 +344,54 @@
         }
     </style>
 
-
-
     <div class="relative min-h-screen overflow-hidden bg-[#061A2D]">
 
-
-
-        <div class="pointer-events-none absolute inset-0 overflow-hidden">
-
-
-
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
 
             <div
-                class="dashboard-float absolute -right-[240px] -top-[220px]
-                       h-[700px] w-[700px]
-                       rounded-full
-                       bg-[#16A34A]/20
-                       blur-[110px]">
+                class="dashboard-float absolute -right-[240px] -top-[220px] h-[700px] w-[700px] rounded-full bg-[#16A34A]/20 blur-[110px]">
             </div>
-
 
             <div
-                class="dashboard-pulse absolute -right-[190px] -top-[170px]
-                       h-[580px] w-[580px]
-                       rounded-full
-                       bg-[#16A34A]/20
-                       shadow-[0_0_120px_rgba(22,163,74,0.25)]">
+                class="dashboard-pulse absolute -right-[190px] -top-[170px] h-[580px] w-[580px] rounded-full bg-[#16A34A]/20 shadow-[0_0_120px_rgba(22,163,74,0.25)]">
             </div>
 
+            <div class="absolute -right-[110px] -top-[90px] h-[410px] w-[410px] rounded-full bg-[#16A34A]/10">
+            </div>
 
             <div
-                class="absolute -right-[110px] -top-[90px]
-                       h-[410px] w-[410px]
-                       rounded-full
-                       bg-[#16A34A]/10">
+                class="dashboard-float-reverse absolute right-[30px] top-[70px] h-[210px] w-[210px] rounded-full bg-[#22C55E]/10 shadow-[0_0_100px_rgba(34,197,94,0.35)]">
             </div>
-
 
             <div
-                class="dashboard-float-reverse absolute right-[30px] top-[70px]
-                       h-[210px] w-[210px]
-                       rounded-full
-                       bg-[#22C55E]/10
-                       shadow-[0_0_100px_rgba(34,197,94,0.35)]">
+                class="dashboard-fade-in absolute -right-[150px] -top-[130px] h-[500px] w-[500px] rounded-full border border-[#22C55E]/20">
             </div>
 
-
-
-
-            <div
-                class="dashboard-fade-in absolute -right-[150px] -top-[130px]
-                       h-[500px] w-[500px]
-                       rounded-full
-                       border border-[#22C55E]/20">
-            </div>
-
-
-            <div class="dashboard-fade-in absolute -right-[70px] -top-[50px]
-                       h-[340px] w-[340px]
-                       rounded-full
-                       border border-white/10"
+            <div class="dashboard-fade-in absolute -right-[70px] -top-[50px] h-[340px] w-[340px] rounded-full border border-white/10"
                 style="animation-delay: .4s;">
             </div>
 
-
-
-
             <div
-                class="dashboard-float-reverse absolute -left-[280px] top-[32%]
-                       h-[620px] w-[620px]
-                       rounded-full
-                       bg-[#16A34A]/15
-                       blur-[100px]">
+                class="dashboard-float-reverse absolute -left-[280px] top-[32%] h-[620px] w-[620px] rounded-full bg-[#16A34A]/15 blur-[100px]">
             </div>
 
-
-            <div
-                class="absolute -left-[230px] top-[37%]
-                       h-[480px] w-[480px]
-                       rounded-full
-                       bg-[#16A34A]/10">
+            <div class="absolute -left-[230px] top-[37%] h-[480px] w-[480px] rounded-full bg-[#16A34A]/10">
             </div>
 
-
             <div
-                class="dashboard-pulse absolute -left-[120px] top-[44%]
-                       h-[280px] w-[280px]
-                       rounded-full
-                       bg-[#22C55E]/10">
+                class="dashboard-pulse absolute -left-[120px] top-[44%] h-[280px] w-[280px] rounded-full bg-[#22C55E]/10">
             </div>
 
-
-
-
             <div
-                class="dashboard-float absolute -bottom-[300px] right-[10%]
-                       h-[650px] w-[650px]
-                       rounded-full
-                       bg-[#16A34A]/15
-                       blur-[110px]">
+                class="dashboard-float absolute -bottom-[300px] right-[10%] h-[650px] w-[650px] rounded-full bg-[#16A34A]/15 blur-[110px]">
             </div>
 
-
-            <div
-                class="absolute -bottom-[250px] right-[15%]
-                       h-[450px] w-[450px]
-                       rounded-full
-                       bg-[#16A34A]/10">
+            <div class="absolute -bottom-[250px] right-[15%] h-[450px] w-[450px] rounded-full bg-[#16A34A]/10">
             </div>
 
-
-
-
             <div
-                class="dashboard-float-reverse absolute left-[35%] top-[20%]
-                       h-[300px] w-[300px]
-                       rounded-full
-                       bg-[#2563EB]/10
-                       blur-[100px]">
+                class="dashboard-float-reverse absolute left-[35%] top-[20%] h-[300px] w-[300px] rounded-full bg-[#2563EB]/10 blur-[100px]">
             </div>
-
-
-
 
             <div class="absolute inset-0 opacity-[0.035]"
                 style="
@@ -478,63 +402,37 @@
                 ">
             </div>
 
-
-
-
             <div
-                class="dashboard-pulse absolute right-[120px] top-[190px]
-                       h-3 w-3 rounded-full
-                       bg-[#22C55E]
-                       shadow-[0_0_30px_rgba(34,197,94,0.8)]">
+                class="dashboard-pulse absolute right-[120px] top-[190px] h-3 w-3 rounded-full bg-[#22C55E] shadow-[0_0_30px_rgba(34,197,94,0.8)]">
             </div>
 
-
-            <div class="dashboard-pulse absolute right-[190px] top-[250px]
-                       h-2 w-2 rounded-full
-                       bg-[#16A34A]
-                       shadow-[0_0_20px_rgba(22,163,74,0.8)]"
+            <div class="dashboard-pulse absolute right-[190px] top-[250px] h-2 w-2 rounded-full bg-[#16A34A] shadow-[0_0_20px_rgba(22,163,74,0.8)]"
                 style="animation-delay: .8s;">
             </div>
 
-
-            <div class="dashboard-pulse absolute left-[18%] top-[45%]
-                       h-2 w-2 rounded-full
-                       bg-[#2563EB]
-                       shadow-[0_0_20px_rgba(37,99,235,0.7)]"
+            <div class="dashboard-pulse absolute left-[18%] top-[45%] h-2 w-2 rounded-full bg-[#2563EB] shadow-[0_0_20px_rgba(37,99,235,0.7)]"
                 style="animation-delay: 1.4s;">
             </div>
 
-
-            <div class="dashboard-pulse absolute left-[55%] bottom-[22%]
-                       h-1.5 w-1.5 rounded-full
-                       bg-[#22C55E]
-                       shadow-[0_0_15px_rgba(34,197,94,0.8)]"
+            <div class="dashboard-pulse absolute bottom-[22%] left-[55%] h-1.5 w-1.5 rounded-full bg-[#22C55E] shadow-[0_0_15px_rgba(34,197,94,0.8)]"
                 style="animation-delay: 2s;">
             </div>
 
         </div>
 
-
-
         <div class="relative z-10 py-8">
 
-
-            <div class="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
-
-
+            <div class="px-4 mx-auto space-y-8 max-w-7xl sm:px-6 lg:px-8">
 
                 @if (session('success') || session('error'))
 
                     <div
-                        class="dashboard-fade-up
-                               rounded-2xl border px-5 py-4
-                               text-sm font-medium shadow-lg
-                               {{ session('error') ? 'border-red-200 bg-red-50 text-red-700' : 'border-green-200 bg-green-50 text-green-700' }}">
+                        class="dashboard-fade-up {{ session('error') ? 'border-red-200 bg-red-50 text-red-700' : 'border-green-200 bg-green-50 text-green-700' }} rounded-2xl border px-5 py-4 text-sm font-medium shadow-lg">
 
                         <div class="flex items-center gap-3">
 
                             @if (session('error'))
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none"
+                                <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -542,7 +440,7 @@
 
                                 </svg>
                             @else
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none"
+                                <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -550,7 +448,6 @@
 
                                 </svg>
                             @endif
-
 
                             <span>
                                 {{ session('success') ?? session('error') }}
@@ -562,66 +459,28 @@
 
                 @endif
 
-
-
                 <section
-                    class="dashboard-fade-up dashboard-delay-1
-                           group relative overflow-hidden rounded-3xl
-                           border border-white/10
-                           bg-gradient-to-br from-[#0B3D91]
-                           via-[#0A2540]
-                           to-[#061A2D]
-                           p-6 shadow-2xl sm:p-8">
-
-
+                    class="dashboard-fade-up dashboard-delay-1 group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B3D91] via-[#0A2540] to-[#061A2D] p-6 shadow-2xl sm:p-8">
 
                     <div
-                        class="dashboard-pulse absolute -right-24 -top-24
-                               h-72 w-72 rounded-full
-                               bg-[#16A34A]/20
-                               blur-3xl">
+                        class="dashboard-pulse absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#16A34A]/20 blur-3xl">
                     </div>
 
-
-
                     <div
-                        class="dashboard-float-reverse absolute -bottom-28 left-1/3
-                               h-72 w-72 rounded-full
-                               bg-[#2563EB]/10
-                               blur-3xl">
+                        class="dashboard-float-reverse absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-[#2563EB]/10 blur-3xl">
                     </div>
 
-
-
                     <div
-                        class="absolute right-10 top-10
-                               h-2.5 w-2.5 rounded-full
-                               bg-[#22C55E]
-                               shadow-[0_0_20px_rgba(34,197,94,0.9)]">
+                        class="absolute right-10 top-10 h-2.5 w-2.5 rounded-full bg-[#22C55E] shadow-[0_0_20px_rgba(34,197,94,0.9)]">
                     </div>
 
-
-                    <div
-                        class="absolute right-24 top-20
-                               h-1.5 w-1.5 rounded-full
-                               bg-white/60">
+                    <div class="absolute right-24 top-20 h-1.5 w-1.5 rounded-full bg-white/60">
                     </div>
 
-
-                    <div
-                        class="absolute bottom-8 left-[45%]
-                               h-1.5 w-1.5 rounded-full
-                               bg-[#2563EB]/70">
+                    <div class="absolute bottom-8 left-[45%] h-1.5 w-1.5 rounded-full bg-[#2563EB]/70">
                     </div>
 
-
-
-                    <div
-                        class="relative z-10 grid gap-8
-                               lg:grid-cols-[1fr_auto]
-                               lg:items-center">
-
-
+                    <div class="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
 
                         <div>
 
@@ -631,21 +490,13 @@
 
                             </p>
 
-
-                            <h1
-                                class="mt-2 max-w-2xl
-                                       text-3xl font-bold tracking-tight
-                                       text-white sm:text-4xl">
+                            <h1 class="max-w-2xl mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
 
                                 Halo, {{ $user->name }}.
 
                             </h1>
 
-
-                            <p
-                                class="mt-3 max-w-xl
-                                       text-sm leading-6
-                                       text-blue-100 sm:text-base">
+                            <p class="max-w-xl mt-3 text-sm leading-6 text-blue-100 sm:text-base">
 
                                 {{ $heroDescription }}
 
@@ -653,42 +504,24 @@
 
                         </div>
 
-
-
                         <div
-                            class="min-w-[250px]
-                                   rounded-2xl
-                                   border border-white/10
-                                   bg-white/10
-                                   p-5
-                                   shadow-xl
-                                   backdrop-blur-md">
-
+                            class="min-w-[250px] rounded-2xl border border-white/10 bg-white/10 p-5 shadow-xl backdrop-blur-md">
 
                             <div class="flex items-center justify-between">
 
-                                <p
-                                    class="text-xs font-semibold
-                                           uppercase tracking-wider
-                                           text-blue-200">
+                                <p class="text-xs font-semibold tracking-wider text-blue-200 uppercase">
 
                                     Status Sistem
 
                                 </p>
 
-
                                 <span
-                                    class="h-2.5 w-2.5 rounded-full
-                                           bg-[#22C55E]
-                                           shadow-[0_0_12px_rgba(34,197,94,0.9)]">
+                                    class="h-2.5 w-2.5 rounded-full bg-[#22C55E] shadow-[0_0_12px_rgba(34,197,94,0.9)]">
                                 </span>
 
                             </div>
 
-
                             <div class="mt-4 space-y-4">
-
-
 
                                 <div>
 
@@ -702,8 +535,6 @@
 
                                 </div>
 
-
-
                                 <div>
 
                                     <p class="text-xs text-blue-200">
@@ -715,8 +546,6 @@
                                     </p>
 
                                 </div>
-
-
 
                                 <div>
 
@@ -730,7 +559,6 @@
 
                                 </div>
 
-
                             </div>
 
                         </div>
@@ -739,34 +567,19 @@
 
                 </section>
 
-
-
                 @if (!in_array($role, ['mesin', 'mesin_cetak']))
 
                     <section class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 
-
-
                         <div
-                            class="dashboard-fade-up dashboard-delay-2
-                                   rounded-2xl
-                                   border border-slate-200
-                                   bg-white p-5
-                                   shadow-sm
-                                   transition duration-300
-                                   hover:-translate-y-1
-                                   hover:shadow-xl">
+                            class="p-5 transition duration-300 bg-white border shadow-sm dashboard-fade-up dashboard-delay-2 rounded-2xl border-slate-200 hover:-translate-y-1 hover:shadow-xl">
 
                             <div class="flex items-start justify-between">
 
                                 <div
-                                    class="flex h-11 w-11
-                                           items-center justify-center
-                                           rounded-xl
-                                           bg-green-50
-                                           text-[#16A34A]">
+                                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-green-50 text-[#16A34A]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -776,7 +589,6 @@
 
                                 </div>
 
-
                                 <span class="text-xs font-semibold text-slate-400">
 
                                     STATUS
@@ -785,15 +597,12 @@
 
                             </div>
 
-
                             @if ($role === 'masyarakat')
                                 <p class="mt-5 text-sm text-slate-500">
                                     Status Verifikasi
                                 </p>
 
-                                <p
-                                    class="mt-1 text-xl font-bold
-                                           capitalize text-[#0A2540]">
+                                <p class="mt-1 text-xl font-bold capitalize text-[#0A2540]">
 
                                     {{ $user->status_verifikasi ?? 'Belum diverifikasi' }}
 
@@ -822,28 +631,15 @@
 
                         </div>
 
-
-
                         <div
-                            class="dashboard-fade-up dashboard-delay-3
-                                   rounded-2xl
-                                   border border-slate-200
-                                   bg-white p-5
-                                   shadow-sm
-                                   transition duration-300
-                                   hover:-translate-y-1
-                                   hover:shadow-xl">
+                            class="p-5 transition duration-300 bg-white border shadow-sm dashboard-fade-up dashboard-delay-3 rounded-2xl border-slate-200 hover:-translate-y-1 hover:shadow-xl">
 
                             <div class="flex items-start justify-between">
 
                                 <div
-                                    class="flex h-11 w-11
-                                           items-center justify-center
-                                           rounded-xl
-                                           bg-blue-50
-                                           text-[#2563EB]">
+                                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -856,7 +652,6 @@
 
                                 </div>
 
-
                                 <span class="text-xs font-semibold text-slate-400">
 
                                     WILAYAH
@@ -865,15 +660,11 @@
 
                             </div>
 
-
                             <p class="mt-5 text-sm text-slate-500">
                                 Desa
                             </p>
 
-
-                            <p
-                                class="mt-1 truncate
-                                       text-xl font-bold text-[#0A2540]">
+                            <p class="mt-1 truncate text-xl font-bold text-[#0A2540]">
 
                                 {{ $user->desa?->nama ?? '-' }}
 
@@ -881,28 +672,15 @@
 
                         </div>
 
-
-
                         <div
-                            class="dashboard-fade-up dashboard-delay-4
-                                   rounded-2xl
-                                   border border-slate-200
-                                   bg-white p-5
-                                   shadow-sm
-                                   transition duration-300
-                                   hover:-translate-y-1
-                                   hover:shadow-xl">
+                            class="p-5 transition duration-300 bg-white border shadow-sm dashboard-fade-up dashboard-delay-4 rounded-2xl border-slate-200 hover:-translate-y-1 hover:shadow-xl">
 
                             <div class="flex items-start justify-between">
 
                                 <div
-                                    class="flex h-11 w-11
-                                           items-center justify-center
-                                           rounded-xl
-                                           bg-blue-50
-                                           text-[#0B3D91]">
+                                    class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-[#0B3D91]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -912,7 +690,6 @@
 
                                 </div>
 
-
                                 <span class="text-xs font-semibold text-slate-400">
 
                                     AKSES
@@ -921,15 +698,11 @@
 
                             </div>
 
-
                             <p class="mt-5 text-sm text-slate-500">
                                 Role Pengguna
                             </p>
 
-
-                            <p
-                                class="mt-1 text-xl font-bold
-                                       capitalize text-[#0A2540]">
+                            <p class="mt-1 text-xl font-bold capitalize text-[#0A2540]">
 
                                 {{ str_replace('_', ' ', $user->role) }}
 
@@ -941,29 +714,21 @@
 
                 @endif
 
-
-
                 <section class="mt-8">
 
+                    <div class="mb-5 dashboard-fade-up dashboard-delay-3">
 
-                    <div class="dashboard-fade-up dashboard-delay-3 mb-5">
-
-                        <p
-                            class="text-xs font-bold uppercase
-                                   tracking-[0.18em]
-                                   text-[#22C55E]">
+                        <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#22C55E]">
 
                             Akses Cepat
 
                         </p>
-
 
                         <h3 class="mt-1 text-xl font-bold text-white">
 
                             Menu Utama
 
                         </h3>
-
 
                         <p class="mt-1 text-sm text-white/60">
 
@@ -973,65 +738,26 @@
 
                     </div>
 
-
-                    <div class="grid grid-cols-1 gap-5
-                               sm:grid-cols-2 lg:grid-cols-3">
-
+                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
 
                         @foreach ($menuUtama as $index => $menu)
-                            <a href="{{ $menu['route'] }}"
-                                class="dashboard-fade-up group relative
-                                       overflow-hidden rounded-2xl
-                                       border border-slate-200
-                                       bg-white p-5
-                                       shadow-sm
-                                       transition duration-300
-                                       hover:-translate-y-1
-                                       hover:border-[#16A34A]/40
-                                       hover:shadow-2xl"
-                                style="animation-delay: {{ 0.1 + $index * 0.08 }}s;">
-
-
+                            <a class="dashboard-fade-up group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#16A34A]/40 hover:shadow-2xl"
+                                href="{{ $menu['route'] }}" style="animation-delay: {{ 0.1 + $index * 0.08 }}s;">
 
                                 <div
-                                    class="absolute -right-10 -top-10
-                                           h-28 w-28 rounded-full
-                                           bg-[#EFF6FF]
-                                           transition duration-500
-                                           group-hover:scale-[1.5]
-                                           group-hover:bg-[#DCFCE7]">
+                                    class="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#EFF6FF] transition duration-500 group-hover:scale-[1.5] group-hover:bg-[#DCFCE7]">
                                 </div>
 
-
-
                                 <div
-                                    class="absolute right-5 top-5
-                                           h-1.5 w-1.5 rounded-full
-                                           bg-[#16A34A]
-                                           opacity-0
-                                           shadow-[0_0_12px_rgba(22,163,74,0.8)]
-                                           transition duration-300
-                                           group-hover:opacity-100">
+                                    class="absolute right-5 top-5 h-1.5 w-1.5 rounded-full bg-[#16A34A] opacity-0 shadow-[0_0_12px_rgba(22,163,74,0.8)] transition duration-300 group-hover:opacity-100">
                                 </div>
 
-
-
                                 <div
-                                    class="relative flex h-12 w-12
-                                           items-center justify-center
-                                           rounded-xl
-                                           bg-[#0B3D91]
-                                           text-white
-                                           shadow-lg
-                                           shadow-blue-900/20
-                                           transition duration-300
-                                           group-hover:scale-105
-                                           group-hover:bg-[#16A34A]">
-
+                                    class="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B3D91] text-white shadow-lg shadow-blue-900/20 transition duration-300 group-hover:scale-105 group-hover:bg-[#16A34A]">
 
                                     @switch($menu['icon'])
                                         @case('scan')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1045,7 +771,7 @@
                                         @break
 
                                         @case('globe')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1058,7 +784,7 @@
                                         @break
 
                                         @case('building')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1068,7 +794,7 @@
                                         @break
 
                                         @case('map')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1080,7 +806,7 @@
                                         @break
 
                                         @case('home')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1090,7 +816,7 @@
                                         @break
 
                                         @case('users')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1105,7 +831,7 @@
                                         @break
 
                                         @case('history')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1118,7 +844,7 @@
                                         @break
 
                                         @case('megaphone')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1128,7 +854,7 @@
                                         @break
 
                                         @case('chart')
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1138,7 +864,7 @@
                                         @break
 
                                         @default
-                                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -1149,47 +875,28 @@
 
                                 </div>
 
-
-
                                 <div class="relative mt-5">
 
-                                    <h4
-                                        class="text-lg font-bold
-                                               text-[#0A2540]
-                                               transition
-                                               group-hover:text-[#0B3D91]">
+                                    <h4 class="text-lg font-bold text-[#0A2540] transition group-hover:text-[#0B3D91]">
 
                                         {{ $menu['title'] }}
 
                                     </h4>
 
-
-                                    <p
-                                        class="mt-2 min-h-[48px]
-                                               text-sm leading-6
-                                               text-slate-500">
+                                    <p class="mt-2 min-h-[48px] text-sm leading-6 text-slate-500">
 
                                         {{ $menu['description'] }}
 
                                     </p>
 
-
                                     <div
-                                        class="mt-5 flex items-center gap-2
-                                               text-sm font-semibold
-                                               text-[#2563EB]
-                                               transition
-                                               group-hover:text-[#16A34A]">
+                                        class="mt-5 flex items-center gap-2 text-sm font-semibold text-[#2563EB] transition group-hover:text-[#16A34A]">
 
                                         <span>
                                             {{ $menu['action'] }}
                                         </span>
 
-
-                                        <svg class="h-4 w-4
-                                                   transition-transform
-                                                   duration-300
-                                                   group-hover:translate-x-1"
+                                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                             stroke-width="2">
 
@@ -1208,31 +915,23 @@
 
                 </section>
 
-
-
                 @if (!in_array($role, ['mesin', 'mesin_cetak']))
 
                     <section class="mt-8">
 
+                        <div class="mb-5 dashboard-fade-up dashboard-delay-4">
 
-                        <div class="dashboard-fade-up dashboard-delay-4 mb-5">
-
-                            <p
-                                class="text-xs font-bold uppercase
-                                       tracking-[0.18em]
-                                       text-[#22C55E]">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-[#22C55E]">
 
                                 Shortcut
 
                             </p>
-
 
                             <h3 class="mt-1 text-lg font-bold text-white">
 
                                 Navigasi Cepat
 
                             </h3>
-
 
                             <p class="mt-1 text-sm text-white/60">
 
@@ -1242,37 +941,17 @@
 
                         </div>
 
-
-                        <div class="grid grid-cols-2 gap-3
-                                   sm:grid-cols-4">
-
+                        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 
                             @foreach ($quickActions as $index => $action)
-                                <a href="{{ $action['route'] }}"
-                                    class="dashboard-fade-up group flex
-                                           items-center gap-3
-                                           rounded-xl
-                                           border border-slate-200
-                                           bg-white px-4 py-3.5
-                                           shadow-sm
-                                           transition duration-300
-                                           hover:-translate-y-0.5
-                                           hover:border-[#16A34A]/40
-                                           hover:shadow-lg"
+                                <a class="dashboard-fade-up group flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3.5 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#16A34A]/40 hover:shadow-lg"
+                                    href="{{ $action['route'] }}"
                                     style="animation-delay: {{ 0.1 + $index * 0.08 }}s;">
 
-
                                     <div
-                                        class="flex h-9 w-9 shrink-0
-                                               items-center justify-center
-                                               rounded-lg
-                                               bg-blue-50
-                                               text-[#0B3D91]
-                                               transition duration-300
-                                               group-hover:bg-[#16A34A]
-                                               group-hover:text-white">
+                                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#0B3D91] transition duration-300 group-hover:bg-[#16A34A] group-hover:text-white">
 
-                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" stroke-width="1.8">
 
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -1282,12 +961,8 @@
 
                                     </div>
 
-
                                     <span
-                                        class="text-sm font-semibold
-                                               text-[#0A2540]
-                                               transition
-                                               group-hover:text-[#0B3D91]">
+                                        class="text-sm font-semibold text-[#0A2540] transition group-hover:text-[#0B3D91]">
 
                                         {{ $action['title'] }}
 
@@ -1302,33 +977,20 @@
 
                 @endif
 
-
-
                 <div
-                    class="dashboard-fade-in
-                           flex flex-col gap-2
-                           border-t border-white/10
-                           pt-6 text-xs text-white/40
-                           sm:flex-row sm:items-center
-                           sm:justify-between">
-
+                    class="flex flex-col gap-2 pt-6 text-xs border-t dashboard-fade-in border-white/10 text-white/40 sm:flex-row sm:items-center sm:justify-between">
 
                     <p>
                         © {{ date('Y') }} Sistem Informasi
                     </p>
 
-
                     <p>
-
-
-
 
                         Sistem Digital
 
                     </p>
 
                 </div>
-
 
             </div>
 

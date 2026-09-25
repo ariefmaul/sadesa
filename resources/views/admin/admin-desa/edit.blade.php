@@ -13,9 +13,9 @@
                 </h2>
             </div>
 
-            <a href="{{ route('admin.admin-desa.index') }}"
-                class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+            <a class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]"
+                href="{{ route('admin.admin-desa.index') }}">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
@@ -26,23 +26,22 @@
         </div>
     </x-slot>
 
-
     <div class="py-8">
 
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- =================================================
                     CARD HEADER
                 ================================================== --}}
-                <div class="border-b border-slate-200 px-6 py-5">
+                <div class="px-6 py-5 border-b border-slate-200">
 
                     <div class="flex items-start gap-4">
 
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M16.862 4.487a2.25 2.25 0 113.182 3.182L8.25 19.463l-4.5 1.125 1.125-4.5L16.862 4.487z" />
@@ -64,7 +63,6 @@
 
                 </div>
 
-
                 {{-- =================================================
                     FORM
                 ================================================== --}}
@@ -81,30 +79,28 @@
 
                     </div>
 
-
                     {{-- =================================================
                         FOOTER ACTION
                     ================================================== --}}
                     <div
-                        class="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+                        class="flex flex-col-reverse gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
 
                         <p class="text-xs text-slate-500">
                             Pastikan informasi akun dan wilayah sudah benar.
                         </p>
 
-
                         <div class="flex items-center justify-end gap-2">
 
-                            <a href="{{ route('admin.admin-desa.index') }}"
-                                class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-100">
+                            <a class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-100"
+                                href="{{ route('admin.admin-desa.index') }}">
                                 Batal
                             </a>
 
+                            <button
+                                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                type="submit">
 
-                            <button type="submit"
-                                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
-
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.75l4.5 4.5L19 7.75" />
                                 </svg>

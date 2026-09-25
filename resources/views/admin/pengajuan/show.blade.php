@@ -26,7 +26,7 @@
                                 <span
                                     class="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 text-blue-100">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M9 12.75l2.25 2.25L15 11.25" />
@@ -51,10 +51,10 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('admin.pengajuan.index') }}"
-                            class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15">
+                        <a class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+                            href="{{ route('admin.pengajuan.index') }}">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
                             </svg>
@@ -67,7 +67,6 @@
                 </div>
 
             </div>
-
 
             {{-- =====================================================
                 MAIN GRID
@@ -89,7 +88,7 @@
                                 <div
                                     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M9 12.75l2.25 2.25L15 11.25" />
@@ -113,7 +112,6 @@
 
                         </div>
 
-
                         {{-- Summary --}}
                         <div class="divide-y divide-slate-100">
 
@@ -129,7 +127,7 @@
                                     <span
                                         class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M9 7.5h6M9 11.25h6M9 15h3" />
@@ -146,7 +144,6 @@
                                 </div>
 
                             </div>
-
 
                             {{-- Pemohon --}}
                             <div class="px-6 py-5">
@@ -178,7 +175,6 @@
 
                             </div>
 
-
                             {{-- Jenis Surat --}}
                             <div class="px-6 py-5">
 
@@ -191,7 +187,7 @@
                                     <div
                                         class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M19.5 14.25v-8.625A2.625 2.625 0 0016.875 3h-9.75A2.625 2.625 0 004.5 5.625v12.75A2.625 2.625 0 007.125 21h9.75a2.625 2.625 0 002.625-2.625V14.25z" />
@@ -209,7 +205,6 @@
 
                             </div>
 
-
                             {{-- Status --}}
                             <div class="px-6 py-5">
 
@@ -222,7 +217,6 @@
                                 ])
 
                             </div>
-
 
                             {{-- Nomor Dokumen --}}
                             @if ($pengajuan->dokumen && $pengajuan->dokumen->nomor_dokumen)
@@ -249,7 +243,6 @@
 
                 </div>
 
-
                 {{-- =================================================
                     RIGHT : DATA SURAT
                 ================================================== --}}
@@ -265,7 +258,7 @@
                                 <div
                                     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M19.5 14.25v-8.625A2.625 2.625 0 0016.875 3h-9.75A2.625 2.625 0 004.5 5.625v12.75A2.625 2.625 0 007.125 21h9.75a2.625 2.625 0 002.625-2.625V14.25z" />
@@ -288,7 +281,6 @@
                             </div>
 
                         </div>
-
 
                         <div class="px-6 py-6 sm:px-7">
 
@@ -316,7 +308,6 @@
 
                                 </div>
 
-
                                 <div class="overflow-hidden rounded-xl border border-slate-200">
 
                                     <div class="overflow-x-auto">
@@ -343,15 +334,15 @@
                                                 @empty
 
                                                     <tr>
-                                                        <td colspan="2" class="px-5 py-10 text-center">
+                                                        <td class="px-5 py-10 text-center" colspan="2">
 
                                                             <div
                                                                 class="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 text-slate-400">
 
-                                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-5 w-5" viewBox="0 0 24 24"
-                                                                    fill="none" stroke="currentColor"
-                                                                    stroke-width="1.8">
+                                                                <svg class="h-5 w-5"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="1.8">
                                                                     <path stroke-linecap="round"
                                                                         stroke-linejoin="round"
                                                                         d="M19.5 14.25v-8.625A2.625 2.625 0 0016.875 3h-9.75A2.625 2.625 0 004.5 5.625v12.75A2.625 2.625 0 007.125 21h9.75a2.625 2.625 0 002.625-2.625V14.25z" />
@@ -379,7 +370,6 @@
 
                             </div>
 
-
                             {{-- =================================================
                                 ACTION FORM
                             ================================================== --}}
@@ -398,7 +388,6 @@
 
                                     </div>
 
-
                                     {{-- APPROVE FORM --}}
                                     <form id="approve-form" method="POST"
                                         action="{{ route('admin.pengajuan.approve', $pengajuan) }}">
@@ -409,8 +398,8 @@
                                         {{-- Nomor Surat --}}
                                         <div>
 
-                                            <label for="nomor_surat"
-                                                class="block text-sm font-semibold text-[#0A2540]">
+                                            <label class="block text-sm font-semibold text-[#0A2540]"
+                                                for="nomor_surat">
                                                 Nomor Surat
                                                 <span class="text-red-500">*</span>
                                             </label>
@@ -420,7 +409,7 @@
                                                 <div
                                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="1.8">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -431,10 +420,11 @@
 
                                                 </div>
 
-                                                <input id="nomor_surat" name="nomor_surat" type="text"
+                                                <input
+                                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
+                                                    id="nomor_surat" name="nomor_surat" type="text"
                                                     value="{{ old('nomor_surat', $pengajuan->dokumen->nomor_surat ?? '') }}"
-                                                    required placeholder="Masukkan nomor surat"
-                                                    class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20" />
+                                                    required placeholder="Masukkan nomor surat" />
 
                                             </div>
 
@@ -452,33 +442,32 @@
 
                                     </form>
 
-
                                     {{-- REJECT FORM --}}
-                                    <form id="reject-form" method="POST"
-                                        action="{{ route('admin.pengajuan.reject', $pengajuan) }}" class="mt-5">
+                                    <form class="mt-5" id="reject-form" method="POST"
+                                        action="{{ route('admin.pengajuan.reject', $pengajuan) }}">
 
                                         @csrf
                                         @method('PATCH')
 
-                                        <label for="catatan" class="block text-sm font-semibold text-[#0A2540]">
+                                        <label class="block text-sm font-semibold text-[#0A2540]" for="catatan">
                                             Catatan Penolakan
                                             <span class="font-normal text-slate-400">(opsional)</span>
                                         </label>
 
-                                        <textarea id="catatan" name="catatan" rows="3" placeholder="Tambahkan alasan jika pengajuan ditolak..."
-                                            class="mt-2 block w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20">{{ old('catatan', $pengajuan->catatan) }}</textarea>
+                                        <textarea
+                                            class="mt-2 block w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0A2540] shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
+                                            id="catatan" name="catatan" rows="3" placeholder="Tambahkan alasan jika pengajuan ditolak...">{{ old('catatan', $pengajuan->catatan) }}</textarea>
 
                                     </form>
-
 
                                     {{-- ACTION BUTTONS --}}
                                     <div
                                         class="mt-6 flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:items-center sm:justify-between">
 
-                                        <a href="{{ route('admin.pengajuan.index') }}"
-                                            class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+                                        <a class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                                            href="{{ route('admin.pengajuan.index') }}">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="1.8">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -488,14 +477,14 @@
                                             Kembali
                                         </a>
 
-
                                         <div class="flex flex-col gap-2 sm:flex-row">
 
                                             {{-- Tolak --}}
-                                            <button type="button" id="reject-button"
-                                                class="inline-flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500/20">
+                                            <button
+                                                class="inline-flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                                                id="reject-button" type="button">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -505,12 +494,12 @@
                                                 Tolak Pengajuan
                                             </button>
 
-
                                             {{-- Setujui --}}
-                                            <button type="button" id="approve-button"
-                                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30">
+                                            <button
+                                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30"
+                                                id="approve-button" type="button">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -537,7 +526,7 @@
                                             <div
                                                 class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#2563EB]">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -558,12 +547,12 @@
 
                                         </div>
 
-                                        <a href="{{ route('admin.pengajuan.index') }}"
-                                            class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]">
+                                        <a class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]"
+                                            href="{{ route('admin.pengajuan.index') }}">
 
                                             Kembali ke Pengajuan
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="1.8">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -577,7 +566,6 @@
                                 </div>
                             @endif
 
-
                             {{-- =================================================
                                 DOKUMEN
                             ================================================== --}}
@@ -590,7 +578,7 @@
                                         <div
                                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="1.8">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -613,7 +601,6 @@
 
                                     </div>
 
-
                                     <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
 
                                         <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
@@ -625,13 +612,12 @@
                                                     <div
                                                         class="flex h-36 w-36 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
 
-                                                        <img src="{{ asset('storage/' . $pengajuan->dokumen->qr_file) }}"
-                                                            alt="QR Code Dokumen"
-                                                            class="h-full w-full object-contain" />
+                                                        <img class="h-full w-full object-contain"
+                                                            src="{{ asset('storage/' . $pengajuan->dokumen->qr_file) }}"
+                                                            alt="QR Code Dokumen" />
 
                                                     </div>
                                                 @endif
-
 
                                                 <div class="space-y-5">
 
@@ -650,7 +636,6 @@
 
                                                         </div>
                                                     @endif
-
 
                                                     @if ($pengajuan->dokumen->nomor_surat)
                                                         <div>
@@ -672,16 +657,15 @@
 
                                             </div>
 
-
                                             {{-- Document Actions --}}
                                             <div class="flex w-full flex-col gap-2 sm:w-auto sm:min-w-[190px]">
 
                                                 @if ($pengajuan->dokumen->file)
-                                                    <a href="{{ route('admin.pengajuan.dokumen.word', $pengajuan->dokumen) }}"
-                                                        target="_blank"
-                                                        class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+                                                    <a class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                                                        href="{{ route('admin.pengajuan.dokumen.word', $pengajuan->dokumen) }}"
+                                                        target="_blank">
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="1.8">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -695,13 +679,12 @@
                                                     </a>
                                                 @endif
 
-
                                                 @if ($pengajuan->dokumen->dokumen_pdf)
-                                                    <a href="{{ route('admin.pengajuan.dokumen.pdf', $pengajuan->dokumen) }}"
-                                                        target="_blank"
-                                                        class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+                                                    <a class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                                                        href="{{ route('admin.pengajuan.dokumen.pdf', $pengajuan->dokumen) }}"
+                                                        target="_blank">
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="1.8">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -714,12 +697,11 @@
 
                                                     </a>
 
+                                                    <a class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]"
+                                                        href="{{ route('mesin.print', $pengajuan->dokumen) }}"
+                                                        target="_blank">
 
-                                                    <a href="{{ route('mesin.print', $pengajuan->dokumen) }}"
-                                                        target="_blank"
-                                                        class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]">
-
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="1.8">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -753,7 +735,6 @@
 
         </div>
     </div>
-
 
     {{-- =========================================================
         SWEETALERT2

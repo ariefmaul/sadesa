@@ -1,6 +1,5 @@
 <x-app-layout>
 
-    
     <x-slot name="header">
         <div>
             <p class="text-sm font-medium text-[#2563EB]">
@@ -13,25 +12,15 @@
         </div>
     </x-slot>
 
-
-    
     <div class="min-h-screen bg-[#F8FAFC] py-8">
 
-        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
 
-
-            
-            <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-
-
-                
-                
-                
+            <article class="overflow-hidden bg-white border shadow-sm rounded-3xl border-slate-200">
 
                 <div
                     class="relative overflow-hidden bg-gradient-to-br from-[#0B3D91] via-[#0B3D91] to-[#0A2540] px-6 py-8 sm:px-10 sm:py-10">
 
-                    
                     <div
                         class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[#2563EB]/25 blur-3xl">
                     </div>
@@ -41,16 +30,13 @@
                     </div>
 
                     <div
-                        class="pointer-events-none absolute right-12 top-12 hidden h-20 w-20 rotate-12 rounded-2xl border border-white/10 bg-white/5 sm:block">
+                        class="absolute hidden w-20 h-20 border pointer-events-none right-12 top-12 rotate-12 rounded-2xl border-white/10 bg-white/5 sm:block">
                     </div>
-
 
                     <div class="relative z-10">
 
-                        
                         <div class="flex flex-wrap items-center gap-3">
 
-                            
                             <span
                                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
 
@@ -60,12 +46,10 @@
 
                             </span>
 
-
-                            
                             <span
                                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-blue-100 backdrop-blur-sm">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 24 24"
+                                <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -79,18 +63,14 @@
 
                         </div>
 
-
-                        
                         <h1
-                            class="mt-5 max-w-4xl text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                            class="max-w-4xl mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
 
                             {{ $transparansi->judul }}
 
                         </h1>
 
-
-                        
-                        <div class="mt-6 flex items-center gap-2">
+                        <div class="flex items-center gap-2 mt-6">
 
                             <div class="h-1 w-16 rounded-full bg-[#2563EB]"></div>
 
@@ -98,9 +78,7 @@
 
                         </div>
 
-
-                        
-                        <p class="mt-5 max-w-2xl text-sm leading-6 text-blue-100 sm:text-base">
+                        <p class="max-w-2xl mt-5 text-sm leading-6 text-blue-100 sm:text-base">
 
                             Informasi transparansi anggaran desa yang dapat
                             diakses secara terbuka oleh masyarakat melalui
@@ -112,27 +90,18 @@
 
                 </div>
 
-
-                
-                
-                
-
                 <div class="px-6 py-8 sm:px-10 sm:py-10 lg:px-14">
 
-
-                    
                     <div class="grid gap-4 sm:grid-cols-2">
 
-
-                        
-                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                        <div class="p-5 border rounded-2xl border-slate-200 bg-slate-50">
 
                             <div class="flex items-start gap-4">
 
                                 <div
                                     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -142,10 +111,9 @@
 
                                 </div>
 
-
                                 <div>
 
-                                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
+                                    <p class="text-xs font-medium tracking-wide uppercase text-slate-400">
                                         Periode Anggaran
                                     </p>
 
@@ -159,16 +127,14 @@
 
                         </div>
 
-
-                        
-                        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                        <div class="p-5 border rounded-2xl border-slate-200 bg-slate-50">
 
                             <div class="flex items-start gap-4">
 
                                 <div
                                     class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-green-50 text-[#16A34A]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -178,10 +144,9 @@
 
                                 </div>
 
-
                                 <div>
 
-                                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
+                                    <p class="text-xs font-medium tracking-wide uppercase text-slate-400">
                                         Status Publikasi
                                     </p>
 
@@ -197,11 +162,6 @@
 
                     </div>
 
-
-                    
-                    
-                    
-
                     <div class="mt-10">
 
                         <div class="mb-5">
@@ -216,18 +176,14 @@
 
                         </div>
 
-
-                        <div class="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+                        <div class="p-6 bg-white border rounded-2xl border-slate-200 sm:p-8">
 
                             <div class="flex gap-4">
 
-                                
                                 <div
                                     class="hidden w-1 shrink-0 rounded-full bg-gradient-to-b from-[#2563EB] to-[#16A34A] sm:block">
                                 </div>
 
-
-                                
                                 <p class="whitespace-pre-line text-[15px] leading-8 text-slate-600 sm:text-base">
 
                                     {{ $transparansi->deskripsi ?: 'Tidak ada deskripsi untuk dokumen transparansi ini.' }}
@@ -240,16 +196,10 @@
 
                     </div>
 
-
-                    
-                    
-                    
-
                     <div class="mt-8">
 
                         <div class="relative overflow-hidden rounded-2xl bg-[#0A2540] p-6 sm:p-7">
 
-                            
                             <div
                                 class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#2563EB]/20 blur-2xl">
                             </div>
@@ -258,17 +208,14 @@
                                 class="pointer-events-none absolute -bottom-10 -left-10 h-32 w-32 rounded-full bg-[#16A34A]/20 blur-2xl">
                             </div>
 
-
                             <div class="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
-
-                                
                                 <div class="flex items-start gap-4">
 
                                     <div
-                                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white">
+                                        class="flex items-center justify-center w-12 h-12 text-white shrink-0 rounded-xl bg-white/10">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
+                                        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
 
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -280,7 +227,6 @@
                                         </svg>
 
                                     </div>
-
 
                                     <div>
 
@@ -298,12 +244,10 @@
 
                                 </div>
 
+                                <a class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#0B3D91] shadow-sm transition duration-200 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0A2540]"
+                                    href="{{ route('masyarakat.transparansi.download', $transparansi) }}">
 
-                                
-                                <a href="{{ route('masyarakat.transparansi.download', $transparansi) }}"
-                                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[#0B3D91] shadow-sm transition duration-200 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0A2540]">
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -323,23 +267,16 @@
 
                 </div>
 
-
-                
-                
-                
-
-                <div class="border-t border-slate-100 bg-slate-50/70 px-6 py-6 sm:px-10">
+                <div class="px-6 py-6 border-t border-slate-100 bg-slate-50/70 sm:px-10">
 
                     <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 
-
-                        
                         <div class="shrink-0">
 
-                            <a href="{{ route('masyarakat.transparansi.index') }}"
-                                class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D91] px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                            <a class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D91] px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                href="{{ route('masyarakat.transparansi.index') }}">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -353,16 +290,12 @@
 
                         </div>
 
-
-                        
                         <div class="flex items-start gap-3 sm:flex-row-reverse sm:text-right">
 
-
-                            
                             <div
                                 class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0B3D91]/10 text-[#0B3D91]">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1.8">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -375,8 +308,6 @@
 
                             </div>
 
-
-                            
                             <div class="min-w-0">
 
                                 <div class="flex items-center gap-2 sm:justify-end">
@@ -390,8 +321,7 @@
 
                                 </div>
 
-
-                                <p class="mt-1 max-w-md text-xs leading-5 text-slate-500">
+                                <p class="max-w-md mt-1 text-xs leading-5 text-slate-500">
 
                                     Informasi transparansi anggaran yang
                                     dipublikasikan secara resmi melalui
@@ -412,8 +342,6 @@
 
                 </div>
 
-
-                
                 <div class="flex h-1">
 
                     <div class="w-2/3 bg-[#2563EB]"></div>
@@ -421,7 +349,6 @@
                     <div class="w-1/3 bg-[#16A34A]"></div>
 
                 </div>
-
 
             </article>
 

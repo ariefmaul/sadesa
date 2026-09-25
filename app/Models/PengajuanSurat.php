@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class PengajuanSurat extends Model
 {
     protected $fillable = [
-    'jenis_surat_id',
-    'user_id',
-    'nomor_pengajuan',
-    'data_pengajuan',
-    'data_snapshot',
-    'status',
-    'qr_token',
-    'dokumen_word',
-    'dokumen_pdf',
-    'disetujui_at',
+        'jenis_surat_id',
+        'user_id',
+        'nomor_pengajuan',
+        'data_pengajuan',
+        'data_snapshot',
+        'status',
+        'qr_token',
+        'dokumen_word',
+        'dokumen_pdf',
+        'disetujui_at',
     ];
 
     protected function casts(): array

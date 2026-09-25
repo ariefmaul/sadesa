@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PengumumanDesa;
+use App\Models\User;
 use App\Notifications\PengumumanDesaBaruNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class PengumumanDesaController extends Controller
 {
@@ -121,7 +122,7 @@ class PengumumanDesaController extends Controller
     protected function sendPublishedNotification(PengumumanDesa $pengumuman): void
     {
         DB::transaction(function () use ($pengumuman) {
-            $recipients = \App\Models\User::query()
+            $recipients = User::query()
                 ->where('desa_id', $pengumuman->desa_id)
                 ->where('role', 'masyarakat')
                 ->whereNotNull('email')

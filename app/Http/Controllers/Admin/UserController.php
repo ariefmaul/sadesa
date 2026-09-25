@@ -67,7 +67,7 @@ class UserController extends Controller
         if (auth()->user()->role === 'admin_desa') {
             $provinsis = Provinsi::query()->orderBy('nama')->get();
 
-            return view('admin.users.create', compact('provinsis')); 
+            return view('admin.users.create', compact('provinsis'));
         }
 
         $provinsis = Provinsi::query()->orderBy('nama')->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 // models used: Desa is not needed directly here any more
+use App\Models\Provinsi;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class AdminDesaController extends Controller
 
     public function create(): View
     {
-        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
+        $provinsis = Provinsi::orderBy('nama')->get();
 
         return view('admin.admin-desa.create', compact('provinsis'));
     }
@@ -74,7 +75,7 @@ class AdminDesaController extends Controller
     {
         abort_unless($adminDesa->role === 'admin_desa', 404);
 
-        $provinsis = \App\Models\Provinsi::orderBy('nama')->get();
+        $provinsis = Provinsi::orderBy('nama')->get();
 
         // determine selected region ids for the edit form
         $selectedProvinsi = null;

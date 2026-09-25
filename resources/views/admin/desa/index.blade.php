@@ -20,33 +20,29 @@
                 </p>
             </div>
 
-
         </div>
     </x-slot>
-
 
     {{-- =========================================================
         CONTENT
     ========================================================== --}}
     <div class="py-8">
 
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             {{-- Flash --}}
             @include('admin.partials.flash')
 
-
             {{-- =================================================
                 CARD
             ================================================== --}}
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- =================================================
                     CARD TOP
                 ================================================== --}}
                 <div
-                    class="flex flex-col gap-4 border-b border-slate-200 bg-white px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
+                    class="flex flex-col gap-4 px-6 py-5 bg-white border-b border-slate-200 lg:flex-row lg:items-center lg:justify-between">
 
                     {{-- Title --}}
                     <div>
@@ -59,23 +55,23 @@
                         </p>
                     </div>
 
-
                     {{-- =================================================
                         FILTER / SEARCH
                     ================================================== --}}
                     <div class="flex flex-wrap items-center gap-3">
 
-                        <form method="GET" action="{{ route('admin.desa.index') }}"
-                            class="flex flex-wrap items-center gap-3">
+                        <form class="flex flex-wrap items-center gap-3" method="GET"
+                            action="{{ route('admin.desa.index') }}">
 
                             {{-- Filter Provinsi --}}
                             <div class="flex items-center gap-2">
-                                <label for="provinsi_id" class="text-xs font-medium text-slate-500">
+                                <label class="text-xs font-medium text-slate-500" for="provinsi_id">
                                     Provinsi
                                 </label>
 
-                                <select name="provinsi_id" id="provinsi_id" onchange="this.form.submit()"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                <select
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                    id="provinsi_id" name="provinsi_id" onchange="this.form.submit()">
 
                                     <option value="">Semua Provinsi</option>
 
@@ -89,15 +85,15 @@
                                 </select>
                             </div>
 
-
                             {{-- Filter Kota --}}
                             <div class="flex items-center gap-2">
-                                <label for="kota_id" class="text-xs font-medium text-slate-500">
+                                <label class="text-xs font-medium text-slate-500" for="kota_id">
                                     Kota
                                 </label>
 
-                                <select name="kota_id" id="kota_id" onchange="this.form.submit()"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                <select
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                    id="kota_id" name="kota_id" onchange="this.form.submit()">
 
                                     <option value="">Semua Kota</option>
 
@@ -111,13 +107,12 @@
                                 </select>
                             </div>
 
-
                             {{-- Search --}}
                             <div class="relative">
 
-                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400"
+                                    <svg class="w-4 h-4 text-slate-400" xmlns="http://www.w3.org/2000/svg"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -127,18 +122,19 @@
 
                                 </div>
 
-                                <input type="text" name="search" value="{{ $search }}"
-                                    placeholder="Cari nama atau kode desa"
-                                    class="w-full min-w-[240px] rounded-lg border border-slate-200 bg-white py-1.5 pl-9 pr-3 text-xs font-medium text-[#0A2540] shadow-sm placeholder:text-slate-400 transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 sm:w-[260px]">
+                                <input
+                                    class="w-full min-w-[240px] rounded-lg border border-slate-200 bg-white py-1.5 pl-9 pr-3 text-xs font-medium text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 sm:w-[260px]"
+                                    name="search" type="text" value="{{ $search }}"
+                                    placeholder="Cari nama atau kode desa">
 
                             </div>
 
-
                             {{-- Search Button --}}
-                            <button type="submit"
-                                class="inline-flex items-center gap-1.5 rounded-lg bg-[#0A2540] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                            <button
+                                class="inline-flex items-center gap-1.5 rounded-lg bg-[#0A2540] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                type="submit">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                                <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -150,16 +146,16 @@
 
                             </button>
 
-
                             {{-- Per Page --}}
                             <div class="flex items-center gap-2">
 
-                                <label for="per_page" class="text-xs font-medium text-slate-500">
+                                <label class="text-xs font-medium text-slate-500" for="per_page">
                                     Tampilkan
                                 </label>
 
-                                <select name="per_page" id="per_page" onchange="this.form.submit()"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                <select
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                    id="per_page" name="per_page" onchange="this.form.submit()">
 
                                     <option value="10" {{ ($perPage ?? 10) == 10 ? 'selected' : '' }}>
                                         10
@@ -185,13 +181,12 @@
 
                             </div>
 
-
                             {{-- Reset --}}
                             @if (request()->filled('search') || request()->filled('provinsi_id') || request()->filled('kota_id'))
-                                <a href="{{ route('admin.desa.index', ['per_page' => $perPage ?? 10]) }}"
-                                    class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]">
+                                <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]"
+                                    href="{{ route('admin.desa.index', ['per_page' => $perPage ?? 10]) }}">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                                    <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -204,10 +199,10 @@
                             @endif
 
                         </form>
-                        <a href="{{ route('admin.desa.create') }}"
-                            class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                        <a class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                            href="{{ route('admin.desa.create') }}">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="2">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -221,7 +216,6 @@
 
                 </div>
 
-
                 {{-- =================================================
                     TABLE
                 ================================================== --}}
@@ -233,54 +227,52 @@
                             <tr class="border-b border-slate-200 bg-slate-50">
 
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     #
                                 </th>
 
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     Nama Desa
                                 </th>
 
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     Kecamatan - Kota - Provinsi
                                 </th>
 
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     User
                                 </th>
 
                                 <th
-                                    class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-right uppercase text-slate-500">
                                     Aksi
                                 </th>
 
                             </tr>
                         </thead>
 
-
-                        <tbody class="divide-y divide-slate-100 bg-white">
+                        <tbody class="bg-white divide-y divide-slate-100">
 
                             @forelse ($desas as $desa)
                                 <tr class="transition hover:bg-slate-50">
 
                                     {{-- Nomor --}}
-                                    <td class="whitespace-nowrap px-6 py-4 text-slate-400">
+                                    <td class="px-6 py-4 whitespace-nowrap text-slate-400">
                                         {{ $desas->firstItem() + $loop->index }}
                                     </td>
 
-
                                     {{-- Nama Desa --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div class="flex items-center gap-3">
 
                                             <div
                                                 class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#2563EB]">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="1.8">
 
@@ -309,9 +301,8 @@
 
                                     </td>
 
-
                                     {{-- kota --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         @if ($desa->kecamatan->nama)
                                             <span
@@ -326,17 +317,14 @@
                                             </span>
                                         @endif
 
-
-
                                     </td>
 
-
                                     {{-- User --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div class="flex items-center gap-2 text-slate-600">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400"
+                                            <svg class="w-4 h-4 text-slate-400" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="1.8">
 
@@ -358,17 +346,16 @@
 
                                     </td>
 
-
                                     {{-- Aksi --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div class="flex items-center justify-end gap-2">
 
                                             {{-- Edit --}}
-                                            <a href="{{ route('admin.desa.edit', $desa) }}" title="Edit Desa"
-                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]">
+                                            <a class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]"
+                                                href="{{ route('admin.desa.edit', $desa) }}" title="Edit Desa">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="2">
 
@@ -382,21 +369,21 @@
 
                                             </a>
 
-
                                             {{-- Hapus --}}
-                                            <form method="POST" action="{{ route('admin.desa.destroy', $desa) }}"
-                                                data-confirm-delete
+                                            <form data-confirm-delete
                                                 data-confirm-title="Hapus desa {{ $desa->nama }}?"
                                                 data-confirm-text="Data yang sudah dihapus tidak dapat dikembalikan."
-                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal">
+                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal"
+                                                method="POST" action="{{ route('admin.desa.destroy', $desa) }}">
 
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="submit" title="Hapus Desa"
-                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-100 bg-white text-red-500 shadow-sm transition hover:border-red-200 hover:bg-red-50 hover:text-red-600">
+                                                <button
+                                                    class="inline-flex items-center justify-center text-red-500 transition bg-white border border-red-100 rounded-lg shadow-sm h-9 w-9 hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                                                    type="submit" title="Hapus Desa">
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         stroke-width="2">
 
@@ -422,14 +409,14 @@
                                 ================================================== --}}
                                 <tr>
 
-                                    <td colspan="5" class="px-6 py-14 text-center">
+                                    <td class="px-6 text-center py-14" colspan="5">
 
                                         <div class="flex flex-col items-center justify-center">
 
                                             <div
-                                                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                                                class="flex items-center justify-center h-14 w-14 rounded-2xl bg-slate-100 text-slate-400">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                                <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="1.6">
 
@@ -450,14 +437,14 @@
                                                 Belum ada data desa
                                             </h4>
 
-                                            <p class="mt-1 max-w-sm text-sm text-slate-500">
+                                            <p class="max-w-sm mt-1 text-sm text-slate-500">
                                                 Belum terdapat data desa yang sesuai dengan pencarian.
                                             </p>
 
-                                            <a href="{{ route('admin.desa.create') }}"
-                                                class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]">
+                                            <a class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]"
+                                                href="{{ route('admin.desa.create') }}">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="2">
 
@@ -483,12 +470,11 @@
 
                 </div>
 
-
                 {{-- =================================================
                     PAGINATION
                 ================================================== --}}
                 @if ($desas->hasPages())
-                    <div class="border-t border-slate-200 px-6 py-4">
+                    <div class="px-6 py-4 border-t border-slate-200">
 
                         {{ $desas->onEachSide(2)->withQueryString()->links() }}
 

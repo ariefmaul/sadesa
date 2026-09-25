@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Masyarakat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class ProfilMasyarakatController extends Controller
 {
     public function edit(Request $request): RedirectResponse
     {
-        
+
         return redirect()->route('profile.edit');
     }
 

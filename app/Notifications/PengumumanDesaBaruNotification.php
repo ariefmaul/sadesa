@@ -12,9 +12,7 @@ class PengumumanDesaBaruNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public PengumumanDesa $pengumuman)
-    {
-    }
+    public function __construct(public PengumumanDesa $pengumuman) {}
 
     public function via(object $notifiable): array
     {

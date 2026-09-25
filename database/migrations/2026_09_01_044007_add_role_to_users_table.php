@@ -6,23 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-    $table->enum('role', [
-        'admin',
-        'masyarakat',
-        'mesin'
-    ])->default('masyarakat')->after('password');
-});
+            $table->enum('role', [
+                'admin',
+                'masyarakat',
+                'mesin',
+            ])->default('masyarakat')->after('password');
+        });
     }
 
-    
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            
-        });
+        Schema::table('users', function (Blueprint $table) {});
     }
 };

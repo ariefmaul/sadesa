@@ -1,6 +1,5 @@
 <x-app-layout>
 
-    
     <x-slot name="header">
         <div>
             <p class="text-sm font-medium text-[#2563EB]">
@@ -13,22 +12,19 @@
         </div>
     </x-slot>
 
-
     <div class="min-h-screen bg-[#F8FAFC] py-8">
 
-        <div class="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto space-y-8 max-w-7xl sm:px-6 lg:px-8">
 
-            
             <section
                 class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0B3D91] via-[#0B3D91] to-[#0A2540] p-6 shadow-xl sm:p-8">
 
-                
-                <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+                <div class="absolute w-64 h-64 rounded-full -right-20 -top-20 bg-white/10 blur-3xl"></div>
 
                 <div class="absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-[#16A34A]/20 blur-3xl"></div>
 
                 <div
-                    class="absolute right-16 top-10 hidden h-20 w-20 rounded-2xl border border-white/10 bg-white/5 rotate-12 sm:block">
+                    class="absolute hidden w-20 h-20 border right-16 top-10 rotate-12 rounded-2xl border-white/10 bg-white/5 sm:block">
                 </div>
 
                 <div class="relative z-10 max-w-3xl">
@@ -46,7 +42,7 @@
                         Pengumuman Desa
                     </h1>
 
-                    <p class="mt-3 max-w-2xl text-sm leading-6 text-blue-100 sm:text-base">
+                    <p class="max-w-2xl mt-3 text-sm leading-6 text-blue-100 sm:text-base">
                         Temukan berbagai informasi, berita, kegiatan, dan pengumuman
                         terbaru dari desa melalui Sadesa.
                     </p>
@@ -55,20 +51,16 @@
 
             </section>
 
-
-            
             <section>
 
                 @forelse ($pengumuman as $item)
 
                     @if ($loop->first)
-                        
                         <article
                             class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:border-[#2563EB]/30 hover:shadow-lg">
 
                             <div class="grid lg:grid-cols-5">
 
-                                
                                 <div
                                     class="relative flex min-h-[260px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#0B3D91] via-[#0A2540] to-[#0B3D91] lg:col-span-2 lg:min-h-[380px]">
 
@@ -81,9 +73,9 @@
                                     </div>
 
                                     <div
-                                        class="relative z-10 flex h-24 w-24 items-center justify-center rounded-3xl border border-white/10 bg-white/10 text-white shadow-2xl backdrop-blur-sm">
+                                        class="relative z-10 flex items-center justify-center w-24 h-24 text-white border shadow-2xl rounded-3xl border-white/10 bg-white/10 backdrop-blur-sm">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none"
+                                        <svg class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
 
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -103,13 +95,10 @@
 
                                 </div>
 
-
-                                
                                 <div class="flex flex-col justify-between p-6 sm:p-8 lg:col-span-3">
 
                                     <div>
 
-                                        
                                         <div class="flex flex-wrap items-center gap-3">
 
                                             <span
@@ -127,8 +116,6 @@
 
                                         </div>
 
-
-                                        
                                         <h2
                                             class="mt-4 text-2xl font-bold leading-tight tracking-tight text-[#0A2540] transition group-hover:text-[#0B3D91] sm:text-3xl">
 
@@ -136,10 +123,8 @@
 
                                         </h2>
 
-
-                                        
                                         <p
-                                            class="mt-4 line-clamp-6 whitespace-pre-line text-sm leading-7 text-slate-600 sm:text-base">
+                                            class="mt-4 text-sm leading-7 whitespace-pre-line line-clamp-6 text-slate-600 sm:text-base">
 
                                             {{ $item->isi }}
 
@@ -147,19 +132,16 @@
 
                                     </div>
 
-
-                                    
                                     <div class="mt-7">
 
-                                        <a href="{{ route('masyarakat.pengumuman.show', $item) }}"
-                                            class="inline-flex items-center gap-2 rounded-xl bg-[#0B3D91] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                                        <a class="inline-flex items-center gap-2 rounded-xl bg-[#0B3D91] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0A2540] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                            href="{{ route('masyarakat.pengumuman.show', $item) }}">
 
                                             Baca Selengkapnya
 
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                                                fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                                stroke-width="1.8">
+                                            <svg class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" stroke-width="1.8">
 
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M5 12h14M13 6l6 6-6 6" />
@@ -176,12 +158,10 @@
 
                         </article>
 
-
-                        
                         @if ($pengumuman->count() > 1)
                             <div class="mt-8">
 
-                                <div class="mb-5 flex items-end justify-between gap-4">
+                                <div class="flex items-end justify-between gap-4 mb-5">
 
                                     <div>
                                         <p class="text-sm font-medium text-[#2563EB]">
@@ -195,14 +175,12 @@
 
                                 </div>
 
-
                                 <div class="grid gap-5 md:grid-cols-2">
 
                                     @foreach ($pengumuman->skip(1) as $news)
                                         <article
                                             class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#2563EB]/30 hover:shadow-md">
 
-                                            
                                             <div
                                                 class="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-[#0B3D91] to-[#0A2540]">
 
@@ -215,9 +193,9 @@
                                                 </div>
 
                                                 <div
-                                                    class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-white backdrop-blur-sm">
+                                                    class="relative flex items-center justify-center text-white h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-sm">
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         stroke-width="1.6">
 
@@ -233,9 +211,7 @@
 
                                             </div>
 
-
-                                            
-                                            <div class="flex flex-1 flex-col p-5 sm:p-6">
+                                            <div class="flex flex-col flex-1 p-5 sm:p-6">
 
                                                 <div class="flex items-center justify-between gap-3">
 
@@ -254,7 +230,6 @@
 
                                                 </div>
 
-
                                                 <h3
                                                     class="mt-4 line-clamp-2 text-lg font-bold leading-snug text-[#0A2540] transition group-hover:text-[#0B3D91]">
 
@@ -262,25 +237,23 @@
 
                                                 </h3>
 
-
                                                 <p
-                                                    class="mt-3 line-clamp-4 whitespace-pre-line text-sm leading-6 text-slate-500">
+                                                    class="mt-3 text-sm leading-6 whitespace-pre-line line-clamp-4 text-slate-500">
 
                                                     {{ $news->isi }}
 
                                                 </p>
 
+                                                <div class="pt-5 mt-auto">
 
-                                                <div class="mt-auto pt-5">
-
-                                                    <a href="{{ route('masyarakat.pengumuman.show', $news) }}"
-                                                        class="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] transition hover:text-[#0B3D91]">
+                                                    <a class="inline-flex items-center gap-2 text-sm font-semibold text-[#2563EB] transition hover:text-[#0B3D91]"
+                                                        href="{{ route('masyarakat.pengumuman.show', $news) }}">
 
                                                         Baca detail
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke="currentColor"
                                                             stroke-width="1.8">
 
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -305,13 +278,12 @@
 
                 @empty
 
-                    
-                    <div class="rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm sm:p-14">
+                    <div class="p-10 text-center bg-white border shadow-sm rounded-3xl border-slate-200 sm:p-14">
 
                         <div
                             class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="1.8">
 
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -323,12 +295,11 @@
 
                         </div>
 
-
                         <h3 class="mt-5 text-xl font-bold text-[#0A2540]">
                             Belum ada pengumuman
                         </h3>
 
-                        <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+                        <p class="max-w-md mx-auto mt-2 text-sm leading-6 text-slate-500">
                             Saat ini belum ada pengumuman publik dari desa.
                             Silakan kembali lagi untuk melihat informasi terbaru.
                         </p>
@@ -339,8 +310,6 @@
 
             </section>
 
-
-            
             @if ($pengumuman->hasPages())
                 <div class="pt-2">
                     {{ $pengumuman->links() }}

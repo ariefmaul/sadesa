@@ -18,19 +18,13 @@ class SuratGeneratorService
             'user',
         ]);
 
-        
-
         if (! $pengajuan->qr_token) {
             $pengajuan->qr_token = Str::uuid()->toString();
         }
 
-        
-
         $folder = 'surat/'.$pengajuan->id;
 
         Storage::disk('public')->makeDirectory($folder);
-
-        
 
         $qrUrl = route('surat.validasi', [
             'token' => $pengajuan->qr_token,
@@ -49,8 +43,6 @@ class SuratGeneratorService
 
         $qrResult->saveToFile($qrPath);
 
-        
-
         $templatePath = storage_path(
             'app/public/'.$pengajuan->jenisSurat->template
         );
@@ -63,15 +55,11 @@ class SuratGeneratorService
 
         $template = new TemplateProcessor($templatePath);
 
-        
-
         $user = $pengajuan->user;
 
         $data = $pengajuan->data_snapshot
             ?? $pengajuan->data_pengajuan
             ?? [];
-
-        
 
         $variables = array_merge(
             [
@@ -85,8 +73,6 @@ class SuratGeneratorService
             $data
         );
 
-        
-
         foreach ($variables as $key => $value) {
 
             if (is_array($value)) {
@@ -99,8 +85,6 @@ class SuratGeneratorService
             );
         }
 
-        
-
         try {
             $template->setImageValue('qr_code', [
                 'path' => $qrPath,
@@ -108,10 +92,8 @@ class SuratGeneratorService
                 'height' => 120,
             ]);
         } catch (\Throwable $e) {
-            
-        }
 
-        
+        }
 
         $wordFilename =
             'surat-'.
@@ -124,8 +106,6 @@ class SuratGeneratorService
             );
 
         $template->saveAs($wordPath);
-
-        
 
         $pengajuan->dokumen_word =
             $folder.'/'.$wordFilename;

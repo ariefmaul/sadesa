@@ -12,9 +12,7 @@ class PengajuanDitolakNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public PengajuanSurat $pengajuan, public ?string $catatan = null)
-    {
-    }
+    public function __construct(public PengajuanSurat $pengajuan, public ?string $catatan = null) {}
 
     public function via(object $notifiable): array
     {

@@ -1,14 +1,14 @@
 <x-app-layout>
 
     <div class="py-8">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
 
             {{-- =========================================================
                 HEADER SECTION
             ========================================================== --}}
-            <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div class="flex flex-col gap-4 mb-6 sm:flex-row sm:items-end sm:justify-between">
 
                 <div>
 
@@ -20,31 +20,28 @@
                         Kota / Kabupaten
                     </h1>
 
-                    <p class="mt-2 max-w-2xl text-sm leading-6 text-white/60">
+                    <p class="max-w-2xl mt-2 text-sm leading-6 text-white/60">
                         Kelola data kota atau kabupaten yang berada di dalam wilayah provinsi.
                     </p>
 
                 </div>
 
-
                 {{-- =====================================================
                     TAMBAH KOTA / KABUPATEN
                 ====================================================== --}}
 
-
             </div>
-
 
             {{-- =========================================================
                 TABLE CARD
             ========================================================== --}}
-            <div class="overflow-hidden rounded-2xl border border-white/20 bg-white shadow-2xl shadow-black/10">
+            <div class="overflow-hidden bg-white border shadow-2xl rounded-2xl border-white/20 shadow-black/10">
 
                 {{-- =====================================================
                     CARD TOP
                 ====================================================== --}}
                 <div
-                    class="flex flex-col gap-4 border-b border-slate-200 bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                    class="flex flex-col gap-4 px-6 py-5 bg-white border-b border-slate-200 sm:flex-row sm:items-center sm:justify-between">
 
                     <div>
 
@@ -58,26 +55,25 @@
 
                     </div>
 
-
                     {{-- =================================================
 FILTER
 ================================================== --}}
 
                     <div class="flex flex-wrap items-center gap-3">
 
-
-                        <form method="GET" action="{{ route('admin.kota.index') }}"
-                            class="flex flex-wrap items-center gap-3">
+                        <form class="flex flex-wrap items-center gap-3" method="GET"
+                            action="{{ route('admin.kota.index') }}">
 
                             {{-- Filter Provinsi --}}
                             <div class="flex items-center gap-2">
 
-                                <label for="provinsi_id" class="text-xs font-medium text-slate-500">
+                                <label class="text-xs font-medium text-slate-500" for="provinsi_id">
                                     Provinsi
                                 </label>
 
-                                <select name="provinsi_id" id="provinsi_id" onchange="this.form.submit()"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                <select
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                    id="provinsi_id" name="provinsi_id" onchange="this.form.submit()">
 
                                     <option value="">
                                         Semua Provinsi
@@ -94,27 +90,27 @@ FILTER
 
                             </div>
 
-
                             {{-- Search Kota (ganti filter kota) --}}
                             <div class="flex items-center gap-2">
-                                <label for="q" class="sr-only">Cari Kota</label>
+                                <label class="sr-only" for="q">Cari Kota</label>
                                 <div class="relative">
-                                    <input type="text" name="q" id="q" value="{{ request('q') }}"
-                                        placeholder="Cari nama kota..."
-                                        class="w-56 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                    <input
+                                        class="w-56 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                        id="q" name="q" type="text" value="{{ request('q') }}"
+                                        placeholder="Cari nama kota...">
                                 </div>
                             </div>
-
 
                             {{-- Per Page --}}
                             <div class="flex items-center gap-2">
 
-                                <label for="per_page" class="text-xs font-medium text-slate-500">
+                                <label class="text-xs font-medium text-slate-500" for="per_page">
                                     Tampilkan
                                 </label>
 
-                                <select name="per_page" id="per_page" onchange="this.form.submit()"
-                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                                <select
+                                    class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                    id="per_page" name="per_page" onchange="this.form.submit()">
 
                                     <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>
                                         10
@@ -140,13 +136,12 @@ FILTER
 
                             </div>
 
-
                             {{-- Reset Filter --}}
                             @if (request()->filled('provinsi_id') || request()->filled('q'))
-                                <a href="{{ route('admin.kota.index', ['per_page' => $perPage]) }}"
-                                    class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]">
+                                <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]"
+                                    href="{{ route('admin.kota.index', ['per_page' => $perPage]) }}">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none"
+                                    <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -160,11 +155,11 @@ FILTER
 
                         </form>
 
-                        <a href="{{ route('admin.kota.create') }}"
-                            class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/10 transition duration-200 hover:bg-blue-50 hover:text-[#0B3D91] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0B3D91]">
+                        <a class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/10 transition duration-200 hover:bg-blue-50 hover:text-[#0B3D91] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0B3D91]"
+                            href="{{ route('admin.kota.create') }}">
 
                             {{-- Plus Icon --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="2">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -176,9 +171,7 @@ FILTER
                         </a>
                     </div>
 
-
                 </div>
-
 
                 {{-- =========================================================
                     RESPONSIVE TABLE
@@ -219,29 +212,27 @@ FILTER
 
                         </thead>
 
-
                         {{-- =================================================
                             TABLE BODY
                         ================================================== --}}
                         <tbody class="divide-y divide-slate-100">
 
                             @forelse ($kotas as $kota)
-                                <tr class="group transition duration-150 hover:bg-blue-50/50">
+                                <tr class="transition duration-150 group hover:bg-blue-50/50">
 
                                     {{-- =================================================
                                         NUMBER
                                     ================================================== --}}
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-400">
+                                    <td class="px-6 py-4 text-sm font-medium whitespace-nowrap text-slate-400">
 
                                         {{ $kotas->firstItem() + $loop->index }}
 
                                     </td>
 
-
                                     {{-- =================================================
                                         NAMA KOTA / KABUPATEN
                                     ================================================== --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div>
 
@@ -253,16 +244,15 @@ FILTER
 
                                     </td>
 
-
                                     {{-- =================================================
                                         PROVINSI
                                     ================================================== --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div class="flex items-center gap-2">
 
                                             {{-- Location Icon --}}
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#2563EB]"
+                                            <svg class="h-4 w-4 text-[#2563EB]" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                 stroke-width="2">
 
@@ -281,11 +271,10 @@ FILTER
 
                                     </td>
 
-
                                     {{-- =================================================
                                         KODE
                                     ================================================== --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         @if ($kota->kode)
                                             <span
@@ -302,22 +291,21 @@ FILTER
 
                                     </td>
 
-
                                     {{-- =================================================
                                         ACTIONS
                                     ================================================== --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <div class="flex justify-end gap-2">
 
                                             {{-- =================================================
                                                 EDIT
                                             ================================================== --}}
-                                            <a href="{{ route('admin.kota.edit', $kota) }}"
-                                                class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-[#0A2540] transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]">
+                                            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-[#0A2540] transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]"
+                                                href="{{ route('admin.kota.edit', $kota) }}">
 
                                                 {{-- Edit Icon --}}
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -329,24 +317,24 @@ FILTER
 
                                             </a>
 
-
                                             {{-- =================================================
                                                 DELETE
                                             ================================================== --}}
-                                            <form action="{{ route('admin.kota.destroy', $kota) }}" method="POST"
-                                                class="inline" data-confirm-delete
+                                            <form class="inline" data-confirm-delete
                                                 data-confirm-title="Hapus kota/kabupaten {{ $kota->nama }}?"
                                                 data-confirm-text="Data yang sudah dihapus tidak dapat dikembalikan."
-                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal">
+                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal"
+                                                action="{{ route('admin.kota.destroy', $kota) }}" method="POST">
 
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="submit"
-                                                    class="inline-flex items-center gap-1.5 rounded-lg border border-red-100 bg-white px-3 py-2 text-xs font-semibold text-red-600 transition hover:border-red-200 hover:bg-red-50">
+                                                <button
+                                                    class="inline-flex items-center gap-1.5 rounded-lg border border-red-100 bg-white px-3 py-2 text-xs font-semibold text-red-600 transition hover:border-red-200 hover:bg-red-50"
+                                                    type="submit">
 
                                                     {{-- Trash Icon --}}
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         stroke-width="2">
 
@@ -367,7 +355,6 @@ FILTER
 
                                 </tr>
 
-
                             @empty
 
                                 {{-- =================================================
@@ -375,15 +362,15 @@ FILTER
                                 ================================================== --}}
                                 <tr>
 
-                                    <td colspan="5" class="px-6 py-16 text-center">
+                                    <td class="px-6 py-16 text-center" colspan="5">
 
-                                        <div class="mx-auto flex max-w-sm flex-col items-center">
+                                        <div class="flex flex-col items-center max-w-sm mx-auto">
 
                                             {{-- Icon --}}
                                             <div
                                                 class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB]">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                                <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="1.8">
 
@@ -394,22 +381,19 @@ FILTER
 
                                             </div>
 
-
                                             <h4 class="mt-4 font-semibold text-[#0A2540]">
                                                 Belum ada kota / kabupaten
                                             </h4>
-
 
                                             <p class="mt-1 text-sm text-slate-500">
                                                 Belum terdapat data kota atau kabupaten yang terdaftar.
                                             </p>
 
-
                                             {{-- Add Button --}}
-                                            <a href="{{ route('admin.kota.create') }}"
-                                                class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]">
+                                            <a class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]"
+                                                href="{{ route('admin.kota.create') }}">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="2">
 
@@ -435,12 +419,11 @@ FILTER
 
                 </div>
 
-
                 {{-- =========================================================
                     PAGINATION
                 ========================================================== --}}
                 @if ($kotas->hasPages())
-                    <div class="border-t border-slate-200 bg-white px-6 py-4">
+                    <div class="px-6 py-4 bg-white border-t border-slate-200">
 
                         {{ $kotas->onEachSide(2)->withQueryString()->links() }}
 
@@ -451,7 +434,6 @@ FILTER
 
         </div>
     </div>
-
 
     {{-- =========================================================
         SWEETALERT
@@ -474,6 +456,5 @@ FILTER
             });
         </script>
     @endif
-
 
 </x-app-layout>

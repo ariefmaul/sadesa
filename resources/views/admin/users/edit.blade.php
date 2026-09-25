@@ -10,17 +10,17 @@
                 </h2>
             </div>
 
-            <a href="{{ route('admin.users.index') }}"
-                class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]">
+            <a class="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]"
+                href="{{ route('admin.users.index') }}">
                 Kembali
             </a>
         </div>
     </x-slot>
 
     <div class="py-8">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                <div class="border-b border-slate-200 px-6 py-5">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
+                <div class="px-6 py-5 border-b border-slate-200">
                     <h3 class="text-base font-bold text-[#0A2540]">
                         Ubah Data User
                     </h3>
@@ -38,18 +38,19 @@
                     </div>
 
                     <div
-                        class="flex flex-col-reverse gap-3 border-t border-slate-200 bg-slate-50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+                        class="flex flex-col-reverse gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
                         <p class="text-xs text-slate-500">
                             Pastikan informasi akun dan wilayah sudah benar.
                         </p>
 
                         <div class="flex items-center justify-end gap-2">
-                            <a href="{{ route('admin.users.index') }}"
-                                class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-100">
+                            <a class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-slate-300 hover:bg-slate-100"
+                                href="{{ route('admin.users.index') }}">
                                 Batal
                             </a>
-                            <button type="submit"
-                                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                            <button
+                                class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                type="submit">
                                 Simpan Perubahan
                             </button>
                         </div>

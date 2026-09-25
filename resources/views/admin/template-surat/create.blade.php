@@ -20,7 +20,7 @@
             <a href="{{ route('admin.template-surat.index') }}"
                 class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
@@ -34,23 +34,23 @@
 
 
     <div class="py-8">
-        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- =====================================================
                     CARD HEADER
                 ====================================================== --}}
-                <div class="border-b border-slate-200 px-6 py-5">
+                <div class="px-6 py-5 border-b border-slate-200">
 
                     <div class="flex items-center gap-4">
 
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -82,7 +82,7 @@
 
                     @csrf
 
-                    <div class="space-y-6 px-6 py-6">
+                    <div class="px-6 py-6 space-y-6">
 
                         {{-- =================================================
                             NAMA SURAT
@@ -97,7 +97,7 @@
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -132,7 +132,7 @@
                                 <div
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3" />
@@ -171,7 +171,7 @@
                                 <div
                                     class="pointer-events-none absolute left-0 top-3.5 flex items-center pl-3.5 text-slate-400">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h5" />
 
@@ -203,12 +203,12 @@
                                 class="mb-2 text-sm font-semibold text-[#0A2540]" />
 
                             <label for="template"
-                                class="group flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 bg-slate-50/70 px-6 py-8 text-center transition hover:border-blue-300 hover:bg-blue-50/50">
+                                class="flex flex-col items-center justify-center px-6 py-8 text-center transition border-2 border-dashed cursor-pointer group rounded-xl border-slate-200 bg-slate-50/70 hover:border-blue-300 hover:bg-blue-50/50">
 
                                 <div
                                     class="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#2563EB] shadow-sm">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -235,16 +235,16 @@
                                 </span>
 
                                 <div
-                                    class="selected-file-box mt-3 hidden w-full rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-left">
+                                    class="hidden w-full px-3 py-2 mt-3 text-left border rounded-lg selected-file-box border-emerald-200 bg-emerald-50">
                                     <div class="flex items-center gap-2 text-sm font-medium text-emerald-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M5 12.5 9.5 17 19 7.5" />
                                         </svg>
                                         <span>File terpilih:</span>
                                     </div>
-                                    <p class="selected-file-name mt-1 break-all text-xs text-emerald-700">
+                                    <p class="mt-1 text-xs break-all selected-file-name text-emerald-700">
                                         Belum ada file yang dipilih
                                     </p>
                                 </div>
@@ -272,7 +272,7 @@
                         FOOTER ACTION
                     ====================================================== --}}
                     <div
-                        class="flex flex-col gap-3 border-t border-slate-200 bg-slate-50 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                        class="flex flex-col gap-3 px-6 py-5 border-t border-slate-200 bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
 
                         <p class="text-xs text-slate-500">
                             Setelah template dibuat, kamu bisa mengatur field
@@ -292,7 +292,7 @@
                             <button type="submit"
                                 class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
                                 </svg>

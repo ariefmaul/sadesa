@@ -5,11 +5,11 @@
     ========================================================== --}}
     <div class="relative overflow-hidden">
         <div class="absolute inset-0">
-            <div class="absolute -right-20 -top-32 h-80 w-80 rounded-full bg-green-400/20 blur-3xl"></div>
-            <div class="absolute -left-20 top-20 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl"></div>
+            <div class="absolute rounded-full -right-20 -top-32 h-80 w-80 bg-green-400/20 blur-3xl"></div>
+            <div class="absolute w-64 h-64 rounded-full -left-20 top-20 bg-blue-500/20 blur-3xl"></div>
         </div>
 
-        <div class="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div class="relative px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
 
                 <div>
@@ -21,15 +21,15 @@
                         Pengumuman Desa
                     </h1>
 
-                    <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100/80">
+                    <p class="max-w-2xl mt-2 text-sm leading-6 text-blue-100/80">
                         Kelola informasi dan pengumuman yang akan ditampilkan kepada masyarakat desa.
                     </p>
                 </div>
 
-                <a href="{{ route('admin.pengumuman.create') }}"
-                    class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/15 transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                <a class="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/15 transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                    href="{{ route('admin.pengumuman.create') }}">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
@@ -41,19 +41,18 @@
         </div>
     </div>
 
-
     {{-- =========================================================
         CONTENT
     ========================================================== --}}
     <div class="py-8">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- Card Header --}}
-                <div class="border-b border-slate-200 px-6 py-5">
+                <div class="px-6 py-5 border-b border-slate-200">
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
                         <div class="flex items-center gap-3">
@@ -61,7 +60,7 @@
                             <div
                                 class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
@@ -91,7 +90,6 @@
                     </div>
                 </div>
 
-
                 {{-- Announcement List --}}
                 <div class="p-6">
 
@@ -99,19 +97,19 @@
 
                         @forelse ($pengumuman as $item)
                             <div
-                                class="group rounded-2xl border border-slate-200 bg-white p-5 transition duration-200 hover:border-blue-200 hover:shadow-md">
+                                class="p-5 transition duration-200 bg-white border group rounded-2xl border-slate-200 hover:border-blue-200 hover:shadow-md">
 
                                 <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
 
                                     {{-- Main Content --}}
-                                    <div class="min-w-0 flex-1">
+                                    <div class="flex-1 min-w-0">
 
                                         <div class="flex items-start gap-3">
 
                                             <div
                                                 class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
@@ -127,7 +125,7 @@
                                                 </h3>
 
                                                 <div
-                                                    class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
+                                                    class="flex flex-wrap items-center mt-1 text-sm gap-x-2 gap-y-1 text-slate-500">
 
                                                     <span>
                                                         {{ $item->published_at?->translatedFormat('d F Y') ?? 'Belum diterbitkan' }}
@@ -154,14 +152,12 @@
 
                                         </div>
 
-
                                         {{-- Description --}}
-                                        <p class="mt-4 pl-0 text-sm leading-6 text-slate-600">
+                                        <p class="pl-0 mt-4 text-sm leading-6 text-slate-600">
                                             {{ Str::limit(strip_tags($item->isi), 180) }}
                                         </p>
 
                                     </div>
-
 
                                     {{-- Status --}}
                                     <div class="shrink-0">
@@ -188,15 +184,14 @@
 
                                 </div>
 
-
                                 {{-- Actions --}}
-                                <div class="mt-5 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4">
+                                <div class="flex flex-wrap items-center gap-2 pt-4 mt-5 border-t border-slate-100">
 
                                     {{-- Edit --}}
-                                    <a href="{{ route('admin.pengumuman.edit', $item) }}" title="Edit Pengumuman"
-                                        class="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-blue-200 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                                    <a class="inline-flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 text-sm font-semibold text-[#0A2540] shadow-sm transition hover:border-blue-200 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                        href="{{ route('admin.pengumuman.edit', $item) }}" title="Edit Pengumuman">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M16.862 3.487a2.25 2.25 0 013.182 3.182L8.25 18.463 4 19.75l1.287-4.25L16.862 3.487z" />
@@ -205,20 +200,20 @@
                                         Edit
                                     </a>
 
-
                                     {{-- Delete --}}
-                                    <form action="{{ route('admin.pengumuman.destroy', $item) }}" method="POST"
-                                        data-confirm-delete data-confirm-title="Hapus pengumuman {{ $item->judul }}?"
+                                    <form data-confirm-delete data-confirm-title="Hapus pengumuman {{ $item->judul }}?"
                                         data-confirm-text="Pengumuman yang sudah dihapus tidak dapat dikembalikan."
-                                        data-confirm-button-text="Hapus" data-cancel-button-text="Batal">
+                                        data-confirm-button-text="Hapus" data-cancel-button-text="Batal"
+                                        action="{{ route('admin.pengumuman.destroy', $item) }}" method="POST">
 
                                         @csrf
                                         @method('DELETE')
 
-                                        <button type="submit" title="Hapus Pengumuman"
-                                            class="inline-flex h-9 items-center gap-2 rounded-lg border border-red-200 bg-white px-3.5 text-sm font-semibold text-red-600 shadow-sm transition hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                                        <button
+                                            class="inline-flex h-9 items-center gap-2 rounded-lg border border-red-200 bg-white px-3.5 text-sm font-semibold text-red-600 shadow-sm transition hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                            type="submit" title="Hapus Pengumuman">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6 7h12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2m2 0v12a1 1 0 01-1 1H8a1 1 0 01-1-1V7h10z" />
@@ -229,7 +224,6 @@
 
                                     </form>
 
-
                                     {{-- Publish / Unpublish --}}
                                     @if ($item->status === 'published')
                                         <form action="{{ route('admin.pengumuman.unpublish', $item) }}"
@@ -238,10 +232,11 @@
                                             @csrf
                                             @method('PATCH')
 
-                                            <button type="submit" title="Batalkan Publikasi"
-                                                class="inline-flex h-9 items-center gap-2 rounded-lg border border-amber-200 bg-white px-3.5 text-sm font-semibold text-amber-600 shadow-sm transition hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                                            <button
+                                                class="inline-flex h-9 items-center gap-2 rounded-lg border border-amber-200 bg-white px-3.5 text-sm font-semibold text-amber-600 shadow-sm transition hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                                                type="submit" title="Batalkan Publikasi">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -258,10 +253,11 @@
                                             @csrf
                                             @method('PATCH')
 
-                                            <button type="submit" title="Publikasikan Pengumuman"
-                                                class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                                            <button
+                                                class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                                type="submit" title="Publikasikan Pengumuman">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -282,12 +278,12 @@
 
                             {{-- Empty State --}}
                             <div
-                                class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-14 text-center">
+                                class="px-6 text-center border border-dashed rounded-2xl border-slate-300 bg-slate-50 py-14">
 
                                 <div
-                                    class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-slate-400 shadow-sm ring-1 ring-slate-200">
+                                    class="flex items-center justify-center mx-auto bg-white shadow-sm h-14 w-14 rounded-2xl text-slate-400 ring-1 ring-slate-200">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z" />
@@ -304,10 +300,10 @@
                                     Belum ada pengumuman desa yang tersedia.
                                 </p>
 
-                                <a href="{{ route('admin.pengumuman.create') }}"
-                                    class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]">
+                                <a class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]"
+                                    href="{{ route('admin.pengumuman.create') }}">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                                     </svg>
@@ -319,7 +315,6 @@
                         @endforelse
 
                     </div>
-
 
                     {{-- Pagination --}}
                     @if ($pengumuman->hasPages())

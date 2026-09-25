@@ -16,7 +16,6 @@ class TemplateSuratService
 {
     public function __construct(private readonly SuratFieldResolver $resolver) {}
 
-    
     public function generateDocx(PengajuanSurat $pengajuan, array $extras = []): string
     {
         $pengajuan->loadMissing(['jenisSurat', 'dokumen']);
@@ -42,10 +41,8 @@ class TemplateSuratService
             throw new RuntimeException('Gagal membuka template DOCX: '.$e->getMessage(), 0, $e);
         }
 
-        
         $data = array_merge($this->resolver->templateData($pengajuan), $extras);
 
-        
         try {
             $templateVariables = $processor->getVariables();
         } catch (\Throwable $e) {
@@ -53,7 +50,6 @@ class TemplateSuratService
             $templateVariables = [];
         }
 
-        
         Log::info('SADESA TEMPLATE DATA', [
             'pengajuan_id' => $pengajuan->id,
             'data_keys' => array_keys($data),
@@ -63,29 +59,25 @@ class TemplateSuratService
 
         Log::info('TemplateSuratService: data to inject', ['keys' => array_keys($data)]);
 
-        
         $normalizedToRaw = [];
         foreach ($templateVariables as $rawVar) {
             $norm = strtolower(preg_replace('/\s+/', '_', trim($rawVar)));
-            
+
             if (! isset($normalizedToRaw[$norm])) {
                 $normalizedToRaw[$norm] = $rawVar;
             }
         }
 
-        
         $extracted = $this->extractPlaceholders($pengajuan->jenisSurat->template);
         Log::info('TemplateSuratService: extracted placeholders (normalized)', ['extracted' => $extracted]);
 
-        
         foreach ($extracted as $norm) {
             if (! isset($normalizedToRaw[$norm])) {
-                
+
                 $normalizedToRaw[$norm] = $norm;
             }
         }
 
-        
         Log::info('SADESA SURAT DATA', [
             'pengajuan_id' => $pengajuan->id,
             'template_variables' => $templateVariables,
@@ -94,14 +86,13 @@ class TemplateSuratService
             'template_data' => $data,
         ]);
 
-        
         $requiredNorms = array_unique(array_merge(array_keys($normalizedToRaw), $extracted));
         $missing = [];
-        
+
         $dataNormKeys = array_map(fn ($k) => strtolower(preg_replace('/\s+/', '_', trim($k))), array_keys($data));
 
         foreach ($requiredNorms as $req) {
-            
+
             if ($req === 'nomor_surat' && array_key_exists('nomor_surat', $data)) {
                 continue;
             }
@@ -123,7 +114,6 @@ class TemplateSuratService
 
             $normKey = strtolower(preg_replace('/\s+/', '_', trim($key)));
 
-            
             if (in_array($normKey, ['qr_code', 'qr_file'], true)) {
                 $abs = Storage::disk('public')->path($value);
                 if (file_exists($abs)) {
@@ -178,16 +168,15 @@ class TemplateSuratService
 
         $absolutePath = Storage::disk('public')->path($filename);
 
-        
         try {
             $tmpTest = tempnam($absoluteDirectory, 'writetest_');
             if ($tmpTest === false) {
                 Log::error('TemplateSuratService: unable to create temp file in dokumen directory', ['dir' => $absoluteDirectory]);
                 throw new RuntimeException('Tidak dapat membuat file pada folder dokumen: '.$absoluteDirectory);
             }
-            
+
             if (! str_starts_with($tmpTest, $absoluteDirectory)) {
-                
+
                 $tmpTest2 = $absoluteDirectory.DIRECTORY_SEPARATOR.'writetest_'.Str::random(6);
                 $res = @file_put_contents($tmpTest2, 'ok');
                 if ($res === false) {
@@ -203,7 +192,6 @@ class TemplateSuratService
             throw $e;
         }
 
-        
         Log::info('SADESA DOCX DEBUG BEFORE SAVE', [
             'template_relative' => $pengajuan->jenisSurat->template,
             'template_absolute' => $templatePath,
@@ -215,11 +203,9 @@ class TemplateSuratService
             'output_directory_exists' => is_dir($absoluteDirectory),
         ]);
 
-        
         $saved = false;
         $errors = [];
 
-        
         try {
             $processor->saveAs($absolutePath);
             if (file_exists($absolutePath) && filesize($absolutePath) > 0) {
@@ -235,27 +221,25 @@ class TemplateSuratService
             Log::warning('TemplateSuratService: direct save exception', ['path' => $absolutePath, 'error' => $e->getMessage()]);
         }
 
-        
         if (! $saved) {
             $tmp = tempnam(sys_get_temp_dir(), 'sadesa_docx_');
             if ($tmp === false) {
                 $errors[] = 'tempnam failed';
                 Log::error('TemplateSuratService: tempnam failed for system temp dir', ['dir' => sys_get_temp_dir()]);
             } else {
-                
+
                 $tmpDocx = $tmp.'.docx';
                 try {
-                    
+
                     $processor->saveAs($tmpDocx);
                     if (file_exists($tmpDocx) && filesize($tmpDocx) > 0) {
-                        
+
                         if (file_exists($absolutePath) && filesize($absolutePath) === 0) {
                             @unlink($absolutePath);
                         }
 
-                        
                         if (@rename($tmpDocx, $absolutePath) === false) {
-                            
+
                             if (@copy($tmpDocx, $absolutePath) === false) {
                                 $errors[] = 'rename and copy failed when moving tmp file';
                                 Log::error('TemplateSuratService: failed to move tmp docx into place', ['tmp' => $tmpDocx, 'dest' => $absolutePath]);
@@ -285,13 +269,12 @@ class TemplateSuratService
         }
 
         if (! $saved) {
-            
+
             $files = @scandir($absoluteDirectory);
             Log::error('TemplateSuratService: DOCX not saved after fallback attempts', ['path' => $absolutePath, 'dir' => $absoluteDirectory, 'files' => $files, 'errors' => $errors]);
             throw new RuntimeException('DOCX berhasil diproses tetapi file tidak dapat disimpan: '.$absolutePath.'. Errors: '.implode(' | ', $errors));
         }
 
-        
         clearstatcache(true, $absolutePath);
 
         Log::info('SADESA DOCX DEBUG AFTER SAVE', [
@@ -359,8 +342,6 @@ class TemplateSuratService
             $absDocx
         );
 
-        
-
         $profileDir = storage_path(
             'app/libreoffice-profile/'.Str::uuid()
         );
@@ -368,8 +349,6 @@ class TemplateSuratService
         if (! is_dir($profileDir)) {
             mkdir($profileDir, 0775, true);
         }
-
-        
 
         $libreDir = dirname($libre);
 
@@ -387,7 +366,6 @@ class TemplateSuratService
             $absDocx,
         ];
 
-        
         $env = [
             'HOME' => storage_path('app'),
             'TMP' => sys_get_temp_dir(),
@@ -414,8 +392,6 @@ class TemplateSuratService
 
         Log::info('TemplateSuratService: LibreOffice finished', ['exit_code' => $process->getExitCode(), 'stdout' => $stdout, 'stderr' => $stderr]);
 
-        
-
         if (! file_exists($pdfAbs)) {
 
             throw new RuntimeException(
@@ -428,8 +404,6 @@ class TemplateSuratService
                 "STDERR: {$stderr}"
             );
         }
-
-        
 
         $publicRoot = $disk->path('');
 
@@ -446,7 +420,6 @@ class TemplateSuratService
         return ltrim($relative, '/');
     }
 
-    
     public function extractPlaceholders(string $docxRelativePath): array
     {
         $abs = Storage::disk('public')->path($docxRelativePath);
@@ -463,11 +436,10 @@ class TemplateSuratService
             if ($index !== false) {
                 $xml = $zip->getFromIndex($index);
 
-                
                 if (preg_match_all('/\$\{([a-zA-Z0-9_\s]+)\}/', $xml, $matches)) {
                     foreach ($matches[1] as $m) {
                         $name = trim($m);
-                        
+
                         $normalized = strtolower(preg_replace('/\s+/', '_', $name));
                         $placeholders[] = $normalized;
                     }
@@ -480,12 +452,10 @@ class TemplateSuratService
         return array_values(array_unique($placeholders));
     }
 
-    
     public function validatePlaceholders(array $placeholders, ?JenisSurat $jenisSurat = null, ?User $user = null): array
     {
         $known = [];
 
-        
         $auto = $this->resolver->automaticData($user ?? new User);
 
         $flatten = function ($arr, $prefix = '') use (&$flatten) {
@@ -505,13 +475,12 @@ class TemplateSuratService
 
         foreach ($profileKeys as $k) {
             $known[] = $k;
-            
+
             if (str_ends_with($k, 'nama_desa')) {
                 $known[] = 'desa';
             }
         }
 
-        
         if ($jenisSurat) {
             foreach ($jenisSurat->fields as $f) {
                 $known[] = $f->fieldName();

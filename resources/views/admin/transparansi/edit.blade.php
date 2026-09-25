@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Transparansi Anggaran</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Edit Transparansi Anggaran</h2>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="p-6 bg-white rounded-lg shadow-sm">
                 <form method="POST" action="{{ route('admin.transparansi.update', $transparansi) }}"
                     enctype="multipart/form-data" class="space-y-5">
                     @csrf
@@ -14,27 +14,27 @@
                         <label for="judul" class="block text-sm font-medium text-gray-700">Judul</label>
                         <input id="judul" name="judul" type="text"
                             value="{{ old('judul', $transparansi->judul) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" required>
                     </div>
                     <div>
                         <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                        <textarea id="deskripsi" name="deskripsi" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">{{ old('deskripsi', $transparansi->deskripsi) }}</textarea>
+                        <textarea id="deskripsi" name="deskripsi" rows="4" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm">{{ old('deskripsi', $transparansi->deskripsi) }}</textarea>
                     </div>
                     <div>
                         <label for="periode" class="block text-sm font-medium text-gray-700">Tahun/Periode</label>
                         <input id="periode" name="periode" type="text"
                             value="{{ old('periode', $transparansi->periode) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm">
                     </div>
                     <div>
                         <label for="pdf" class="block text-sm font-medium text-gray-700">File PDF</label>
                         <input id="pdf" name="pdf" type="file" accept="application/pdf"
-                            class="mt-1 block w-full text-sm text-gray-700">
+                            class="block w-full mt-1 text-sm text-gray-700">
                     </div>
                     <div>
                         <label for="status" class="block text-sm font-medium text-gray-700">Status Publikasi</label>
                         <select id="status" name="status"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            class="block w-full mt-1 border-gray-300 rounded-md shadow-sm">
                             <option value="draft"
                                 {{ old('status', $transparansi->status) === 'draft' ? 'selected' : '' }}>Draft</option>
                             <option value="published"
@@ -46,7 +46,7 @@
                         <button type="submit" class="bg-[#163A6B] text-white px-4 py-2 rounded-md">Simpan
                             Perubahan</button>
                         <a href="{{ route('admin.transparansi.index') }}"
-                            class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Batal</a>
+                            class="px-4 py-2 text-gray-800 bg-gray-200 rounded-md">Batal</a>
                     </div>
                 </form>
             </div>

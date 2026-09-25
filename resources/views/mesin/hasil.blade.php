@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Hasil Scan QR - Mesin Cetak</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Hasil Scan QR - Mesin Cetak</h2>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div class="bg-white p-6 shadow-sm sm:rounded-lg">
                 @if (!empty($valid))
                     <div class="mb-4 rounded-md border border-green-200 bg-green-50 p-4">
@@ -51,17 +51,17 @@
                         @endphp
 
                         @if ($fileUrl && str_ends_with($fileUrl, '.pdf'))
-                            <a href="{{ $fileUrl }}" target="_blank"
-                                class="px-4 py-2 bg-indigo-600 text-white rounded-md">Lihat & Cetak (PDF)</a>
+                            <a class="rounded-md bg-indigo-600 px-4 py-2 text-white" href="{{ $fileUrl }}"
+                                target="_blank">Lihat & Cetak (PDF)</a>
                         @elseif ($fileUrl)
-                            <a href="{{ $fileUrl }}" target="_blank"
-                                class="px-4 py-2 bg-indigo-600 text-white rounded-md">Buka Dokumen</a>
+                            <a class="rounded-md bg-indigo-600 px-4 py-2 text-white" href="{{ $fileUrl }}"
+                                target="_blank">Buka Dokumen</a>
                         @else
-                            <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md" disabled>File tidak
+                            <button class="rounded-md bg-gray-300 px-4 py-2 text-gray-700" disabled>File tidak
                                 tersedia</button>
                         @endif
 
-                        <a href="{{ route('mesin.scan') }}" class="px-4 py-2 border rounded-md">Scan QR Lain</a>
+                        <a class="rounded-md border px-4 py-2" href="{{ route('mesin.scan') }}">Scan QR Lain</a>
                     </div>
                 @else
                     <div class="mb-4 rounded-md border border-red-200 bg-red-50 p-4">
@@ -71,9 +71,9 @@
                     </div>
 
                     <div class="flex gap-3">
-                        <a href="{{ route('mesin.scan') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md">COBA
+                        <a class="rounded-md bg-indigo-600 px-4 py-2 text-white" href="{{ route('mesin.scan') }}">COBA
                             SCAN LAGI</a>
-                        <a href="{{ route('dashboard') }}" class="px-4 py-2 border rounded-md">Kembali</a>
+                        <a class="rounded-md border px-4 py-2" href="{{ route('dashboard') }}">Kembali</a>
                     </div>
                 @endif
             </div>

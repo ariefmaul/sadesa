@@ -1,5 +1,3 @@
-
-
 import Alpine from 'alpinejs';
 import { Html5Qrcode } from 'html5-qrcode';
 import Swal from 'sweetalert2';

@@ -1,29 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Pengumuman Desa</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Edit Pengumuman Desa</h2>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white p-6 rounded-lg shadow-sm">
-                <form method="POST" action="{{ route('admin.pengumuman.update', $pengumuman) }}" class="space-y-5">
+        <div class="max-w-3xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="p-6 bg-white rounded-lg shadow-sm">
+                <form class="space-y-5" method="POST" action="{{ route('admin.pengumuman.update', $pengumuman) }}">
                     @csrf
                     @method('PUT')
                     <div>
-                        <label for="judul" class="block text-sm font-medium text-gray-700">Judul</label>
-                        <input id="judul" name="judul" type="text"
-                            value="{{ old('judul', $pengumuman->judul) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                        <label class="block text-sm font-medium text-gray-700" for="judul">Judul</label>
+                        <input class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" id="judul"
+                            name="judul" type="text" value="{{ old('judul', $pengumuman->judul) }}" required>
                     </div>
                     <div>
-                        <label for="isi" class="block text-sm font-medium text-gray-700">Isi</label>
-                        <textarea id="isi" name="isi" rows="8" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                        <label class="block text-sm font-medium text-gray-700" for="isi">Isi</label>
+                        <textarea class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" id="isi" name="isi" rows="8"
                             required>{{ old('isi', $pengumuman->isi) }}</textarea>
                     </div>
                     <div>
-                        <label for="status" class="block text-sm font-medium text-gray-700">Status Publikasi</label>
-                        <select id="status" name="status"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <label class="block text-sm font-medium text-gray-700" for="status">Status Publikasi</label>
+                        <select class="block w-full mt-1 border-gray-300 rounded-md shadow-sm" id="status"
+                            name="status">
                             <option value="draft"
                                 {{ old('status', $pengumuman->status) === 'draft' ? 'selected' : '' }}>Draft</option>
                             <option value="published"
@@ -32,10 +31,10 @@
                         </select>
                     </div>
                     <div class="flex gap-3">
-                        <button type="submit" class="bg-[#163A6B] text-white px-4 py-2 rounded-md">Simpan
+                        <button class="rounded-md bg-[#163A6B] px-4 py-2 text-white" type="submit">Simpan
                             Perubahan</button>
-                        <a href="{{ route('admin.pengumuman.index') }}"
-                            class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md">Batal</a>
+                        <a class="px-4 py-2 text-gray-800 bg-gray-200 rounded-md"
+                            href="{{ route('admin.pengumuman.index') }}">Batal</a>
                     </div>
                 </form>
             </div>

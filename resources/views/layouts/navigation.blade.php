@@ -20,11 +20,11 @@
         <div class="flex h-[76px] shrink-0 items-center border-b border-white/10 px-5">
             <a
                 href="{{ route('dashboard') }}"
-                class="flex min-w-0 items-center gap-3"
+                class="flex items-center min-w-0 gap-3"
             >
                 {{-- Logo Container --}}
                 <div
-                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm"
+                    class="flex items-center justify-center w-10 h-10 bg-white shadow-sm shrink-0 rounded-xl"
                 >
                     <x-application-logo
                         class="block h-7 w-auto fill-current text-[#0A2540]"
@@ -33,7 +33,7 @@
 
                 {{-- Brand --}}
                 <div class="min-w-0">
-                    <p class="truncate text-sm font-bold tracking-wide text-white">
+                    <p class="text-sm font-bold tracking-wide text-white truncate">
                         Sadesa
                     </p>
 
@@ -48,18 +48,18 @@
         {{-- =====================================================
             SIDEBAR CONTENT
         ====================================================== --}}
-        <div class="flex min-h-0 flex-1 flex-col">
+        <div class="flex flex-col flex-1 min-h-0">
 
             {{-- User Mini Info --}}
-            <div class="border-b border-white/10 px-5 py-4">
+            <div class="px-5 py-4 border-b border-white/10">
                 <div class="flex items-center gap-3">
 
                     <div
-                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white ring-1 ring-white/10"
+                        class="flex items-center justify-center w-10 h-10 text-white shrink-0 rounded-xl bg-white/10 ring-1 ring-white/10"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
+                            class="w-5 h-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="min-w-0">
-                        <p class="truncate text-sm font-semibold text-white">
+                        <p class="text-sm font-semibold text-white truncate">
                             {{ Auth::user()->name }}
                         </p>
 
@@ -90,7 +90,7 @@
             {{-- =================================================
                 NAVIGATION
             ================================================== --}}
-            <div class="flex-1 overflow-y-auto px-3 py-4">
+            <div class="flex-1 px-3 py-4 overflow-y-auto">
 
                 {{-- Dashboard --}}
                 <div class="mb-5">
@@ -365,7 +365,7 @@
             {{-- =====================================================
                 BOTTOM PROFILE / LOGOUT
             ====================================================== --}}
-            <div class="shrink-0 border-t border-white/10 p-3">
+            <div class="p-3 border-t shrink-0 border-white/10">
 
                 {{-- Profile --}}
                 <a
@@ -374,11 +374,11 @@
                 >
 
                     <span
-                        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-blue-200 group-hover:bg-white/10 group-hover:text-white"
+                        class="flex items-center justify-center text-blue-200 rounded-lg h-9 w-9 shrink-0 bg-white/5 group-hover:bg-white/10 group-hover:text-white"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
+                            class="w-5 h-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -412,11 +412,11 @@
                     >
 
                         <span
-                            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-500/5 text-red-300 group-hover:bg-red-500/10"
+                            class="flex items-center justify-center text-red-300 rounded-lg h-9 w-9 shrink-0 bg-red-500/5 group-hover:bg-red-500/10"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
+                                class="w-5 h-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -479,7 +479,7 @@
                 class="flex items-center gap-3"
             >
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
+                <div class="flex items-center justify-center w-10 h-10 bg-white rounded-xl">
                     <x-application-logo
                         class="block h-7 w-auto fill-current text-[#0A2540]"
                     />
@@ -501,11 +501,11 @@
             <button
                 type="button"
                 @click="sidebarOpen = false"
-                class="flex h-9 w-9 items-center justify-center rounded-lg text-blue-100 transition hover:bg-white/10 hover:text-white"
+                class="flex items-center justify-center text-blue-100 transition rounded-lg h-9 w-9 hover:bg-white/10 hover:text-white"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
+                    class="w-5 h-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -523,7 +523,7 @@
 
 
         {{-- Mobile Content --}}
-        <div class="flex-1 overflow-y-auto px-3 py-4">
+        <div class="flex-1 px-3 py-4 overflow-y-auto">
 
             <p class="mb-2 px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                 Menu
@@ -541,7 +541,7 @@
             {{-- Super Admin --}}
             @if (Auth::user()->role === 'super_admin')
 
-                <div class="mb-2 mt-5">
+                <div class="mt-5 mb-2">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                         Data Wilayah
                     </p>
@@ -580,7 +580,7 @@
                 </x-responsive-nav-link>
 
 
-                <div class="mb-2 mt-5">
+                <div class="mt-5 mb-2">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                         Manajemen
                     </p>
@@ -616,7 +616,7 @@
             {{-- Admin Desa --}}
             @if (Auth::user()->role === 'admin_desa')
 
-                <div class="mb-2 mt-5">
+                <div class="mt-5 mb-2">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                         Layanan Desa
                     </p>
@@ -668,7 +668,7 @@
             {{-- Masyarakat --}}
             @if (Auth::user()->role === 'masyarakat')
 
-                <div class="mb-2 mt-5">
+                <div class="mt-5 mb-2">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                         Layanan
                     </p>
@@ -727,7 +727,7 @@
             {{-- Mesin --}}
             @if (Auth::user()->role === 'mesin')
 
-                <div class="mb-2 mt-5">
+                <div class="mt-5 mb-2">
                     <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-blue-200/60">
                         Mesin
                     </p>
@@ -747,11 +747,11 @@
 
 
         {{-- Mobile Bottom --}}
-        <div class="border-t border-white/10 p-3">
+        <div class="p-3 border-t border-white/10">
 
             <a
                 href="{{ route('profile.edit') }}"
-                class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-blue-100 transition hover:bg-white/10 hover:text-white"
+                class="flex items-center gap-3 px-3 py-3 text-sm font-medium text-blue-100 transition rounded-xl hover:bg-white/10 hover:text-white"
             >
                 Profil Saya
             </a>
@@ -761,7 +761,7 @@
 
                 <button
                     type="submit"
-                    class="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-red-300 transition hover:bg-red-500/10 hover:text-red-200"
+                    class="flex items-center w-full gap-3 px-3 py-3 mt-1 text-sm font-medium text-red-300 transition rounded-xl hover:bg-red-500/10 hover:text-red-200"
                 >
                     Keluar
                 </button>
@@ -857,7 +857,7 @@
             {{-- =================================================
                 HEADER
             ================================================== --}}
-            <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
 
                 <div>
                     <h3 class="text-sm font-bold text-[#0A2540]">
@@ -894,11 +894,11 @@
                     class="px-5 py-10 text-center"
                 >
 
-                    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100">
+                    <div class="flex items-center justify-center w-12 h-12 mx-auto rounded-2xl bg-slate-100">
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 text-slate-400"
+                            class="w-6 h-6 text-slate-400"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -935,7 +935,7 @@
             {{-- =================================================
                 FOOTER
             ================================================== --}}
-            <div class="border-t border-slate-100 bg-slate-50 px-5 py-3">
+            <div class="px-5 py-3 border-t border-slate-100 bg-slate-50">
 
                 <button
                     type="button"
@@ -961,7 +961,7 @@
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            class="w-5 h-5"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -1129,11 +1129,11 @@
                         list.innerHTML = `
                             <div class="px-5 py-10 text-center">
 
-                                <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100">
+                                <div class="flex items-center justify-center w-12 h-12 mx-auto rounded-2xl bg-slate-100">
 
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        class="h-6 w-6 text-slate-400"
+                                        class="w-6 h-6 text-slate-400"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -1217,7 +1217,7 @@
 
 
                                     {{-- Content --}}
-                                    <div class="min-w-0 flex-1">
+                                    <div class="flex-1 min-w-0">
 
                                         <div class="flex items-start justify-between gap-3">
 

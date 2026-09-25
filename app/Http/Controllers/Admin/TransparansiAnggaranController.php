@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TransparansiAnggaran;
 use App\Models\User;
+use App\Notifications\TransparansiAnggaranBaruNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -159,7 +160,7 @@ class TransparansiAnggaranController extends Controller
                 ->get();
 
             foreach ($recipients as $recipient) {
-                $recipient->notify(new \App\Notifications\TransparansiAnggaranBaruNotification($transparansi));
+                $recipient->notify(new TransparansiAnggaranBaruNotification($transparansi));
             }
         });
     }

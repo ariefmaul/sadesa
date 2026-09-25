@@ -12,9 +12,7 @@ class TransparansiAnggaranBaruNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public TransparansiAnggaran $transparansi)
-    {
-    }
+    public function __construct(public TransparansiAnggaran $transparansi) {}
 
     public function via(object $notifiable): array
     {

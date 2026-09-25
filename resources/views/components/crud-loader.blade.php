@@ -1,6 +1,5 @@
-<div id="crud-loader"
-    class="pointer-events-none fixed inset-0 z-[9999] hidden items-center justify-center bg-[#0A2540]/30 backdrop-blur-[3px]"
-    aria-hidden="true">
+<div class="pointer-events-none fixed inset-0 z-[9999] hidden items-center justify-center bg-[#0A2540]/30 backdrop-blur-[3px]"
+    id="crud-loader" aria-hidden="true">
     <div
         class="mx-4 flex min-w-[180px] flex-col items-center rounded-2xl border border-white/20 bg-white px-7 py-6 shadow-2xl">
 
@@ -15,15 +14,13 @@
 
         </div>
 
-
         {{-- TEXT --}}
-        <p id="crud-loader-text" class="mt-4 text-sm font-semibold text-[#0A2540]">
+        <p class="mt-4 text-sm font-semibold text-[#0A2540]" id="crud-loader-text">
             Loading...
         </p>
 
     </div>
 </div>
-
 
 <style>
     .crud-loader-bar {
@@ -66,7 +63,6 @@
         overflow: hidden;
     }
 </style>
-
 
 <script>
     (() => {

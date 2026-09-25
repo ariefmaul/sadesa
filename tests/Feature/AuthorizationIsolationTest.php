@@ -7,8 +7,12 @@ use App\Models\Dokumen;
 use App\Models\JenisSurat;
 use App\Models\PengajuanSurat;
 use App\Models\User;
+use App\Notifications\AkunDiverifikasiNotification;
+use App\Notifications\PengajuanDisetujuiNotification;
+use App\Policies\DokumenPolicy;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class AuthorizationIsolationTest extends TestCase
@@ -109,11 +113,11 @@ class AuthorizationIsolationTest extends TestCase
             'pengajuan_surat_id' => $pengajuanB->id,
             'nomor_dokumen' => 'DOC-B',
             'file' => 'dokumen/file.docx',
-            'qr_token' => (string) \Illuminate\Support\Str::uuid(),
+            'qr_token' => (string) Str::uuid(),
             'status' => 'tersedia',
         ]);
 
-        $policy = new \App\Policies\DokumenPolicy();
+        $policy = new DokumenPolicy;
         $this->assertFalse($policy->view($userA, $dok));
     }
 
@@ -160,9 +164,9 @@ class AuthorizationIsolationTest extends TestCase
             'status' => 'menunggu',
         ]);
 
-        $user->notify(new \App\Notifications\PengajuanDisetujuiNotification($pengajuan));
+        $user->notify(new PengajuanDisetujuiNotification($pengajuan));
 
-        Notification::assertSentTo($user, \App\Notifications\PengajuanDisetujuiNotification::class, function ($notification, $channels) use ($user) {
+        Notification::assertSentTo($user, PengajuanDisetujuiNotification::class, function ($notification, $channels) use ($user) {
             return $notification->pengajuan->user_id === $user->id && $notification->pengajuan->user->email === $user->email;
         });
     }
@@ -174,9 +178,9 @@ class AuthorizationIsolationTest extends TestCase
         $desa = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
         $user = User::factory()->create(['desa_id' => $desa->id, 'role' => 'masyarakat', 'status_verifikasi' => 'menunggu', 'email' => 'masyarakat@example.com']);
 
-        $user->notify(new \App\Notifications\AkunDiverifikasiNotification($user, 'disetujui'));
+        $user->notify(new AkunDiverifikasiNotification($user, 'disetujui'));
 
-        Notification::assertSentTo($user, \App\Notifications\AkunDiverifikasiNotification::class, function ($notification, $channels) use ($user) {
+        Notification::assertSentTo($user, AkunDiverifikasiNotification::class, function ($notification, $channels) use ($user) {
             return $notification->user->id === $user->id && $notification->user->email === $user->email && $notification->status === 'disetujui';
         });
     }

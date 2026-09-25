@@ -15,7 +15,6 @@ class PengajuanSuratController extends Controller
 {
     public function __construct(private readonly SuratFieldResolver $resolver) {}
 
-    
     public function index()
     {
         if ($redirect = $this->ensureVerifiedMasyarakat()) {
@@ -36,7 +35,6 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    
     public function create(JenisSurat $jenisSurat)
     {
         abort_if(! $jenisSurat->aktif, 404);
@@ -62,7 +60,6 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    
     public function store(
         Request $request,
         JenisSurat $jenisSurat
@@ -140,7 +137,6 @@ class PengajuanSuratController extends Controller
             ->with('success', 'Pengajuan surat berhasil dibuat.');
     }
 
-    
     public function show(PengajuanSurat $pengajuan)
     {
         $this->authorize('view', $pengajuan);
@@ -156,7 +152,6 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    
     public function riwayat()
     {
         $pengajuans = PengajuanSurat::with(['jenisSurat', 'dokumen'])

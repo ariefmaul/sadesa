@@ -1,70 +1,53 @@
 <x-app-layout>
 
-
-
     <div class="py-10">
-        <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <div class="max-w-2xl px-4 mx-auto sm:px-6">
 
-            <div class="bg-white shadow-sm rounded-2xl p-6">
+            <div class="p-6 bg-white shadow-sm rounded-2xl">
 
-                
-                
-
-
-                
-                <div id="status"
-                    class="mt-6 rounded-lg bg-yellow-50 border border-yellow-200
-                           text-yellow-700 px-4 py-3 text-sm text-center">
+                <div class="px-4 py-3 mt-6 text-sm text-center text-yellow-700 border border-yellow-200 rounded-lg bg-yellow-50"
+                    id="status">
                     ⏳ Menyiapkan kamera...
                 </div>
 
-
-                
                 <div class="mt-6">
 
-                    <div id="reader" class="w-full overflow-hidden rounded-xl border bg-gray-100">
+                    <div class="w-full overflow-hidden bg-gray-100 border rounded-xl" id="reader">
                     </div>
 
                 </div>
 
-
-                
-                <div id="result" class="hidden"></div>
+                <div class="hidden" id="result"></div>
 
             </div>
 
         </div>
     </div>
 
-
-    
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
-
     <script>
-        
-
         let scanner = null;
 
         let scanning = false;
 
         let isProcessing = false;
 
-        
+
         let lastScanTime = 0;
 
-        
+
         const SCAN_COOLDOWN = 3000;
 
 
-        
+
 
         const reader = document.getElementById('reader');
 
         const status = document.getElementById('status');
 
 
-        
+
 
         function setStatus(message, type = 'info') {
             status.innerHTML = message;
@@ -103,7 +86,7 @@
         }
 
 
-        
+
 
         function extractToken(decodedText) {
             let token = decodedText;
@@ -124,7 +107,7 @@
 
             } catch (error) {
 
-                
+
                 token = decodedText;
 
             }
@@ -133,7 +116,7 @@
         }
 
 
-        
+
 
         async function startCamera() {
             if (scanning) {
@@ -148,7 +131,7 @@
 
             try {
 
-                
+
 
                 if (
                     !navigator.mediaDevices ||
@@ -162,7 +145,7 @@
                 }
 
 
-                
+
 
                 let testStream = null;
 
@@ -194,14 +177,14 @@
                 }
 
 
-                
+
 
                 testStream
                     .getTracks()
                     .forEach(track => track.stop());
 
 
-                
+
 
                 if (!scanner) {
 
@@ -211,7 +194,7 @@
                 }
 
 
-                
+
 
                 const cameras =
                     await Html5Qrcode.getCameras();
@@ -229,13 +212,13 @@
                 }
 
 
-                
+
 
                 let cameraId =
                     cameras[0].id;
 
 
-                
+
 
                 const backCamera =
                     cameras.find(camera =>
@@ -253,7 +236,7 @@
                 }
 
 
-                
+
 
                 await scanner.start(
 
@@ -277,7 +260,7 @@
                 );
 
 
-                
+
 
                 const video =
                     document.querySelector(
@@ -329,7 +312,7 @@
         }
 
 
-        
+
 
         function onScanSuccess(
             decodedText,
@@ -342,7 +325,7 @@
             );
 
 
-            
+
 
             const now =
                 Date.now();
@@ -380,7 +363,7 @@
             isProcessing = true;
 
 
-            
+
 
             const token =
                 extractToken(decodedText);
@@ -392,7 +375,7 @@
             );
 
 
-            
+
 
             const printWindow =
                 window.open(
@@ -401,7 +384,7 @@
                 );
 
 
-            
+
 
             if (!printWindow) {
 
@@ -425,7 +408,7 @@
             }
 
 
-            
+
 
             printWindow.document.open();
 
@@ -505,7 +488,7 @@
             printWindow.document.close();
 
 
-            
+
 
             verifyToken(
                 token,
@@ -514,14 +497,14 @@
         }
 
 
-        
+
 
         function onScanFailure(error) {
-            
+
         }
 
 
-        
+
 
         async function verifyToken(
             token,
@@ -540,7 +523,7 @@
                     "{{ route('mesin.verify') }}";
 
 
-                
+
 
                 const csrfMeta =
                     document.querySelector(
@@ -563,7 +546,7 @@
                     );
 
 
-                
+
 
                 const response =
                     await fetch(
@@ -589,7 +572,7 @@
                     );
 
 
-                
+
 
                 const rawResponse =
                     await response.text();
@@ -604,7 +587,7 @@
                 );
 
 
-                
+
 
                 let data = null;
 
@@ -640,7 +623,7 @@
                 }
 
 
-                
+
 
                 if (!response.ok) {
 
@@ -666,7 +649,7 @@
                     return;
                 }
 
-                
+
                 if (data && data.already_printed === true) {
                     console.warn('Dokumen sudah dicetak:', data.message);
                     closePrintWindow(printWindow);
@@ -676,7 +659,7 @@
                 }
 
 
-                
+
 
                 if (
                     !data ||
@@ -706,7 +689,7 @@
                 }
 
 
-                
+
 
                 const payload =
                     data.dokumen ??
@@ -722,7 +705,7 @@
 
 
 
-                
+
 
                 const pdfUrl =
                     payload.file_url ||
@@ -755,7 +738,7 @@
                 }
 
 
-                
+
 
                 console.log(
                     'PDF URL:',
@@ -769,7 +752,7 @@
                 );
 
 
-                
+
 
                 openPdfForPrint(
                     printWindow,
@@ -804,7 +787,7 @@
         }
 
 
-        
+
 
         function openPdfForPrint(
             printWindow,
@@ -851,7 +834,7 @@
                 }
 
 
-                
+
 
                 frame.src =
                     pdfUrl;
@@ -861,7 +844,7 @@
                     'block';
 
 
-                
+
 
                 let printStarted =
                     false;
@@ -892,7 +875,7 @@
                         }
 
 
-                        
+
 
                         setTimeout(
                             function() {
@@ -902,7 +885,7 @@
                                     printWindow.focus();
 
 
-                                    
+
 
                                     if (
                                         frame.contentWindow
@@ -949,13 +932,13 @@
                                 }
 
 
-                                
+
 
                                 notifyPrinted(
                                     dokumenId
                                 );
 
-                                
+
                                 try {
                                     resetScannerState();
                                 } catch (e) {
@@ -970,7 +953,7 @@
                     };
 
 
-                
+
 
                 frame.addEventListener(
                     'load',
@@ -980,7 +963,7 @@
                 );
 
 
-                
+
 
                 setTimeout(
                     function() {
@@ -1026,7 +1009,7 @@
         }
 
 
-        
+
 
         async function notifyPrinted(
             dokumenId
@@ -1093,7 +1076,7 @@
 
             } catch (error) {
 
-                
+
 
                 console.warn(
                     'Gagal mencatat waktu cetak:',
@@ -1105,7 +1088,7 @@
         }
 
 
-        
+
 
         function closePrintWindow(
             printWindow
@@ -1134,7 +1117,7 @@
         }
 
 
-        
+
 
         function resetScannerState() {
 
@@ -1154,7 +1137,7 @@
         }
 
 
-        
+
 
         document.addEventListener(
             'DOMContentLoaded',

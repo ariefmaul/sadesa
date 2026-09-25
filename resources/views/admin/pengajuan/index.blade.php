@@ -5,7 +5,6 @@
 
             @include('admin.partials.flash')
 
-
             {{-- =====================================================
                 HEADER
             ====================================================== --}}
@@ -28,8 +27,8 @@
                 {{-- Monitoring --}}
                 <div class="flex items-center gap-2">
 
-                    <div id="pengajuan-live-status"
-                        class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-[#0A2540]/80 px-3.5 py-2 text-xs font-semibold text-white shadow-lg shadow-black/10 backdrop-blur-md">
+                    <div class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-[#0A2540]/80 px-3.5 py-2 text-xs font-semibold text-white shadow-lg shadow-black/10 backdrop-blur-md"
+                        id="pengajuan-live-status">
 
                         <span class="relative flex h-2 w-2">
                             <span
@@ -40,8 +39,8 @@
                         Monitoring aktif
                     </div>
 
-                    <div id="pengajuan-new-badge"
-                        class="hidden rounded-lg bg-red-500 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-red-900/20">
+                    <div class="hidden rounded-lg bg-red-500 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-red-900/20"
+                        id="pengajuan-new-badge">
                         Baru
                     </div>
 
@@ -49,12 +48,11 @@
 
             </div>
 
-
             {{-- =====================================================
                 REALTIME TOAST
             ====================================================== --}}
-            <div id="pengajuan-toast"
-                class="pointer-events-none fixed right-5 top-5 z-50 hidden w-[calc(100%-2.5rem)] max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+            <div class="pointer-events-none fixed right-5 top-5 z-50 hidden w-[calc(100%-2.5rem)] max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl"
+                id="pengajuan-toast">
 
                 <div class="p-4">
 
@@ -63,7 +61,7 @@
                         <div
                             class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9a6 6 0 00-12 0v.75c0 2.34-.897 4.47-2.364 6.022a23.85 23.85 0 005.455 1.31m5.766 0a24.255 24.255 0 01-5.766 0m5.766 0a3 3 0 11-5.766 0" />
@@ -76,17 +74,17 @@
                                 Pengajuan baru masuk
                             </p>
 
-                            <p id="pengajuan-toast-message" class="mt-1 text-sm leading-5 text-slate-500">
+                            <p class="mt-1 text-sm leading-5 text-slate-500" id="pengajuan-toast-message">
                                 Ada pengajuan yang masuk ke desa Anda.
                             </p>
                         </div>
 
-                        <button type="button"
-                            onclick="document.getElementById('pengajuan-toast').classList.add('hidden')"
+                        <button
                             class="shrink-0 rounded-lg p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
-                            aria-label="Tutup">
+                            type="button" aria-label="Tutup"
+                            onclick="document.getElementById('pengajuan-toast').classList.add('hidden')">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -104,7 +102,6 @@
 
             </div>
 
-
             {{-- =====================================================
                 DATA PENGAJUAN
             ====================================================== --}}
@@ -119,7 +116,7 @@
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 0H6.375A2.625 2.625 0 003.75 4.875v14.25a2.625 2.625 0 002.625 2.625h10.5a2.625 2.625 0 002.625-2.625V14.25M8.25 2.25V6a2.25 2.25 0 002.25 2.25h3" />
@@ -145,7 +142,6 @@
                     </div>
 
                 </div>
-
 
                 {{-- =================================================
                     TABLE
@@ -190,7 +186,6 @@
 
                         </thead>
 
-
                         <tbody class="divide-y divide-slate-100">
 
                             @forelse ($pengajuans as $pengajuan)
@@ -201,7 +196,6 @@
                                         {{ $pengajuans->firstItem() + $loop->index }}
                                     </td>
 
-
                                     {{-- Nomor Pengajuan --}}
                                     <td class="whitespace-nowrap px-6 py-4">
 
@@ -210,7 +204,6 @@
                                         </span>
 
                                     </td>
-
 
                                     {{-- Pemohon --}}
                                     <td class="px-6 py-4">
@@ -232,12 +225,10 @@
 
                                     </td>
 
-
                                     {{-- Jenis Surat --}}
                                     <td class="px-6 py-4 text-slate-600">
                                         {{ $pengajuan->jenisSurat->nama }}
                                     </td>
-
 
                                     {{-- Status --}}
                                     <td class="px-6 py-4">
@@ -245,7 +236,6 @@
                                             'status' => $pengajuan->status,
                                         ])
                                     </td>
-
 
                                     {{-- Dokumen --}}
                                     <td class="px-6 py-4">
@@ -267,14 +257,14 @@
 
                                     </td>
 
-
                                     {{-- Aksi --}}
                                     <td class="px-6 py-4 text-right">
 
-                                        <a href="{{ route('admin.pengajuan.show', $pengajuan) }}" title="Tindak Lanjut"
-                                            class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                                        <a class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                            href="{{ route('admin.pengajuan.show', $pengajuan) }}"
+                                            title="Tindak Lanjut">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="none" stroke="currentColor" stroke-width="1.8">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -293,14 +283,14 @@
 
                                 <tr>
 
-                                    <td colspan="7" class="px-6 py-16 text-center">
+                                    <td class="px-6 py-16 text-center" colspan="7">
 
                                         <div class="mx-auto flex max-w-sm flex-col items-center">
 
                                             <div
                                                 class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                                <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.6">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -330,7 +320,6 @@
 
                 </div>
 
-
                 {{-- Pagination --}}
                 @if ($pengajuans->hasPages())
                     <div class="border-t border-slate-200 px-6 py-4">
@@ -342,7 +331,6 @@
 
         </div>
     </div>
-
 
     {{-- =========================================================
         REALTIME MONITORING

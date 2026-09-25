@@ -20,17 +20,15 @@
         </div>
     </x-slot>
 
-
     <div class="py-8">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
-
 
             {{-- =========================================================
                 FILTER STATUS
             ========================================================== --}}
-            <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="mb-6 overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 <div class="flex flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -38,7 +36,7 @@
 
                         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -63,7 +61,6 @@
 
                     </div>
 
-
                     <div class="flex flex-wrap gap-2">
 
                         @foreach ([
@@ -71,23 +68,22 @@
         'disetujui' => 'Disetujui',
         'ditolak' => 'Ditolak',
     ] as $value => $label)
-                            <a href="{{ route('admin.masyarakat.index', ['status' => $value]) }}"
-                                class="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition
-                                {{ $status === $value
-                                    ? 'bg-[#0A2540] text-white shadow-sm'
-                                    : 'border border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]' }}">
+                            <a class="{{ $status === $value
+                                ? 'bg-[#0A2540] text-white shadow-sm'
+                                : 'border border-slate-200 bg-white text-slate-600 hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]' }} inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition"
+                                href="{{ route('admin.masyarakat.index', ['status' => $value]) }}">
 
                                 @if ($value === 'menunggu')
                                     <span
-                                        class="h-2 w-2 rounded-full {{ $status === $value ? 'bg-yellow-300' : 'bg-yellow-400' }}">
+                                        class="{{ $status === $value ? 'bg-yellow-300' : 'bg-yellow-400' }} h-2 w-2 rounded-full">
                                     </span>
                                 @elseif ($value === 'disetujui')
                                     <span
-                                        class="h-2 w-2 rounded-full {{ $status === $value ? 'bg-green-300' : 'bg-green-500' }}">
+                                        class="{{ $status === $value ? 'bg-green-300' : 'bg-green-500' }} h-2 w-2 rounded-full">
                                     </span>
                                 @else
                                     <span
-                                        class="h-2 w-2 rounded-full {{ $status === $value ? 'bg-red-300' : 'bg-red-500' }}">
+                                        class="{{ $status === $value ? 'bg-red-300' : 'bg-red-500' }} h-2 w-2 rounded-full">
                                     </span>
                                 @endif
 
@@ -102,14 +98,13 @@
 
             </div>
 
-
             {{-- =========================================================
                 DATA CARD
             ========================================================== --}}
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- Card Header --}}
-                <div class="border-b border-slate-200 px-6 py-5">
+                <div class="px-6 py-5 border-b border-slate-200">
 
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
@@ -118,7 +113,7 @@
                             <div
                                 class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1.8">
 
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -146,7 +141,6 @@
 
                         </div>
 
-
                         <span
                             class="inline-flex w-fit items-center rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-600">
 
@@ -158,7 +152,6 @@
 
                 </div>
 
-
                 {{-- =====================================================
                     TABLE
                 ====================================================== --}}
@@ -168,7 +161,7 @@
 
                         <thead class="border-b border-slate-200 bg-slate-50">
 
-                            <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                            <tr class="text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
 
                                 <th class="px-6 py-3.5">
                                     #
@@ -198,21 +191,19 @@
 
                         </thead>
 
-
                         <tbody class="divide-y divide-slate-100">
 
                             @forelse ($masyarakat as $user)
                                 <tr class="transition hover:bg-slate-50/70">
 
                                     {{-- Number --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <span class="text-xs font-semibold text-slate-400">
                                             {{ $masyarakat->firstItem() + $loop->index }}
                                         </span>
 
                                     </td>
-
 
                                     {{-- Nama --}}
                                     <td class="px-6 py-4">
@@ -236,9 +227,8 @@
 
                                     </td>
 
-
                                     {{-- NIK --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         <span class="font-mono text-sm font-medium tracking-wide text-slate-600">
 
@@ -248,15 +238,14 @@
 
                                     </td>
 
-
                                     {{-- Email --}}
                                     <td class="px-6 py-4">
 
                                         <div class="flex items-center gap-2 text-slate-600">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="h-4 w-4 shrink-0 text-slate-400" viewBox="0 0 24 24"
-                                                fill="none" stroke="currentColor" stroke-width="1.8">
+                                            <svg class="w-4 h-4 shrink-0 text-slate-400"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="1.8">
 
                                                 <rect width="20" height="16" x="2" y="4" rx="2" />
 
@@ -273,9 +262,8 @@
 
                                     </td>
 
-
                                     {{-- Status --}}
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
 
                                         @include('admin.partials.status-badge', [
                                             'status' => $user->status_verifikasi,
@@ -283,16 +271,16 @@
 
                                     </td>
 
-
                                     {{-- Action --}}
                                     <td class="px-6 py-4">
 
                                         <div class="flex justify-end">
 
-                                            <a href="{{ route('admin.masyarakat.show', $user) }}" title="Tindak Lanjut"
-                                                class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                                            <a class="inline-flex h-9 items-center gap-2 rounded-lg bg-[#0A2540] px-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                                href="{{ route('admin.masyarakat.show', $user) }}"
+                                                title="Tindak Lanjut">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -314,12 +302,12 @@
 
                                 <tr>
 
-                                    <td colspan="6" class="px-6 py-16 text-center">
+                                    <td class="px-6 py-16 text-center" colspan="6">
 
                                         <div
-                                            class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                                            class="flex items-center justify-center mx-auto h-14 w-14 rounded-2xl bg-slate-100 text-slate-400">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                            <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="1.7">
 
@@ -358,12 +346,11 @@
 
                 </div>
 
-
                 {{-- =====================================================
                     PAGINATION
                 ====================================================== --}}
                 @if ($masyarakat->hasPages())
-                    <div class="border-t border-slate-200 px-6 py-4">
+                    <div class="px-6 py-4 border-t border-slate-200">
 
                         {{ $masyarakat->onEachSide(2)->withQueryString()->links() }}
 

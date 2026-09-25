@@ -15,7 +15,7 @@
                     Kelola Form Template Surat
                 </h2>
 
-                <p class="mt-1 max-w-2xl text-sm text-slate-500">
+                <p class="max-w-2xl mt-1 text-sm text-slate-500">
                     Atur field yang harus diisi masyarakat untuk template
                     <span class="font-semibold text-[#0A2540]">
                         {{ $templateSurat->nama }}
@@ -23,10 +23,10 @@
                 </p>
             </div>
 
-            <a href="{{ route('admin.template-surat.index') }}"
-                class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0A2540] shadow-sm transition duration-200 hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+            <a class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0A2540] shadow-sm transition duration-200 hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                href="{{ route('admin.template-surat.index') }}">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>
@@ -37,12 +37,10 @@
         </div>
     </x-slot>
 
-
     <div class="py-8">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
-
 
             {{-- =========================================================
                 OVERVIEW BAR
@@ -50,16 +48,16 @@
                 jadi satu baris supaya tidak ada info yang diulang-ulang
                 dan halaman tidak terasa panjang di awal.
             ========================================================== --}}
-            <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="mb-6 overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 <div class="flex flex-col gap-4 px-6 py-5 lg:flex-row lg:items-center lg:justify-between">
 
-                    <div class="flex min-w-0 items-center gap-4">
+                    <div class="flex items-center min-w-0 gap-4">
 
                         <div
                             class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2Z" />
@@ -70,7 +68,7 @@
 
                         <div class="min-w-0">
 
-                            <p class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <p class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Template Surat
                             </p>
 
@@ -79,7 +77,7 @@
                             </h3>
 
                             @if ($templateSurat->deskripsi)
-                                <p class="mt-1 line-clamp-2 text-sm text-slate-500">
+                                <p class="mt-1 text-sm line-clamp-2 text-slate-500">
                                     {{ $templateSurat->deskripsi }}
                                 </p>
                             @else
@@ -92,11 +90,11 @@
 
                     </div>
 
+                    <div class="flex items-center gap-3 shrink-0">
 
-                    <div class="flex shrink-0 items-center gap-3">
-
-                        <span id="field-count-badge"
-                            class="inline-flex items-center rounded-xl bg-slate-50 px-4 py-3 text-center text-sm font-bold text-[#0A2540]">
+                        <span
+                            class="inline-flex items-center rounded-xl bg-slate-50 px-4 py-3 text-center text-sm font-bold text-[#0A2540]"
+                            id="field-count-badge">
                             {{ $templateSurat->fields->count() }}
                             <span class="ml-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate-400">
                                 Field
@@ -109,7 +107,6 @@
 
             </div>
 
-
             {{-- =========================================================
                 MAIN CONTENT
                 Urutan mobile: Daftar Field lebih dulu (yang paling sering
@@ -118,16 +115,15 @@
             ========================================================== --}}
             <div class="grid items-start gap-6 lg:grid-cols-12">
 
-
                 {{-- =====================================================
                     DAFTAR FIELD
                 ====================================================== --}}
                 <div class="order-1 lg:order-2 lg:col-span-8">
 
-                    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                    <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                         {{-- Header + Search --}}
-                        <div class="border-b border-slate-200 px-6 py-5">
+                        <div class="px-6 py-5 border-b border-slate-200">
 
                             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
@@ -136,7 +132,7 @@
                                     <div
                                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" />
@@ -156,20 +152,20 @@
 
                                 </div>
 
-
                                 @if ($templateSurat->fields->count() > 0)
                                     <div class="relative w-full sm:w-64">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <svg class="absolute w-4 h-4 -translate-y-1/2 pointer-events-none left-3 top-1/2 text-slate-400"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
                                             <circle cx="11" cy="11" r="7" />
                                             <path stroke-linecap="round" d="m21 21-4.3-4.3" />
                                         </svg>
 
-                                        <input type="text" id="field-search"
-                                            placeholder="Cari label atau placeholder..."
-                                            class="w-full rounded-xl border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm focus:border-[#2563EB] focus:bg-white focus:ring-[#2563EB]">
+                                        <input
+                                            class="w-full rounded-xl border-slate-200 bg-slate-50 py-2 pl-9 pr-3 text-sm focus:border-[#2563EB] focus:bg-white focus:ring-[#2563EB]"
+                                            id="field-search" type="text"
+                                            placeholder="Cari label atau placeholder...">
 
                                     </div>
                                 @endif
@@ -178,11 +174,10 @@
 
                         </div>
 
-
                         {{-- Table (scrolls horizontally on small screens) --}}
                         <div class="overflow-x-auto">
 
-                            <table class="min-w-[850px] w-full text-sm">
+                            <table class="w-full min-w-[850px] text-sm">
 
                                 <thead class="border-b border-slate-200 bg-slate-50">
 
@@ -220,15 +215,14 @@
 
                                 </thead>
 
-
-                                <tbody id="field-table-body" class="divide-y divide-slate-100">
+                                <tbody class="divide-y divide-slate-100" id="field-table-body">
 
                                     @forelse ($templateSurat->fields as $field)
-                                        <tr class="field-row group transition hover:bg-slate-50/80"
+                                        <tr class="transition field-row group hover:bg-slate-50/80"
                                             data-search="{{ Str::lower($field->label . ' ' . $field->fieldName()) }}">
 
                                             {{-- Urutan --}}
-                                            <td class="whitespace-nowrap px-5 py-4">
+                                            <td class="px-5 py-4 whitespace-nowrap">
 
                                                 <span
                                                     class="inline-flex h-8 min-w-8 items-center justify-center rounded-lg bg-slate-100 px-2 text-xs font-bold text-slate-600 group-hover:bg-blue-50 group-hover:text-[#2563EB]">
@@ -238,7 +232,6 @@
                                                 </span>
 
                                             </td>
-
 
                                             {{-- Placeholder --}}
                                             <td class="px-5 py-4">
@@ -252,7 +245,6 @@
 
                                             </td>
 
-
                                             {{-- Label --}}
                                             <td class="min-w-[150px] px-5 py-4">
 
@@ -262,9 +254,8 @@
 
                                             </td>
 
-
                                             {{-- Sumber --}}
-                                            <td class="whitespace-nowrap px-5 py-4">
+                                            <td class="px-5 py-4 whitespace-nowrap">
 
                                                 <span
                                                     class="inline-flex rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-medium text-slate-600">
@@ -275,9 +266,8 @@
 
                                             </td>
 
-
                                             {{-- Tipe --}}
-                                            <td class="whitespace-nowrap px-5 py-4">
+                                            <td class="px-5 py-4 whitespace-nowrap">
 
                                                 <span
                                                     class="inline-flex rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-600">
@@ -288,9 +278,8 @@
 
                                             </td>
 
-
                                             {{-- Required --}}
-                                            <td class="whitespace-nowrap px-5 py-4">
+                                            <td class="px-5 py-4 whitespace-nowrap">
 
                                                 @if ($field->isRequired())
                                                     <span
@@ -314,18 +303,17 @@
 
                                             </td>
 
-
                                             {{-- Aksi --}}
                                             <td class="px-5 py-4">
 
                                                 <div class="flex justify-end gap-2">
 
                                                     {{-- Edit --}}
-                                                    <a href="{{ route('admin.template-surat.fields.edit', [$templateSurat, $field]) }}"
-                                                        title="Edit Field"
-                                                        class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]">
+                                                    <a class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:border-blue-200 hover:bg-blue-50 hover:text-[#2563EB]"
+                                                        href="{{ route('admin.template-surat.fields.edit', [$templateSurat, $field]) }}"
+                                                        title="Edit Field">
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="1.8">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -336,7 +324,6 @@
 
                                                     </a>
 
-
                                                     {{-- Delete --}}
                                                     <form method="POST"
                                                         action="{{ route('admin.template-surat.fields.destroy', [$templateSurat, $field]) }}"
@@ -345,10 +332,11 @@
                                                         @csrf
                                                         @method('DELETE')
 
-                                                        <button type="submit" title="Hapus Field"
-                                                            class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-200 bg-white text-red-500 transition hover:bg-red-50 hover:text-red-600">
+                                                        <button
+                                                            class="inline-flex items-center justify-center text-red-500 transition bg-white border border-red-200 rounded-lg h-9 w-9 hover:bg-red-50 hover:text-red-600"
+                                                            type="submit" title="Hapus Field">
 
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                                 viewBox="0 0 24 24" fill="none"
                                                                 stroke="currentColor" stroke-width="1.8">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -373,12 +361,12 @@
 
                                         <tr id="empty-state-row">
 
-                                            <td colspan="7" class="px-6 py-16 text-center">
+                                            <td class="px-6 py-16 text-center" colspan="7">
 
                                                 <div
-                                                    class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                                                    class="flex items-center justify-center mx-auto h-14 w-14 rounded-2xl bg-slate-100 text-slate-400">
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7"
+                                                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="1.7">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -391,15 +379,16 @@
                                                     Belum ada field
                                                 </h4>
 
-                                                <p class="mx-auto mt-1 max-w-sm text-xs leading-5 text-slate-500">
+                                                <p class="max-w-sm mx-auto mt-1 text-xs leading-5 text-slate-500">
                                                     Tambahkan field lewat panel di samping,
                                                     atau gunakan placeholder yang terdeteksi otomatis.
                                                 </p>
 
-                                                <button type="button" data-scroll-to="add-field-panel"
-                                                    class="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]">
+                                                <button
+                                                    class="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]"
+                                                    data-scroll-to="add-field-panel" type="button">
 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                         stroke-width="2">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -420,7 +409,7 @@
                             </table>
 
                             {{-- Muncul saat hasil pencarian kosong --}}
-                            <p id="no-search-result" class="hidden px-6 py-10 text-center text-sm text-slate-400">
+                            <p class="hidden px-6 py-10 text-sm text-center text-slate-400" id="no-search-result">
                                 Tidak ada field yang cocok dengan pencarian.
                             </p>
 
@@ -430,27 +419,27 @@
 
                 </div>
 
-
                 {{-- =====================================================
                     PANEL TAMBAH FIELD
                     Placeholder yang terdeteksi digabung langsung di sini
                     (bukan blok terpisah di atas) supaya konteksnya nyambung:
                     klik placeholder -> langsung mengisi form di bawahnya.
                 ====================================================== --}}
-                <div id="add-field-panel" class="order-2 lg:order-1 scroll-mt-24 lg:col-span-4">
+                <div class="order-2 scroll-mt-24 lg:order-1 lg:col-span-4" id="add-field-panel">
 
-                    <details open
-                        class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm lg:sticky lg:top-24">
+                    <details
+                        class="overflow-hidden bg-white border shadow-sm group rounded-2xl border-slate-200 lg:sticky lg:top-24"
+                        open>
 
                         <summary
-                            class="flex cursor-pointer list-none items-center justify-between gap-3 border-b border-slate-200 px-6 py-5 marker:content-none">
+                            class="flex items-center justify-between gap-3 px-6 py-5 list-none border-b cursor-pointer border-slate-200 marker:content-none">
 
                             <div class="flex items-center gap-3">
 
                                 <div
                                     class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
                                     </svg>
@@ -469,21 +458,20 @@
 
                             </div>
 
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg class="w-5 h-5 transition-transform shrink-0 text-slate-400 group-open:rotate-180"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
                             </svg>
 
                         </summary>
-
 
                         <div class="px-6 py-6">
 
                             {{-- Placeholder terdeteksi --}}
                             @if (!empty($placeholders))
 
-                                <div class="mb-6 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+                                <div class="p-4 mb-6 border border-blue-100 rounded-xl bg-blue-50/50">
 
                                     <div class="flex items-center justify-between gap-2">
 
@@ -505,13 +493,13 @@
                                     <div class="mt-3 flex flex-wrap gap-1.5">
 
                                         @foreach ($placeholders as $ph)
-                                            <button type="button" data-placeholder="{{ $ph }}"
-                                                class="create-placeholder group inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-white px-2.5 py-1.5 font-mono text-[11px] font-semibold text-[#2563EB] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white hover:shadow-md">
+                                            <button
+                                                class="create-placeholder group inline-flex items-center gap-1.5 rounded-lg border border-blue-200 bg-white px-2.5 py-1.5 font-mono text-[11px] font-semibold text-[#2563EB] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white hover:shadow-md"
+                                                data-placeholder="{{ $ph }}" type="button">
 
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-3 w-3 transition-transform group-hover:scale-110"
-                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2">
+                                                <svg class="w-3 h-3 transition-transform group-hover:scale-110"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="none" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M8 9l3 3-3 3m5 0h3" />
                                                 </svg>
@@ -523,19 +511,18 @@
 
                                     </div>
 
-
-                                    <form method="POST"
-                                        action="{{ route('admin.template-surat.fields.bulk', $templateSurat) }}"
-                                        class="mt-3 border-t border-blue-100 pt-3">
+                                    <form class="pt-3 mt-3 border-t border-blue-100" method="POST"
+                                        action="{{ route('admin.template-surat.fields.bulk', $templateSurat) }}">
 
                                         @csrf
 
                                         @foreach ($placeholders as $ph)
-                                            <input type="hidden" name="placeholders[]" value="{{ $ph }}">
+                                            <input name="placeholders[]" type="hidden" value="{{ $ph }}">
                                         @endforeach
 
-                                        <button type="submit"
-                                            class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-[#0A2540] shadow-sm ring-1 ring-inset ring-blue-200 transition hover:bg-blue-50">
+                                        <button
+                                            class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-[#0A2540] shadow-sm ring-1 ring-inset ring-blue-200 transition hover:bg-blue-50"
+                                            type="submit">
 
                                             Buat Semua Jadi Field Sekaligus
 
@@ -547,11 +534,10 @@
 
                             @endif
 
-
                             {{-- Form tambah field manual --}}
-                            <form id="add-field-form"
+                            <form class="space-y-5" id="add-field-form"
                                 action="{{ route('admin.template-surat.fields.store', $templateSurat) }}"
-                                method="POST" class="space-y-5">
+                                method="POST">
 
                                 @csrf
 
@@ -559,13 +545,13 @@
                                     'field' => null,
                                 ])
 
+                                <div class="pt-5 border-t border-slate-100">
 
-                                <div class="border-t border-slate-100 pt-5">
+                                    <button
+                                        class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                                        type="submit">
 
-                                    <button type="submit"
-                                        class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 5v14M5 12h14" />
@@ -591,7 +577,6 @@
     </div>
 
 </x-app-layout>
-
 
 {{-- =========================================================
     SCRIPTS

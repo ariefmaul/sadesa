@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->enum('status', [
                 'tersedia',
-                'dicetak'
+                'dicetak',
             ])->default('tersedia');
 
             $table->timestamp('dicetak_at')->nullable();

@@ -10,17 +10,13 @@ class PengajuanBaruNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public PengajuanSurat $pengajuan)
-    {
-    }
+    public function __construct(public PengajuanSurat $pengajuan) {}
 
-    
     public function via(object $notifiable): array
     {
         return ['database'];
     }
 
-    
     public function toArray(object $notifiable): array
     {
         $this->pengajuan->loadMissing(['user.desa', 'jenisSurat']);

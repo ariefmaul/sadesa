@@ -17,59 +17,60 @@
                 </p>
             </div>
 
-
         </div>
     </x-slot>
 
-
     <div class="py-8">
 
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             @include('admin.partials.flash')
 
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
                 <div
-                    class="flex flex-col gap-4 border-b border-slate-200 bg-white px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+                    class="flex flex-col gap-4 px-6 py-5 bg-white border-b border-slate-200 sm:flex-row sm:items-center sm:justify-between">
 
                     <div>
                         <h4 class="font-bold text-[#0A2540]">Daftar Provinsi</h4>
                         <p class="mt-1 text-xs text-slate-500">Daftar provinsi yang terdaftar dalam sistem.</p>
                     </div>
 
-                    <form method="GET" action="{{ route('admin.provinsi.index') }}"
-                        class="flex flex-wrap items-center gap-3">
+                    <form class="flex flex-wrap items-center gap-3" method="GET"
+                        action="{{ route('admin.provinsi.index') }}">
                         <div class="relative">
-                            <input type="text" name="search" id="search" value="{{ $search ?? '' }}"
-                                placeholder="Cari nama atau kode provinsi"
-                                class="w-64 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                            <input
+                                class="w-64 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                                id="search" name="search" type="text" value="{{ $search ?? '' }}"
+                                placeholder="Cari nama atau kode provinsi">
                         </div>
 
-                        <label for="per_page" class="text-xs text-slate-500">Tampilkan</label>
-                        <select name="per_page" id="per_page" onchange="this.form.submit()"
-                            class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm">
+                        <label class="text-xs text-slate-500" for="per_page">Tampilkan</label>
+                        <select
+                            class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-[#0A2540] shadow-sm"
+                            id="per_page" name="per_page" onchange="this.form.submit()">
                             <option value="10" {{ ($perPage ?? 10) == 10 ? 'selected' : '' }}>10</option>
                             <option value="25" {{ ($perPage ?? 10) == 25 ? 'selected' : '' }}>25</option>
                             <option value="50" {{ ($perPage ?? 10) == 50 ? 'selected' : '' }}>50</option>
                             <option value="100" {{ ($perPage ?? 10) == 100 ? 'selected' : '' }}>100</option>
                         </select>
 
-                        <button type="submit"
-                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#0A2540] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]">
+                        <button
+                            class="inline-flex items-center gap-1.5 rounded-lg bg-[#0A2540] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#0B3D91]"
+                            type="submit">
                             Cari
                         </button>
 
                         @if (request()->filled('search'))
-                            <a href="{{ route('admin.provinsi.index', ['per_page' => $perPage ?? 10]) }}"
-                                class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]">
+                            <a class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 shadow-sm transition hover:border-slate-300 hover:bg-slate-100 hover:text-[#0A2540]"
+                                href="{{ route('admin.provinsi.index', ['per_page' => $perPage ?? 10]) }}">
                                 Reset
                             </a>
                         @endif
                     </form>
-                    <a href="{{ route('admin.provinsi.create') }}"
-                        class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2">
+                    <a class="inline-flex w-fit items-center gap-2 rounded-xl bg-[#0A2540] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:ring-offset-2"
+                        href="{{ route('admin.provinsi.create') }}">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2">
 
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -86,16 +87,16 @@
                         <thead>
                             <tr class="border-b border-slate-200 bg-slate-50">
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     #</th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     Nama Provinsi</th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500">
                                     Kode</th>
                                 <th
-                                    class="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-500">
+                                    class="px-6 py-3 text-xs font-semibold tracking-wider text-right uppercase text-slate-500">
                                     Aksi</th>
                             </tr>
                         </thead>
@@ -103,12 +104,12 @@
                         <tbody class="divide-y divide-slate-100">
                             @forelse ($provinsis as $provinsi)
                                 <tr class="transition hover:bg-slate-50">
-                                    <td class="whitespace-nowrap px-6 py-4 text-slate-400">
+                                    <td class="px-6 py-4 whitespace-nowrap text-slate-400">
                                         {{ $provinsis->firstItem() + $loop->index }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <p class="font-semibold text-[#0A2540]">{{ $provinsi->nama }}</p>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         @if ($provinsi->kode)
                                             <span
                                                 class="inline-flex items-center rounded-lg bg-blue-50 px-2.5 py-1 font-mono text-xs font-semibold text-[#2563EB]">{{ $provinsi->kode }}</span>
@@ -116,12 +117,12 @@
                                             <span class="text-slate-400">-</span>
                                         @endif
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center justify-end gap-2">
-                                            <a href="{{ route('admin.provinsi.edit', $provinsi) }}"
-                                                title="Edit Provinsi"
-                                                class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                                            <a class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-500 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#2563EB]"
+                                                href="{{ route('admin.provinsi.edit', $provinsi) }}"
+                                                title="Edit Provinsi">
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" />
@@ -130,16 +131,18 @@
                                                 </svg>
                                             </a>
 
-                                            <form action="{{ route('admin.provinsi.destroy', $provinsi) }}"
-                                                method="POST" class="inline" data-confirm-delete
+                                            <form class="inline" data-confirm-delete
                                                 data-confirm-title="Hapus provinsi {{ $provinsi->nama }}?"
                                                 data-confirm-text="Data yang sudah dihapus tidak dapat dikembalikan."
-                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal">
+                                                data-confirm-button-text="Hapus" data-cancel-button-text="Batal"
+                                                action="{{ route('admin.provinsi.destroy', $provinsi) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" title="Hapus Provinsi"
-                                                    class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-red-100 bg-white text-red-500 shadow-sm transition hover:border-red-200 hover:bg-red-50 hover:text-red-600">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                <button
+                                                    class="inline-flex items-center justify-center text-red-500 transition bg-white border border-red-100 rounded-lg shadow-sm h-9 w-9 hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                                                    type="submit" title="Hapus Provinsi">
+                                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                         stroke-width="2">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -152,11 +155,11 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-6 py-14 text-center">
+                                    <td class="px-6 text-center py-14" colspan="4">
                                         <div class="flex flex-col items-center justify-center">
                                             <div
-                                                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                                                class="flex items-center justify-center h-14 w-14 rounded-2xl bg-slate-100 text-slate-400">
+                                                <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M3 21h18" />
@@ -168,12 +171,12 @@
                                             </div>
                                             <h4 class="mt-4 text-sm font-semibold text-[#0A2540]">Belum ada data
                                                 provinsi</h4>
-                                            <p class="mt-1 max-w-sm text-sm text-slate-500">Belum terdapat data
+                                            <p class="max-w-sm mt-1 text-sm text-slate-500">Belum terdapat data
                                                 provinsi
                                                 yang tersimpan. Silakan tambahkan provinsi baru.</p>
-                                            <a href="{{ route('admin.provinsi.create') }}"
-                                                class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                            <a class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0A2540] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0B3D91]"
+                                                href="{{ route('admin.provinsi.create') }}">
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor"
                                                     stroke-width="2">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -190,7 +193,7 @@
                 </div>
 
                 @if ($provinsis->hasPages())
-                    <div class="border-t border-slate-200 px-6 py-4">
+                    <div class="px-6 py-4 border-t border-slate-200">
                         {{ $provinsis->onEachSide(2)->withQueryString()->links() }}
                     </div>
                 @endif

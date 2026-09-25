@@ -17,12 +17,11 @@ class TemplateSuratController extends Controller
 
     public function index()
     {
-        
+
         $user = auth()->user();
 
         $query = JenisSurat::query();
 
-        
         if ($user->role === 'admin_desa') {
             $query->where('desa_id', $user->desa_id);
         }
@@ -87,14 +86,12 @@ class TemplateSuratController extends Controller
             'aktif' => true,
         ];
 
-        
         if (auth()->user()->role === 'admin_desa') {
             $payload['desa_id'] = auth()->user()->desa_id;
         }
 
         $jenis = JenisSurat::create($payload);
 
-        
         try {
             $service = app(TemplateSuratService::class);
             $placeholders = $service->extractPlaceholders($path);
@@ -110,7 +107,7 @@ class TemplateSuratController extends Controller
 
     public function destroy(JenisSurat $templateSurat)
     {
-        
+
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
@@ -129,7 +126,7 @@ class TemplateSuratController extends Controller
 
     public function fields(JenisSurat $templateSurat)
     {
-        
+
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
@@ -211,7 +208,6 @@ class TemplateSuratController extends Controller
         return back()->with('success', 'Field surat berhasil dihapus.');
     }
 
-    
     public function bulkCreate(Request $request, JenisSurat $templateSurat)
     {
         if (auth()->user()->role === 'admin_desa') {
@@ -221,7 +217,7 @@ class TemplateSuratController extends Controller
         $placeholders = $request->input('placeholders', session('placeholders', []));
 
         if (! is_array($placeholders)) {
-            
+
             $placeholders = is_string($placeholders) ? array_filter(array_map('trim', explode(',', $placeholders))) : [];
         }
 

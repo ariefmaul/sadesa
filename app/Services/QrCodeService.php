@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Storage;
 
 class QrCodeService
 {
-    
     public function generate(string $token): string
     {
-        
+
         $url = route('surat.verifikasi', [
             'token' => $token,
         ]);
@@ -33,10 +32,8 @@ class QrCodeService
 
         $result = $writer->write($qrCode);
 
-        
         $filename = 'qr-code/'.$token.'.png';
 
-        
         Storage::disk('public')->put(
             $filename,
             $result->getString()

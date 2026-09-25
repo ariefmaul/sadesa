@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Detail Pengajuan Surat</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Detail Pengajuan Surat</h2>
     </x-slot>
 
     <div class="py-8">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
@@ -16,7 +16,7 @@
                         @include('admin.partials.status-badge', ['status' => $pengajuan->status])
 
                         @if ($pengajuan->status === 'ditolak')
-                            <div class="mt-4 w-full rounded-lg border border-red-200 bg-red-50 p-4">
+                            <div class="w-full p-4 mt-4 border border-red-200 rounded-lg bg-red-50">
                                 <h4 class="text-sm font-semibold text-red-900">Pengajuan Ditolak</h4>
                                 <p class="mt-1 text-sm text-red-700">Alasan: <span
                                         class="font-medium text-red-800">{{ $pengajuan->catatan ?? 'Tidak ada catatan dari admin.' }}</span>
@@ -24,7 +24,7 @@
                             </div>
                         @endif
                         @if ($pengajuan->dokumen)
-                            <div class="mt-8 rounded-xl border border-green-200 bg-green-50 p-6">
+                            <div class="p-6 mt-8 border border-green-200 rounded-xl bg-green-50">
 
                                 <div class="text-center">
 
@@ -36,13 +36,12 @@
                                         Surat telah diproses.
                                     </p>
 
-                                    
                                     @if (!$pengajuan->dokumen->dicetak_at)
-                                        <div class="mt-6 flex justify-center">
+                                        <div class="flex justify-center mt-6">
                                             @if ($pengajuan->dokumen->qr_file)
-                                                <img src="{{ asset('storage/' . $pengajuan->dokumen->qr_file) }}"
-                                                    alt="QR Code Surat"
-                                                    class="h-48 w-48 rounded-lg border bg-white p-2">
+                                                <img class="w-48 h-48 p-2 bg-white border rounded-lg"
+                                                    src="{{ asset('storage/' . $pengajuan->dokumen->qr_file) }}"
+                                                    alt="QR Code Surat">
                                             @endif
                                         </div>
 
@@ -75,11 +74,11 @@
                     </div>
 
                     <div class="mt-6 overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                        <table class="min-w-full text-sm divide-y divide-gray-200">
                             <tbody class="divide-y divide-gray-100">
                                 @foreach ($pengajuan->data_snapshot ?? ($pengajuan->data_pengajuan ?? []) as $label => $value)
                                     <tr>
-                                        <th class="w-1/3 px-4 py-3 text-left font-medium text-gray-500">
+                                        <th class="w-1/3 px-4 py-3 font-medium text-left text-gray-500">
                                             {{ str_replace('_', ' ', $label) }}</th>
                                         <td class="px-4 py-3 text-gray-900">{{ $value }}</td>
                                     </tr>
@@ -87,7 +86,6 @@
                             </tbody>
                         </table>
                     </div>
-
 
                     @php
                         $backUrl =
@@ -97,10 +95,10 @@
                     @endphp
 
                     <div class="mt-8">
-                        <a href="{{ $backUrl }}"
-                            class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20">
+                        <a class="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:border-[#2563EB] hover:bg-blue-50 hover:text-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20"
+                            href="{{ $backUrl }}">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" stroke-width="1.8">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
@@ -111,7 +109,6 @@
 
                         </a>
                     </div>
-
 
                 </div>
             </div>

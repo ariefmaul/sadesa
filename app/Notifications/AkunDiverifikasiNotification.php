@@ -11,9 +11,7 @@ class AkunDiverifikasiNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public User $user, public string $status)
-    {
-    }
+    public function __construct(public User $user, public string $status) {}
 
     public function via(object $notifiable): array
     {

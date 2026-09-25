@@ -3,10 +3,10 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800">
                     Mesin Cetak SADESA
                 </h2>
-                <p class="text-sm text-gray-500 mt-1">
+                <p class="mt-1 text-sm text-gray-500">
                     Scan QR Code untuk mencetak surat
                 </p>
             </div>
@@ -15,16 +15,13 @@
 
     <div class="min-h-[calc(100vh-65px)] bg-gray-100 py-10">
 
-        <div class="max-w-xl mx-auto px-4">
+        <div class="max-w-xl px-4 mx-auto">
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="overflow-hidden bg-white border border-gray-200 shadow-sm rounded-2xl">
 
-                
                 <div class="p-6 text-center border-b border-gray-100">
 
-                    <div
-                        class="mx-auto w-14 h-14 rounded-full bg-indigo-50
-                                flex items-center justify-center text-2xl">
+                    <div class="flex items-center justify-center mx-auto text-2xl rounded-full h-14 w-14 bg-indigo-50">
                         📷
                     </div>
 
@@ -38,17 +35,15 @@
 
                 </div>
 
-                
                 <div class="p-6">
 
-                    <div id="reader" class="w-full overflow-hidden rounded-xl border border-gray-200">
+                    <div class="w-full overflow-hidden border border-gray-200 rounded-xl" id="reader">
                     </div>
 
-                    
-                    <div id="loading" class="hidden mt-5 text-center">
+                    <div class="hidden mt-5 text-center" id="loading">
 
                         <div class="inline-flex items-center gap-2 text-sm text-gray-600">
-                            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            <svg class="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24">
 
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -65,16 +60,14 @@
 
                     </div>
 
-                    
-                    <div id="result" class="hidden mt-6">
+                    <div class="hidden mt-6" id="result">
                     </div>
 
                 </div>
 
             </div>
 
-            
-            <div class="mt-5 text-center text-xs text-gray-500">
+            <div class="mt-5 text-xs text-center text-gray-500">
 
                 <p>
                     Pastikan surat telah disetujui oleh Admin Desa.
@@ -86,8 +79,6 @@
 
     </div>
 
-
-    
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <script>
@@ -95,7 +86,7 @@
 
         function onScanSuccess(decodedText) {
 
-            
+
             if (scanner) {
                 scanner.clear();
             }
@@ -107,7 +98,7 @@
 
             let token = decodedText;
 
-            
+
 
             try {
 
@@ -123,7 +114,7 @@
 
             } catch (error) {
 
-                
+
 
                 token = decodedText;
 
@@ -214,14 +205,11 @@
 
             result.innerHTML = `
 
-                <div class="rounded-xl border border-green-200
-                            bg-green-50 p-5">
+                <div class="p-5 border border-green-200 rounded-xl bg-green-50">
 
                     <div class="flex items-center gap-3">
 
-                        <div class="w-10 h-10 rounded-full
-                                    bg-green-100
-                                    flex items-center justify-center">
+                        <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full">
 
                             ✓
 
@@ -289,13 +277,7 @@
 
                         <a
                             href="/mesin/print/${data.id}"
-                            class="block w-full text-center
-                                   bg-indigo-600
-                                   hover:bg-indigo-700
-                                   text-white
-                                   font-semibold
-                                   rounded-lg
-                                   px-5 py-3">
+                            class="block w-full px-5 py-3 font-semibold text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">
 
                             🖨️ Cetak Surat
 
@@ -306,14 +288,7 @@
 
                     <button
                         onclick="reloadScanner()"
-                        class="mt-3 w-full border
-                               border-gray-300
-                               bg-white
-                               hover:bg-gray-50
-                               text-gray-700
-                               font-semibold
-                               rounded-lg
-                               px-5 py-3">
+                        class="w-full px-5 py-3 mt-3 font-semibold text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">
 
                         Scan Surat Lain
 
@@ -334,10 +309,7 @@
 
             result.innerHTML = `
 
-                <div class="rounded-xl
-                            border border-red-200
-                            bg-red-50
-                            p-5">
+                <div class="p-5 border border-red-200 rounded-xl bg-red-50">
 
                     <div class="text-center">
 
@@ -345,17 +317,13 @@
                             ❌
                         </div>
 
-                        <p class="mt-3
-                                  font-semibold
-                                  text-red-800">
+                        <p class="mt-3 font-semibold text-red-800">
 
                             QR Code Tidak Valid
 
                         </p>
 
-                        <p class="mt-1
-                                  text-sm
-                                  text-red-700">
+                        <p class="mt-1 text-sm text-red-700">
 
                             ${message}
 
@@ -366,13 +334,7 @@
 
                     <button
                         onclick="reloadScanner()"
-                        class="mt-5 w-full
-                               bg-red-600
-                               hover:bg-red-700
-                               text-white
-                               font-semibold
-                               rounded-lg
-                               px-5 py-3">
+                        class="w-full px-5 py-3 mt-5 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700">
 
                         Scan Kembali
 
@@ -423,7 +385,7 @@
         }
 
 
-        
+
         startScanner();
     </script>
 

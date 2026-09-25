@@ -9,8 +9,8 @@
         <div class="relative">
 
             {{-- Icon --}}
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24"
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
 
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18" />
@@ -43,9 +43,9 @@
 
 
             {{-- Dropdown Icon --}}
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
@@ -76,9 +76,9 @@
         <div class="relative">
 
             {{-- Icon --}}
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18" />
@@ -121,9 +121,9 @@
         <div class="relative">
 
             {{-- Icon Code --}}
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
 
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none"
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
 
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -144,13 +144,13 @@
         </div>
 
 
-        <div class="mt-2 flex items-center justify-between gap-4">
+        <div class="flex items-center justify-between gap-4 mt-2">
 
             <p class="text-xs text-slate-500">
                 Kode kecamatan bersifat opsional.
             </p>
 
-            <span class="shrink-0 text-xs text-slate-400">
+            <span class="text-xs shrink-0 text-slate-400">
                 Maks. 50 karakter
             </span>
 

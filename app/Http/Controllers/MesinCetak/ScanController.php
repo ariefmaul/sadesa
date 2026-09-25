@@ -4,18 +4,21 @@ namespace App\Http\Controllers\MesinCetak;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dokumen;
+use App\Services\QrCodeService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Services\QrCodeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class ScanController extends Controller
 {
     public function __construct()
     {
-        
+
         $this->middleware(['auth', 'role:mesin,mesin_cetak']);
     }
 
@@ -92,11 +95,10 @@ class ScanController extends Controller
                 ], 422);
             }
 
-            
             if ($dokumen->dicetak_at !== null) {
-                
+
                 try {
-                    $printedAt = \Carbon\Carbon::parse($dokumen->dicetak_at)->timezone(config('app.timezone'))->format('d F Y H:i');
+                    $printedAt = Carbon::parse($dokumen->dicetak_at)->timezone(config('app.timezone'))->format('d F Y H:i');
                 } catch (\Throwable $_) {
                     $printedAt = (string) $dokumen->dicetak_at;
                 }
@@ -108,7 +110,6 @@ class ScanController extends Controller
                 ]);
             }
 
-            
             if ($dokumen->dokumen_pdf) {
                 $exists = Storage::disk('public')->exists($dokumen->dokumen_pdf);
                 if (! $exists) {
@@ -118,7 +119,7 @@ class ScanController extends Controller
                     ]);
                 }
             } else {
-                
+
                 $exists = Storage::disk('public')->exists($dokumen->file);
                 if (! $exists) {
                     Log::error('SADESA DOCUMENT FILE NOT FOUND (file)', [
@@ -128,15 +129,12 @@ class ScanController extends Controller
                 }
             }
 
-            
             $pdfUrl = null;
 
-            
             if (! empty($dokumen->dokumen_pdf) && Storage::disk('public')->exists($dokumen->dokumen_pdf)) {
                 $pdfUrl = asset('storage/'.$dokumen->dokumen_pdf);
             }
 
-            
             if (is_null($pdfUrl) && ! empty($dokumen->file)) {
                 $ext = strtolower(pathinfo($dokumen->file, PATHINFO_EXTENSION));
                 if ($ext === 'pdf' && Storage::disk('public')->exists($dokumen->file)) {
@@ -170,8 +168,8 @@ class ScanController extends Controller
                 ],
             ]);
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            
+        } catch (ValidationException $e) {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Token tidak valid.',
@@ -193,7 +191,7 @@ class ScanController extends Controller
 
     public function print(Dokumen $dokumen)
     {
-        
+
         abort_unless($dokumen->status === 'tersedia' || $dokumen->status === 'dicetak', 404);
 
         return view('mesin.print', compact('dokumen'));
@@ -201,8 +199,7 @@ class ScanController extends Controller
 
     public function markPrinted(Request $request, Dokumen $dokumen, QrCodeService $qrCodeService)
     {
-        
-        
+
         $updated = DB::transaction(function () use ($dokumen, $qrCodeService) {
             $d = Dokumen::where('id', $dokumen->id)->lockForUpdate()->first();
 
@@ -211,24 +208,21 @@ class ScanController extends Controller
             }
 
             if ($d->dicetak_at !== null) {
-                
+
                 return false;
             }
 
-            
             $d->dicetak_at = now();
             $d->status = 'dicetak';
 
-            
-            $newToken = (string) \Illuminate\Support\Str::uuid();
+            $newToken = (string) Str::uuid();
             $d->qr_token = $newToken;
 
-            
             try {
                 $qrFile = $qrCodeService->generate($newToken);
                 $d->qr_file = $qrFile;
             } catch (\Throwable $e) {
-                
+
                 throw $e;
             }
 

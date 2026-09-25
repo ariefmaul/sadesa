@@ -81,31 +81,28 @@
         <span class="absolute -left-3 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-[#3B82F6]"></span>
     @endif
 
-
     {{-- Icon --}}
     <span
-        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition duration-200
-            {{ $active
-                ? 'bg-blue-50 text-[#2563EB]'
-                : 'bg-white/5 text-blue-200 group-hover:bg-white/10 group-hover:text-white' }}">
+        class="{{ $active
+            ? 'bg-blue-50 text-[#2563EB]'
+            : 'bg-white/5 text-blue-200 group-hover:bg-white/10 group-hover:text-white' }} flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition duration-200">
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
             stroke-width="1.7">
             {!! $iconSvg !!}
         </svg>
 
     </span>
 
-
     {{-- Label --}}
-    <span x-show="!collapsed" x-transition.opacity class="ml-3 truncate">
+    <span class="ml-3 truncate" x-show="!collapsed" x-transition.opacity>
         {{ $slot }}
     </span>
 
-
     {{-- Tooltip when collapsed --}}
-    <span x-show="collapsed" x-transition.opacity
-        class="pointer-events-none absolute left-[68px] z-[100] hidden whitespace-nowrap rounded-lg bg-[#0A2540] px-3 py-2 text-xs font-semibold text-white shadow-xl group-hover:block">
+    <span
+        class="pointer-events-none absolute left-[68px] z-[100] hidden whitespace-nowrap rounded-lg bg-[#0A2540] px-3 py-2 text-xs font-semibold text-white shadow-xl group-hover:block"
+        x-show="collapsed" x-transition.opacity>
         {{ $slot }}
     </span>
 

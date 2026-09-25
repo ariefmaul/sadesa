@@ -30,7 +30,7 @@ class SuratFieldResolver
                 'nomor_kk' => $profil?->nomor_kk,
                 'tempat_lahir' => $profil?->tempat_lahir,
                 'tanggal_lahir' => $this->formatDate($profil?->tanggal_lahir),
-                
+
                 'tempat_tanggal_lahir' => trim(($profil?->tempat_lahir ? $profil->tempat_lahir.', ' : '').($this->formatDate($profil?->tanggal_lahir) ?? '')) ?: null,
                 'alamat' => $profil?->alamat,
                 'rt' => $profil?->rt,
@@ -70,34 +70,29 @@ class SuratFieldResolver
         $automatic = $this->automaticData($user);
         $snapshot = [];
 
-        
-        
         if ($jenisSurat->fields->isEmpty()) {
-            
+
             $flat = [];
-            
+
             foreach ($automatic['user'] ?? [] as $k => $v) {
                 $flat[$k] = $v;
             }
-            
+
             foreach ($automatic['profil'] ?? [] as $k => $v) {
                 if (! isset($flat[$k]) || $flat[$k] === null || $flat[$k] === '') {
                     $flat[$k] = $v;
                 }
             }
-            
+
             foreach ($automatic['desa'] ?? [] as $k => $v) {
                 if (! isset($flat[$k]) || $flat[$k] === null || $flat[$k] === '') {
                     $flat[$k] = $v;
                 }
             }
 
-            
             return array_merge($flat, $dataPengajuan ?? []);
         }
 
-        
-        
         foreach ($automatic['user'] ?? [] as $k => $v) {
             $snapshot[$k] = $v;
         }
@@ -112,12 +107,10 @@ class SuratFieldResolver
             }
         }
 
-        
         foreach ($jenisSurat->fields as $field) {
             $name = $field->fieldName();
             $source = $field->sourceData();
 
-            
             $sourceNormalized = match (strtolower($source)) {
                 'profile' => 'profil',
                 'profil' => 'profil',
@@ -127,14 +120,12 @@ class SuratFieldResolver
             };
 
             if ($sourceNormalized === 'pengajuan') {
-                
+
                 $snapshot[$name] = $dataPengajuan[$name] ?? null;
 
                 continue;
             }
 
-            
-            
             $existing = $snapshot[$name] ?? null;
 
             if ($existing === null || $existing === '') {
@@ -154,12 +145,11 @@ class SuratFieldResolver
 
                 $snapshot[$name] = $value ?? null;
             } else {
-                
+
                 $snapshot[$name] = $existing;
             }
         }
 
-        
         Log::info('SADESA SNAPSHOT DEBUG', [
             'user_id' => $user->id ?? null,
             'pengajuan_fields' => $dataPengajuan,
@@ -177,18 +167,14 @@ class SuratFieldResolver
     {
         $pengajuan->loadMissing(['jenisSurat.fields', 'user.desa', 'user.profilMasyarakat']);
 
-        
         $snapshot = $pengajuan->data_snapshot ?? $this->snapshotFor(
             $pengajuan->jenisSurat,
             $pengajuan->user,
             $pengajuan->data_pengajuan ?? []
         );
 
-        
         $data = array_merge($snapshot, $pengajuan->data_pengajuan ?? []);
 
-        
-        
         foreach ($data as $key => $val) {
             $formatted = $this->formatDate($val);
             if ($formatted !== $val) {
@@ -196,7 +182,6 @@ class SuratFieldResolver
             }
         }
 
-        
         Log::info('SADESA TEMPLATE DATA DEBUG', [
             'pengajuan_id' => $pengajuan->id ?? null,
             'snapshot' => $snapshot,
@@ -227,12 +212,12 @@ class SuratFieldResolver
         }
 
         if (is_string($value)) {
-            
+
             if (preg_match('/^\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}:\d{2})?$/', $value)) {
                 try {
                     return Carbon::parse($value)->locale('id')->translatedFormat('d F Y');
                 } catch (\Throwable $_) {
-                    
+
                 }
             }
         }

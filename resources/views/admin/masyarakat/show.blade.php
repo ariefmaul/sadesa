@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="py-8">
-        <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
 
             {{-- =====================================================
                 HEADER
@@ -11,22 +11,22 @@
                 <div class="relative px-6 py-7 sm:px-8">
 
                     {{-- Decorative --}}
-                    <div class="pointer-events-none absolute -right-16 -top-20 h-48 w-48 rounded-full bg-blue-500/10">
+                    <div class="absolute w-48 h-48 rounded-full pointer-events-none -right-16 -top-20 bg-blue-500/10">
                     </div>
 
-                    <div class="pointer-events-none absolute -bottom-24 right-20 h-40 w-40 rounded-full bg-green-300/5">
+                    <div class="absolute w-40 h-40 rounded-full pointer-events-none -bottom-24 right-20 bg-green-300/5">
                     </div>
 
                     <div class="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
                         <div>
 
-                            <div class="mb-2 flex items-center gap-2">
+                            <div class="flex items-center gap-2 mb-2">
 
                                 <span
-                                    class="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 text-blue-100">
+                                    class="flex items-center justify-center text-blue-100 rounded-lg h-7 w-7 bg-white/10">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -45,22 +45,20 @@
 
                             </div>
 
-
                             <h1 class="text-2xl font-bold tracking-tight text-white sm:text-3xl">
                                 Tindak Lanjut Verifikasi
                             </h1>
 
-                            <p class="mt-2 max-w-2xl text-sm leading-relaxed text-blue-100/75">
+                            <p class="max-w-2xl mt-2 text-sm leading-relaxed text-blue-100/75">
                                 Periksa data masyarakat sebelum menentukan status verifikasi akun.
                             </p>
 
                         </div>
 
+                        <a class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15"
+                            href="{{ route('admin.masyarakat.index') }}">
 
-                        <a href="{{ route('admin.masyarakat.index') }}"
-                            class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
 
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
@@ -77,11 +75,10 @@
 
             </div>
 
-
             {{-- =====================================================
                 PROFILE
             ====================================================== --}}
-            <div class="mb-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="mb-6 overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 <div class="px-6 py-6 sm:px-7">
 
@@ -95,9 +92,8 @@
 
                         </div>
 
-
                         {{-- Identity --}}
-                        <div class="min-w-0 flex-1">
+                        <div class="flex-1 min-w-0">
 
                             <p class="mb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400">
                                 Profil Masyarakat
@@ -113,7 +109,7 @@
                                     NIK {{ $masyarakat->nik }}
                                 </span>
 
-                                <span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:block"></span>
+                                <span class="hidden w-1 h-1 rounded-full bg-slate-300 sm:block"></span>
 
                                 <span class="text-sm text-slate-500">
                                     Terdaftar {{ $masyarakat->created_at->format('d M Y') }}
@@ -122,7 +118,6 @@
                             </div>
 
                         </div>
-
 
                         {{-- Status --}}
                         <div class="shrink-0">
@@ -139,21 +134,20 @@
 
             </div>
 
-
             {{-- =====================================================
                 DATA MASYARAKAT
             ====================================================== --}}
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div class="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-200">
 
                 {{-- Card Header --}}
-                <div class="border-b border-slate-200 px-6 py-5 sm:px-7">
+                <div class="px-6 py-5 border-b border-slate-200 sm:px-7">
 
                     <div class="flex items-center gap-3">
 
                         <div
                             class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#2563EB]">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8">
 
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -164,7 +158,6 @@
                             </svg>
 
                         </div>
-
 
                         <div>
 
@@ -182,18 +175,17 @@
 
                 </div>
 
-
                 {{-- =================================================
                     DATA
                 ================================================== --}}
                 <div class="px-6 py-6 sm:px-7">
 
-                    <dl class="overflow-hidden rounded-xl border border-slate-200">
+                    <dl class="overflow-hidden border rounded-xl border-slate-200">
 
                         {{-- Nama --}}
-                        <div class="grid gap-2 bg-white px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                        <div class="grid gap-2 px-5 py-4 bg-white sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Nama Lengkap
                             </dt>
 
@@ -203,12 +195,11 @@
 
                         </div>
 
-
                         {{-- NIK --}}
                         <div
-                            class="grid gap-2 border-t border-slate-100 bg-slate-50/60 px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                            class="grid gap-2 px-5 py-4 border-t border-slate-100 bg-slate-50/60 sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 NIK
                             </dt>
 
@@ -218,11 +209,10 @@
 
                         </div>
 
-
                         {{-- Jenis Kelamin --}}
-                        <div class="grid gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                        <div class="grid gap-2 px-5 py-4 bg-white border-t border-slate-100 sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Jenis Kelamin
                             </dt>
 
@@ -233,7 +223,7 @@
                                     <span
                                         class="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-50 text-[#2563EB]">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
 
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -254,12 +244,11 @@
 
                         </div>
 
-
                         {{-- Email --}}
                         <div
-                            class="grid gap-2 border-t border-slate-100 bg-slate-50/60 px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                            class="grid gap-2 px-5 py-4 border-t border-slate-100 bg-slate-50/60 sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Email
                             </dt>
 
@@ -269,11 +258,10 @@
 
                         </div>
 
-
                         {{-- Status --}}
-                        <div class="grid gap-2 border-t border-slate-100 bg-white px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                        <div class="grid gap-2 px-5 py-4 bg-white border-t border-slate-100 sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Status Verifikasi
                             </dt>
 
@@ -287,12 +275,11 @@
 
                         </div>
 
-
                         {{-- Tanggal --}}
                         <div
-                            class="grid gap-2 border-t border-slate-100 bg-slate-50/60 px-5 py-4 sm:grid-cols-3 sm:gap-5">
+                            class="grid gap-2 px-5 py-4 border-t border-slate-100 bg-slate-50/60 sm:grid-cols-3 sm:gap-5">
 
-                            <dt class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            <dt class="text-xs font-bold tracking-wider uppercase text-slate-400">
                                 Tanggal Daftar
                             </dt>
 
@@ -301,9 +288,9 @@
                                 <div class="flex items-center gap-2">
 
                                     <span
-                                        class="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-500">
+                                        class="flex items-center justify-center rounded-lg h-7 w-7 bg-slate-100 text-slate-500">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                             fill="none" stroke="currentColor" stroke-width="1.8">
 
                                             <rect x="3.75" y="5.25" width="16.5" height="15" rx="2" />
@@ -327,11 +314,10 @@
 
                 </div>
 
-
                 {{-- =================================================
                     ACTION
                 ================================================== --}}
-                <div class="border-t border-slate-200 bg-slate-50 px-6 py-6 sm:px-7">
+                <div class="px-6 py-6 border-t border-slate-200 bg-slate-50 sm:px-7">
 
                     @if ($masyarakat->status_verifikasi === 'menunggu')
                         <div class="mb-5">
@@ -341,7 +327,7 @@
                                 <div
                                     class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#2563EB]">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -370,7 +356,6 @@
 
                         </div>
 
-
                         {{-- Forms --}}
                         <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
 
@@ -381,10 +366,11 @@
                                 @csrf
                                 @method('PATCH')
 
-                                <button type="button" id="reject-button"
-                                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-5 py-2.5 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500/20 sm:w-auto">
+                                <button
+                                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-5 py-2.5 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500/20 sm:w-auto"
+                                    id="reject-button" type="button">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -398,7 +384,6 @@
 
                             </form>
 
-
                             {{-- Setujui --}}
                             <form id="approve-form" method="POST"
                                 action="{{ route('admin.masyarakat.approve', $masyarakat) }}">
@@ -406,10 +391,11 @@
                                 @csrf
                                 @method('PATCH')
 
-                                <button type="button" id="approve-button"
-                                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 sm:w-auto">
+                                <button
+                                    class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0A2540] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0B3D91] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 sm:w-auto"
+                                    id="approve-button" type="button">
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24"
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="1.8">
 
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4 4L19 7" />
@@ -425,12 +411,12 @@
                         </div>
                     @elseif ($masyarakat->status_verifikasi === 'disetujui')
                         {{-- Approved State --}}
-                        <div class="flex items-center gap-4 rounded-xl border border-green-200 bg-green-50/70 p-4">
+                        <div class="flex items-center gap-4 p-4 border border-green-200 rounded-xl bg-green-50/70">
 
                             <div
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-100 text-green-600">
+                                class="flex items-center justify-center w-10 h-10 text-green-600 bg-green-100 shrink-0 rounded-xl">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1.8">
 
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4 4L19 7" />
@@ -454,12 +440,12 @@
                         </div>
                     @elseif ($masyarakat->status_verifikasi === 'ditolak')
                         {{-- Rejected State --}}
-                        <div class="flex items-center gap-4 rounded-xl border border-red-200 bg-red-50/70 p-4">
+                        <div class="flex items-center gap-4 p-4 border border-red-200 rounded-xl bg-red-50/70">
 
                             <div
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-red-600">
+                                class="flex items-center justify-center w-10 h-10 text-red-600 bg-red-100 shrink-0 rounded-xl">
 
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="1.8">
 
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -489,7 +475,6 @@
 
         </div>
     </div>
-
 
     {{-- =========================================================
         SWEETALERT2
@@ -549,7 +534,7 @@
 
                         approveButton.innerHTML = `
                             <svg
-                                class="h-4 w-4 animate-spin"
+                                class="w-4 h-4 animate-spin"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24">
@@ -626,7 +611,7 @@
 
                         rejectButton.innerHTML = `
                             <svg
-                                class="h-4 w-4 animate-spin"
+                                class="w-4 h-4 animate-spin"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24">

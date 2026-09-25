@@ -3,14 +3,14 @@
 <div class="space-y-6">
 
     {{-- =========================================================
-        NAMA LENGKAP
-    ========================================================== --}}
+        NAMA LENGKAP 
+    ========================================================= --}}
     <div>
-        <x-input-label for="name" value="Nama Lengkap" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+        <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="name" value="Nama Lengkap" />
 
         <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
@@ -18,29 +18,28 @@
                 </svg>
             </div>
 
-            <x-text-input id="name" name="name" type="text"
+            <x-text-input
                 class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                value="{{ old('name', $admin->name ?? '') }}" placeholder="Contoh: Arief Maulana Rizki" required
-                autofocus />
+                id="name" name="name" type="text" value="{{ old('name', $admin->name ?? '') }}"
+                placeholder="Contoh: Arief Maulana Rizki" required autofocus />
         </div>
 
         <p class="mt-2 text-xs text-slate-500">
             Masukkan nama lengkap sesuai identitas resmi.
         </p>
 
-        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <x-input-error class="mt-2" :messages="$errors->get('name')" />
     </div>
 
-
     {{-- =========================================================
-        JENIS KELAMIN
-    ========================================================== --}}
+        JENIS KELAMIN 
+    ========================================================= --}}
     <div>
-        <x-input-label for="jenis_kelamin" value="Jenis Kelamin" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+        <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="jenis_kelamin" value="Jenis Kelamin" />
 
         <div class="relative">
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
@@ -48,8 +47,9 @@
                 </svg>
             </div>
 
-            <select id="jenis_kelamin" name="jenis_kelamin" required
-                class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+            <select
+                class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                id="jenis_kelamin" name="jenis_kelamin" required>
                 <option value="">Pilih jenis kelamin</option>
 
                 <option value="L" @selected(old('jenis_kelamin', $admin->jenis_kelamin ?? '') === 'L')>
@@ -61,50 +61,49 @@
                 </option>
             </select>
 
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+            <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                 </svg>
             </div>
         </div>
 
-        <x-input-error :messages="$errors->get('jenis_kelamin')" class="mt-2" />
+        <x-input-error class="mt-2" :messages="$errors->get('jenis_kelamin')" />
     </div>
-
 
     {{-- =========================================================
         WILAYAH DESA
-    ========================================================== --}}
+    ========================================================= --}}
     <div>
 
         <div class="mb-4">
-            <x-input-label for="desa_id" value="Wilayah Desa" class="text-sm font-semibold text-[#0A2540]" />
+            <x-input-label class="text-sm font-semibold text-[#0A2540]" for="desa_id" value="Wilayah Desa" />
 
             <p class="mt-1 text-xs text-slate-500">
                 Tentukan wilayah admin mulai dari provinsi hingga desa.
             </p>
         </div>
 
-
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
 
             {{-- PROVINSI --}}
             <div>
-                <x-input-label for="provinsi_id" value="Provinsi" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="provinsi_id" value="Provinsi" />
 
                 <div class="relative">
 
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 21h16.5M5.25 21V5.25A2.25 2.25 0 017.5 3h9a2.25 2.25 0 012.25 2.25V21M9 7.5h.01M12 7.5h.01M15 7.5h.01M9 11.25h.01M12 11.25h.01M15 11.25h.01M9 15h.01M12 15h.01M15 15h.01" />
                         </svg>
                     </div>
 
-                    <select id="provinsi_id" name="provinsi_id" required
-                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                    <select
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                        id="provinsi_id" name="provinsi_id" required>
                         <option value="">Pilih provinsi</option>
 
                         @foreach ($provinsis as $prov)
@@ -114,8 +113,8 @@
                         @endforeach
                     </select>
 
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                         </svg>
@@ -123,34 +122,34 @@
 
                 </div>
 
-                <x-input-error :messages="$errors->get('provinsi_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('provinsi_id')" />
             </div>
-
 
             {{-- KOTA --}}
             <div>
-                <x-input-label for="kota_id" value="Kota / Kabupaten"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="kota_id"
+                    value="Kota / Kabupaten" />
 
                 <div class="relative">
 
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 21h16.5M5.25 21V5.25A2.25 2.25 0 017.5 3h9a2.25 2.25 0 012.25 2.25V21M9 7.5h.01M12 7.5h.01M15 7.5h.01M9 11.25h.01M12 11.25h.01M15 11.25h.01M9 15h.01M12 15h.01M15 15h.01" />
                         </svg>
                     </div>
 
-                    <select id="kota_id" name="kota_id"
-                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                    <select
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                        id="kota_id" name="kota_id">
                         <option value="">
                             Pilih provinsi terlebih dahulu
                         </option>
                     </select>
 
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                         </svg>
@@ -158,19 +157,18 @@
 
                 </div>
 
-                <x-input-error :messages="$errors->get('kota_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('kota_id')" />
             </div>
-
 
             {{-- KECAMATAN --}}
             <div>
-                <x-input-label for="kecamatan_id" value="Kecamatan"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="kecamatan_id"
+                    value="Kecamatan" />
 
                 <div class="relative">
 
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 21s7-6.05 7-12a7 7 0 10-14 0c0 5.95 7 12 7 12z" />
@@ -179,15 +177,16 @@
                         </svg>
                     </div>
 
-                    <select id="kecamatan_id" name="kecamatan_id"
-                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                    <select
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                        id="kecamatan_id" name="kecamatan_id">
                         <option value="">
                             Pilih kota/kab terlebih dahulu
                         </option>
                     </select>
 
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                         </svg>
@@ -195,34 +194,34 @@
 
                 </div>
 
-                <x-input-error :messages="$errors->get('kecamatan_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('kecamatan_id')" />
             </div>
-
 
             {{-- DESA --}}
             <div>
-                <x-input-label for="desa_id" value="Desa / Kelurahan"
-                    class="mb-2 text-sm font-semibold text-[#0A2540]" />
+                <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="desa_id"
+                    value="Desa / Kelurahan" />
 
                 <div class="relative">
 
-                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 21h18M5 21V10.5L12 5l7 5.5V21M9 21v-5h6v5M8 10h.01M12 10h.01M16 10h.01" />
                         </svg>
                     </div>
 
-                    <select id="desa_id" name="desa_id" required
-                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                    <select
+                        class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                        id="desa_id" name="desa_id" required>
                         <option value="">
                             Pilih kecamatan terlebih dahulu
                         </option>
                     </select>
 
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                         </svg>
@@ -230,32 +229,32 @@
 
                 </div>
 
-                <x-input-error :messages="$errors->get('desa_id')" class="mt-2" />
+                <x-input-error class="mt-2" :messages="$errors->get('desa_id')" />
             </div>
 
         </div>
     </div>
 
-
     {{-- =========================================================
         EMAIL
-    ========================================================== --}}
+    ========================================================= --}}
     <div>
-        <x-input-label for="email" value="Email" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+        <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="email" value="Email" />
 
         <div class="relative">
 
-            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.8">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75V6.75z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 7.5l7.5 5.25 7.5-5.25" />
                 </svg>
             </div>
 
-            <x-text-input id="email" name="email" type="email"
+            <x-text-input
                 class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                value="{{ old('email', $admin->email ?? '') }}" placeholder="admin@contoh.go.id" required />
+                id="email" name="email" type="email" value="{{ old('email', $admin->email ?? '') }}"
+                placeholder="admin@contoh.go.id" required />
 
         </div>
 
@@ -263,22 +262,21 @@
             Email digunakan untuk login ke sistem.
         </p>
 
-        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <x-input-error class="mt-2" :messages="$errors->get('email')" />
     </div>
-
 
     {{-- =========================================================
         STATUS AKUN - EDIT SAJA
-    ========================================================== --}}
+    ========================================================= --}}
     @if ($isEdit)
         <div>
-            <x-input-label for="status_verifikasi" value="Status Akun"
-                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="status_verifikasi"
+                value="Status Akun" />
 
             <div class="relative">
 
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.8">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4" />
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -286,8 +284,9 @@
                     </svg>
                 </div>
 
-                <select id="status_verifikasi" name="status_verifikasi" required
-                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]">
+                <select
+                    class="mt-0 block w-full appearance-none rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-10 text-sm text-[#0A2540] shadow-sm transition focus:border-[#2563EB] focus:ring-[#2563EB]"
+                    id="status_verifikasi" name="status_verifikasi" required>
                     <option value="disetujui" @selected(old('status_verifikasi', $admin->status_verifikasi) === 'disetujui')>
                         Aktif
                     </option>
@@ -297,8 +296,8 @@
                     </option>
                 </select>
 
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-slate-400">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.8">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6" />
                     </svg>
@@ -310,10 +309,9 @@
                 Atur status akun Admin Desa yang sedang diedit.
             </p>
 
-            <x-input-error :messages="$errors->get('status_verifikasi')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('status_verifikasi')" />
         </div>
     @endif
-
 
     {{-- =========================================================
         PASSWORD
@@ -322,12 +320,12 @@
 
         {{-- PASSWORD --}}
         <div>
-            <x-input-label for="password" :value="$isEdit ? 'Password Baru' : 'Password'" class="mb-2 text-sm font-semibold text-[#0A2540]" />
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="password" :value="$isEdit ? 'Password Baru' : 'Password'" />
 
             <div class="relative">
 
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.8">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M7.5 10.5V7.75a4.5 4.5 0 119 0v2.75" />
@@ -335,9 +333,9 @@
                     </svg>
                 </div>
 
-                <x-text-input id="password" name="password" type="password"
+                <x-text-input
                     class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                    :required="!$isEdit" autocomplete="new-password"
+                    id="password" name="password" type="password" :required="!$isEdit" autocomplete="new-password"
                     placeholder="{{ $isEdit ? 'Kosongkan jika tidak diubah' : 'Masukkan password' }}" />
 
             </div>
@@ -348,19 +346,18 @@
                 </p>
             @endif
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('password')" />
         </div>
-
 
         {{-- KONFIRMASI PASSWORD --}}
         <div>
-            <x-input-label for="password_confirmation" value="Konfirmasi Password"
-                class="mb-2 text-sm font-semibold text-[#0A2540]" />
+            <x-input-label class="mb-2 text-sm font-semibold text-[#0A2540]" for="password_confirmation"
+                value="Konfirmasi Password" />
 
             <div class="relative">
 
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1.8">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M7.5 10.5V7.75a4.5 4.5 0 119 0v2.75" />
@@ -368,19 +365,19 @@
                     </svg>
                 </div>
 
-                <x-text-input id="password_confirmation" name="password_confirmation" type="password"
+                <x-text-input
                     class="mt-0 block w-full rounded-xl border-slate-200 py-3 pl-11 pr-4 text-sm text-[#0A2540] shadow-sm transition placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-[#2563EB]"
-                    :required="!$isEdit" autocomplete="new-password" placeholder="Ulangi password" />
+                    id="password_confirmation" name="password_confirmation" type="password" :required="!$isEdit"
+                    autocomplete="new-password" placeholder="Ulangi password" />
 
             </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-error class="mt-2" :messages="$errors->get('password_confirmation')" />
         </div>
 
     </div>
 
 </div>
-
 
 {{-- =============================================================
     CASCADING WILAYAH

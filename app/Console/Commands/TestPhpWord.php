@@ -22,6 +22,7 @@ class TestPhpWord extends Command
             $jenis = JenisSurat::whereNotNull('template')->first();
             if (! $jenis) {
                 $this->error('Tidak ada JenisSurat dengan template. Silakan upload satu template DOCX terlebih dahulu.');
+
                 return 1;
             }
             $relative = $jenis->template;
@@ -34,11 +35,13 @@ class TestPhpWord extends Command
 
         if (! file_exists($templatePath)) {
             $this->error('Template file tidak ditemukan: '.$templatePath);
+
             return 1;
         }
 
         if (! is_readable($templatePath)) {
             $this->error('Template tidak dapat dibaca: '.$templatePath);
+
             return 1;
         }
 
@@ -47,6 +50,7 @@ class TestPhpWord extends Command
         } catch (\Throwable $e) {
             $this->error('Gagal membuka template: '.$e->getMessage());
             Log::error('sadesa:test-phpword failed to open template', ['error' => $e->getMessage()]);
+
             return 1;
         }
 
@@ -63,6 +67,7 @@ class TestPhpWord extends Command
         } catch (\Throwable $e) {
             $this->error('Gagal menyimpan test DOCX: '.$e->getMessage());
             Log::error('sadesa:test-phpword save failed', ['error' => $e->getMessage()]);
+
             return 1;
         }
 
@@ -70,16 +75,19 @@ class TestPhpWord extends Command
 
         if (! file_exists($out)) {
             $this->error('Test DOCX tidak ditemukan setelah save: '.$out);
+
             return 1;
         }
 
         $size = filesize($out);
         if ($size === false || $size <= 0) {
             $this->error('Test DOCX kosong atau tidak dapat dibaca: '.$out);
+
             return 1;
         }
 
         $this->info('Test DOCX berhasil dibuat: '.$out.' ('.number_format($size).' bytes)');
+
         return 0;
     }
 }
