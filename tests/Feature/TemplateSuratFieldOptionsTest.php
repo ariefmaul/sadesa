@@ -41,4 +41,30 @@ class TemplateSuratFieldOptionsTest extends TestCase
         $this->assertSame('select', $field->inputType());
         $this->assertSame(['Laki-laki', 'Perempuan'], $field->selectOptions());
     }
+
+    public function test_store_field_keeps_remaining_placeholders_for_uncreated_fields(): void
+    {
+        $desa = Desa::create(['nama' => 'Desa A', 'kode' => 'A', 'kecamatan_id' => null]);
+        $admin = User::factory()->create(['desa_id' => $desa->id, 'role' => 'admin_desa']);
+        $template = JenisSurat::create([
+            'nama' => 'Surat Keterangan',
+            'kode' => 'SKT2',
+            'desa_id' => $desa->id,
+            'aktif' => true,
+        ]);
+
+        $response = $this->actingAs($admin)
+            ->withSession(['placeholders' => ['nama', 'alamat_ktp', 'tanggal_pengajuan']])
+            ->post(route('admin.template-surat.fields.store', $template), [
+                'nama_field' => 'nama',
+                'label' => 'Nama',
+                'sumber_data' => 'pengajuan',
+                'tipe' => 'text',
+                'wajib' => false,
+                'urutan' => 1,
+            ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('placeholders', ['alamat_ktp', 'tanggal_pengajuan']);
+    }
 }

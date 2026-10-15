@@ -37,7 +37,7 @@ class PengumumanDesaBaruNotification extends Notification
             ->line('Kota/Kabupaten: '.($kota?->nama ?? '-'))
             ->line('Provinsi: '.($provinsi?->nama ?? '-'))
             ->line('Judul: '.($this->pengumuman->judul ?? '-'))
-            ->line('Tanggal Publikasi: '.($this->pengumuman->published_at?->translatedFormat('d F Y') ?? '-'))
+            ->line('Tanggal Publikasi: '.($this->pengumuman->published_at?->locale('id')->translatedFormat('d F Y') ?? '-'))
             ->line('Isi: '.strip_tags($this->pengumuman->isi ?? '-'))
             ->action('Lihat Pengumuman', route('masyarakat.pengumuman.show', $this->pengumuman, true))
             ->salutation('SADESA\nSistem Administrasi Desa');

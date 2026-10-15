@@ -598,121 +598,123 @@
 ========================================================== --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const panel = document.getElementById('add-field-panel');
+        const details = panel ? panel.querySelector('details') : null;
 
-    const panel = document.getElementById('add-field-panel');
-    const details = panel ? panel.querySelector('details') : null;
-    const form = document.getElementById('add-field-form');
+        /*
+        |--------------------------------------------------------------------------
+        | Placeholder auto-fill
+        |--------------------------------------------------------------------------
+        */
+        const placeholderButtons = document.querySelectorAll('.create-placeholder');
 
+        placeholderButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const ph = (this.getAttribute('data-placeholder') || '').trim();
 
-    /*
-    |--------------------------------------------------------------------------
-    | Placeholder auto-fill
-    |--------------------------------------------------------------------------
-    */
-    const placeholderButtons = document.querySelectorAll('.create-placeholder');
+                const nameInput = document.getElementById('nama_field');
+                const labelInput = document.getElementById('label');
+                const sumber = document.getElementById('sumber_data');
+                const tipe = document.getElementById('tipe');
 
-    placeholderButtons.forEach(button => {
+                if (nameInput && ph) {
+                    nameInput.value = ph.replace(/\s+/g, '_');
+                }
 
-        button.addEventListener('click', function() {
+                if (labelInput && ph) {
+                    labelInput.value = ph
+                        .replace(/_/g, ' ')
+                        .replace(/\b\w/g, letter => letter.toUpperCase());
+                }
 
-            const ph = this.getAttribute('data-placeholder');
+                const profileKeys = [
+                    'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir',
+                    'agama', 'status_perkawinan', 'pekerjaan', 'email', 'desa',
+                    'nomor_kk', 'rt', 'rw', 'dusun', 'no_hp'
+                ];
 
-            const nameInput = document.getElementById('nama_field');
-            const labelInput = document.getElementById('label');
-            const sumber = document.getElementById('sumber_data');
-            const tipe = document.getElementById('tipe');
+                if (sumber) {
+                    sumber.value = profileKeys.includes(ph) ? 'profil' : 'pengajuan';
+                }
 
-            if (nameInput) {
-                nameInput.value = ph.replace(/\s+/g, '_');
-            }
+                if (tipe) {
+                    tipe.value = 'text';
+                }
 
-            if (labelInput) {
-                labelInput.value = ph
-                    .replace(/_/g, ' ')
-                    .replace(/\b\w/g, letter => letter.toUpperCase());
-            }
+                placeholderButtons.forEach(item => {
+                    item.classList.remove('bg-[#2563EB]', 'text-white',
+                        'border-[#2563EB]');
+                    item.classList.add('bg-white', 'text-[#2563EB]');
+                });
 
-            const profileKeys = [
-                'nama', 'nik', 'alamat', 'tempat_lahir', 'tanggal_lahir',
-                'agama', 'status_perkawinan', 'pekerjaan', 'email', 'desa'
-            ];
+                this.classList.remove('bg-white', 'text-[#2563EB]');
+                this.classList.add('bg-[#2563EB]', 'text-white', 'border-[#2563EB]');
 
-            if (sumber) {
-                sumber.value = profileKeys.includes(ph) ? 'profil' : 'pengajuan';
-            }
+                if (details && !details.open) {
+                    details.open = true;
+                }
 
-            if (tipe) {
-                tipe.value = 'text';
-            }
+                if (panel) {
+                    panel.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
 
-            placeholderButtons.forEach(item => {
-                item.classList.remove('bg-[#2563EB]', 'text-white',
-                    'border-[#2563EB]');
-                item.classList.add('bg-white', 'text-[#2563EB]');
+                setTimeout(() => {
+                    if (labelInput) {
+                        labelInput.focus();
+                    }
+                }, 400);
             });
-
-            this.classList.remove('bg-white', 'text-[#2563EB]');
-            this.classList.add('bg-[#2563EB]', 'text-white', 'border-[#2563EB]');
-
-            // Pastikan panel terbuka, lalu scroll & fokus ke label
-            if (details && !details.open) {
-                details.open = true;
-            }
-
-            if (panel) {
-                panel.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-
-            setTimeout(() => {
-                if (labelInput) labelInput.focus();
-            }, 400);
-
         });
 
-    });
+        /*
+        |--------------------------------------------------------------------------
+        | Tombol "Tambah Field Pertama" pada empty state
+        |--------------------------------------------------------------------------
+        */
+        document.querySelectorAll('[data-scroll-to]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-scroll-to');
+                const target = document.getElementById(targetId);
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Tombol "Tambah Field Pertama" pada empty state
-    |--------------------------------------------------------------------------
-    */
-    document.querySelectorAll('[data-scroll-to]').forEach(btn => {
-
-        btn.addEventListener('click', function() {
-
-            const targetId = this.getAttribute('data-scroll-to');
-            const target = document.getElementById(targetId);
-
-            if (target) {
-                const detailsEl = target.querySelector('details');
-                if (detailsEl && !detailsEl.open) detailsEl.open = true;
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-
+                if (target) {
+                    const detailsEl = target.querySelector('details');
+                    if (detailsEl && !detailsEl.open) detailsEl.open = true;
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
 
-    });
+        /*
+        |--------------------------------------------------------------------------
+        | Pencarian cepat di tabel field
+        |--------------------------------------------------------------------------
+        */
+        const searchInput = document.getElementById('field-search');
+        const rows = Array.from(document.querySelectorAll('.field-row'));
+        const noSearchResult = document.getElementById('no-search-result');
 
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const query = this.value.trim().toLowerCase();
+                let visibleCount = 0;
 
-    /*
-    |--------------------------------------------------------------------------
-    | Pencarian cepat di tabel field
-    |--------------------------------------------------------------------------
-    */
+                rows.forEach(row => {
+                    const searchable = (row.dataset.search || '').toLowerCase();
+                    const isMatch = !query || searchable.includes(query);
+                    row.style.display = isMatch ? '' : 'none';
+                    if (isMatch) visibleCount++;
+                });
 
-    ggle('hidden', visibleCount !== 0);
-    }
-
-    });
-
-    }
-
+                if (noSearchResult) {
+                    noSearchResult.classList.toggle('hidden', visibleCount !== 0);
+                }
+            });
+        }
     });
 </script>

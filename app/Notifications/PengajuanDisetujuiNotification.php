@@ -44,7 +44,7 @@ class PengajuanDisetujuiNotification extends Notification
             ->line('Jenis Surat: '.($pengajuan->jenisSurat?->nama ?? '-'))
             ->line('Nomor Surat: '.($pengajuan->dokumen?->nomor_surat ?? '-'))
             ->line('Status: Disetujui')
-            ->line('Tanggal: '.now()->translatedFormat('d F Y'))
+            ->line('Tanggal: '.now()->locale('id')->translatedFormat('d F Y'))
             ->action('Lihat Pengajuan', route('masyarakat.pengajuan.show', $pengajuan, true))
             ->salutation('SADESA\nSistem Administrasi Desa');
     }

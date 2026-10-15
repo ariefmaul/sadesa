@@ -1,3 +1,25 @@
+# AKUN
+- Super Admin
+* usernmae = 'superadmin@sadesa.test'
+* Password = 'password'  
+
+- Admin Desa
+* usernmae = 'admindesa@sadesa.test',
+* Password = 'password'   
+
+- Masyarakat Desa
+* usernmae = 'masyarakat@sadesa.test',
+* Password = 'password'   
+
+- Mesin
+* usernmae = 'mesin@sadesa.test',
+* Password = 'password'  
+
+
+
+
+---
+
 # SADeSA
 
 **SADeSA (Sistem Administrasi Desa)** adalah platform digital pelayanan dan administrasi desa yang dirancang untuk menghubungkan pemerintah desa, masyarakat, dan proses administrasi secara terintegrasi.

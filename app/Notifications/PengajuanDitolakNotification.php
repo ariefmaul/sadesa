@@ -41,7 +41,7 @@ class PengajuanDitolakNotification extends Notification
             ->line('Provinsi: '.($provinsi?->nama ?? '-'))
             ->line('Nomor Pengajuan: '.($this->pengajuan->nomor_pengajuan ?? '-'))
             ->line('Jenis Surat: '.($this->pengajuan->jenisSurat?->nama ?? '-'))
-            ->line('Tanggal Pengajuan: '.($this->pengajuan->created_at?->translatedFormat('d F Y') ?? '-'))
+            ->line('Tanggal Pengajuan: '.($this->pengajuan->created_at?->locale('id')->translatedFormat('d F Y') ?? '-'))
             ->line('Status: Ditolak')
             ->line('Catatan Admin: '.($this->catatan ?? '-'))
             ->action('Lihat Detail Pengajuan', route('masyarakat.pengajuan.show', $this->pengajuan, true))

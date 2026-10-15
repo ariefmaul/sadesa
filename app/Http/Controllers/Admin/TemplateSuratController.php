@@ -17,12 +17,12 @@ class TemplateSuratController extends Controller
 
     public function index()
     {
-        
+
         $user = auth()->user();
 
         $query = JenisSurat::query();
 
-        
+
         if ($user->role === 'admin_desa') {
             $query->where('desa_id', $user->desa_id);
         }
@@ -87,14 +87,14 @@ class TemplateSuratController extends Controller
             'aktif' => true,
         ];
 
-        
+
         if (auth()->user()->role === 'admin_desa') {
             $payload['desa_id'] = auth()->user()->desa_id;
         }
 
         $jenis = JenisSurat::create($payload);
 
-        
+
         try {
             $service = app(TemplateSuratService::class);
             $placeholders = $service->extractPlaceholders($path);
@@ -110,7 +110,7 @@ class TemplateSuratController extends Controller
 
     public function destroy(JenisSurat $templateSurat)
     {
-        
+
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
@@ -129,14 +129,23 @@ class TemplateSuratController extends Controller
 
     public function fields(JenisSurat $templateSurat)
     {
-        
+
         if (auth()->user()->role === 'admin_desa') {
             abort_unless($templateSurat->desa_id === auth()->user()->desa_id, 403);
         }
 
         $templateSurat->load('fields');
 
-        $placeholders = session('placeholders', []);
+        $placeholders = session('placeholders');
+
+        if (empty($placeholders) && $templateSurat->template) {
+            $service = app(TemplateSuratService::class);
+            $existing = $templateSurat->fields->pluck('nama_field')->all();
+            $placeholders = array_values(array_diff(
+                $service->extractPlaceholders($templateSurat->template),
+                $existing
+            ));
+        }
 
         return view(
             'admin.template-surat.fields',
@@ -160,8 +169,11 @@ class TemplateSuratController extends Controller
 
         $templateSurat->fields()->create($payload);
 
+        $remainingPlaceholders = $this->remainingPlaceholders($templateSurat);
+
         return back()
-            ->with('success', 'Field surat berhasil ditambahkan.');
+            ->with('success', 'Field surat berhasil ditambahkan.')
+            ->with('placeholders', $remainingPlaceholders);
     }
 
     public function editField(JenisSurat $templateSurat, SuratField $field)
@@ -211,7 +223,7 @@ class TemplateSuratController extends Controller
         return back()->with('success', 'Field surat berhasil dihapus.');
     }
 
-    
+
     public function bulkCreate(Request $request, JenisSurat $templateSurat)
     {
         if (auth()->user()->role === 'admin_desa') {
@@ -221,7 +233,7 @@ class TemplateSuratController extends Controller
         $placeholders = $request->input('placeholders', session('placeholders', []));
 
         if (! is_array($placeholders)) {
-            
+
             $placeholders = is_string($placeholders) ? array_filter(array_map('trim', explode(',', $placeholders))) : [];
         }
 
@@ -231,10 +243,7 @@ class TemplateSuratController extends Controller
 
         $created = [];
         $skipped = [];
-
-        $maxUrutan = (int) $templateSurat->fields()->max('urutan');
-
-        $profileKeys = array_map(fn ($v) => strtolower($v), array_keys($this->resolver->automaticData(auth()->user())));
+        $normalizedPlaceholders = [];
 
         foreach ($placeholders as $ph) {
             $raw = trim((string) $ph);
@@ -243,7 +252,20 @@ class TemplateSuratController extends Controller
             }
 
             $name = preg_replace('/[^a-z0-9_]/', '', str_replace(' ', '_', mb_strtolower($raw)));
+            if ($name === '') {
+                continue;
+            }
 
+            $normalizedPlaceholders[] = $name;
+        }
+
+        $normalizedPlaceholders = array_values(array_unique($normalizedPlaceholders));
+
+        $maxUrutan = (int) $templateSurat->fields()->max('urutan');
+
+        $profileKeys = array_map(fn ($v) => strtolower($v), array_keys($this->resolver->automaticData(auth()->user())));
+
+        foreach ($normalizedPlaceholders as $name) {
             if ($templateSurat->fields()->where('nama_field', $name)->exists()) {
                 $skipped[] = $name;
 
@@ -275,6 +297,8 @@ class TemplateSuratController extends Controller
             $created[] = $name;
         }
 
+        $remainingPlaceholders = array_values(array_diff($normalizedPlaceholders, $created, $skipped));
+
         $msg = 'Bulk create selesai.';
         if ($created) {
             $msg .= ' Dibuat: '.implode(', ', $created).'.';
@@ -282,8 +306,32 @@ class TemplateSuratController extends Controller
         if ($skipped) {
             $msg .= ' Dilewati (sudah ada): '.implode(', ', $skipped).'.';
         }
+        if ($remainingPlaceholders) {
+            $msg .= ' Masih tersisa: '.implode(', ', $remainingPlaceholders).'.';
+        }
 
-        return back()->with('success', $msg);
+        return back()
+            ->with('success', $msg)
+            ->with('placeholders', $remainingPlaceholders);
+    }
+
+    private function remainingPlaceholders(JenisSurat $templateSurat): array
+    {
+        $templateSurat->refresh();
+
+        $allPlaceholders = session('placeholders');
+
+        if (empty($allPlaceholders) && $templateSurat->template) {
+            $allPlaceholders = app(TemplateSuratService::class)->extractPlaceholders($templateSurat->template);
+        }
+
+        if (! is_array($allPlaceholders)) {
+            $allPlaceholders = [];
+        }
+
+        $existing = $templateSurat->fields()->pluck('nama_field')->all();
+
+        return array_values(array_diff(array_values(array_unique($allPlaceholders)), $existing));
     }
 
     private function validateField(Request $request, JenisSurat $templateSurat, ?SuratField $field = null): array

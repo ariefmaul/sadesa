@@ -258,7 +258,8 @@
                                 Gunakan placeholder di dalam dokumen seperti
                                 <span class="font-mono font-semibold text-[#2563EB]">${nama}</span>,
                                 <span class="font-mono font-semibold text-[#2563EB]">${nik}</span>,
-                                dan lainnya.
+                                atau <span class="font-mono font-semibold text-[#2563EB]">${titimangsa}</span>
+                                untuk tanggal titimangsa yang akan diisi otomatis saat surat disetujui.
                             </p>
 
                             <x-input-error :messages="$errors->get('template')" class="mt-2" />

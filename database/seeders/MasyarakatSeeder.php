@@ -20,9 +20,9 @@ class MasyarakatSeeder extends Seeder
         $user = User::updateOrCreate(
             ['email' => 'masyarakat@sadesa.test'],
             [
-                'name' => 'Masyarakat Contoh',
+                'name' => 'Arief Maulana Rizki',
                 'nik' => '3200000000000003',
-                'jenis_kelamin' => 'P',
+                'jenis_kelamin' => 'L',
                 'desa_id' => $desa->id,
                 'password' => Hash::make('password'),
                 'role' => 'masyarakat',

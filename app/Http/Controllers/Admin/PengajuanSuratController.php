@@ -19,7 +19,7 @@ use Illuminate\View\View;
 
 class PengajuanSuratController extends Controller
 {
-    
+
     public function index(Request $request): View
     {
         $admin = $request->user();
@@ -46,7 +46,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    
+
     public function show(
         Request $request,
         PengajuanSurat $pengajuan
@@ -66,7 +66,7 @@ class PengajuanSuratController extends Controller
         );
     }
 
-    
+
     public function approve(
         Request $request,
         PengajuanSurat $pengajuan,
@@ -74,10 +74,10 @@ class PengajuanSuratController extends Controller
         QrCodeService $qrCodeService
     ): RedirectResponse {
 
-        
+
         $this->authorize('approve', $pengajuan);
 
-        
+
         if ($pengajuan->status === 'disetujui') {
             return redirect()
                 ->route(
@@ -97,33 +97,34 @@ class PengajuanSuratController extends Controller
             'nomor_surat.unique' => 'Nomor surat sudah digunakan.',
         ]);
 
-        
+
         try {
             $dok = DB::transaction(function () use ($request, $pengajuan, $templateService, $qrCodeService, $validated) {
 
                 $nomorDokumen = 'DOC-'.now()->format('Ymd').'-'.strtoupper(Str::random(6));
 
-                
+
                 $existing = $pengajuan->dokumen;
 
                 if ($existing) {
-                    
+
                     throw new \RuntimeException('Dokumen untuk pengajuan ini sudah ada.');
                 }
 
-                
+
                 $file = $templateService->generateDocx($pengajuan, [
-                    
+
                     'nomor_surat' => trim($validated['nomor_surat']),
-                    'tanggal_surat' => now()->translatedFormat('d F Y'),
+                    'tanggal_surat' => now()->locale('id')->translatedFormat('d F Y'),
+                    'titimangsa' => now()->locale('id')->translatedFormat('d F Y'),
                 ]);
 
-                
+
                 $pdfPath = null;
                 try {
                     $pdfPath = $templateService->convertDocxToPdf($file);
                 } catch (\Throwable $e) {
-                    
+
                     try {
                         Storage::disk('public')->delete($file);
                     } catch (\Throwable $_) {
@@ -131,11 +132,11 @@ class PengajuanSuratController extends Controller
                     throw $e;
                 }
 
-                
+
                 $qrToken = (string) Str::uuid();
                 $qrFile = $qrCodeService->generate($qrToken);
 
-                
+
                 $dok = Dokumen::create([
                     'pengajuan_surat_id' => $pengajuan->id,
                     'nomor_dokumen' => $nomorDokumen,
@@ -147,7 +148,7 @@ class PengajuanSuratController extends Controller
                     'status' => 'tersedia',
                 ]);
 
-                
+
                 $pengajuan->update([
                     'status' => 'disetujui',
                     'verified_at' => now(),
@@ -160,7 +161,7 @@ class PengajuanSuratController extends Controller
                 return $dok;
             });
         } catch (\Throwable $e) {
-            
+
             Log::error('SADESA APPROVE FAILED', [
                 'pengajuan_id' => $pengajuan->id,
                 'message' => $e->getMessage(),
@@ -179,7 +180,7 @@ class PengajuanSuratController extends Controller
             ->with('success', 'Pengajuan berhasil disetujui. Dokumen Word, PDF, dan QR Code berhasil dibuat.');
     }
 
-    
+
     public function realtime(Request $request)
     {
         $admin = $request->user();
@@ -210,7 +211,7 @@ class PengajuanSuratController extends Controller
     {
         $admin = $request->user();
 
-        
+
         $allowedTypes = [
             'App\\Notifications\\PengajuanBaruNotification',
             'App\\Notifications\\MasyarakatBaruNotification',
@@ -293,10 +294,10 @@ class PengajuanSuratController extends Controller
             );
     }
 
-    
+
     public function downloadWord(Request $request, Dokumen $dokumen)
     {
-        
+
         $this->authorize('view', $dokumen->pengajuanSurat);
 
         if (! $dokumen->file || ! Storage::disk('public')->exists($dokumen->file)) {
@@ -315,7 +316,7 @@ class PengajuanSuratController extends Controller
         }, $filename);
     }
 
-    
+
     public function downloadPdf(Request $request, Dokumen $dokumen)
     {
         $this->authorize('view', $dokumen->pengajuanSurat);
@@ -336,6 +337,6 @@ class PengajuanSuratController extends Controller
         }, $filename);
     }
 
-    
-    
+
+
 }

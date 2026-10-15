@@ -9,7 +9,6 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    
     public function run(): void
     {
         $this->call([
@@ -18,6 +17,7 @@ class DatabaseSeeder extends Seeder
             AdminDesaSeeder::class,
             MasyarakatSeeder::class,
             MesinSeeder::class,
+            IndonesiaRegionSeeder::class,
         ]);
     }
 }
